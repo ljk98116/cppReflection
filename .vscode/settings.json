@@ -75,5 +75,6 @@
         "valarray": "cpp",
         "variant": "cpp",
         "strstream": "cpp"
-    }
+    },
+    "github.experimental.multipleAccounts": true
 }

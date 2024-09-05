@@ -5,6 +5,7 @@
 #include <functional>
 #include "MemberInfo.h"
 #include "Object.h"
+#include <variant>
 
 namespace Reflection
 {
@@ -19,15 +20,17 @@ public:
     explicit PropertyInfo(
         std::string name,
         T (ClassT::*memberPtr),
-        Set_Method set_func,
-        Get_Method get_func,
+        std::variant<Set_Method, std::nullptr_t> set_func,
+        std::variant<Get_Method, std::nullptr_t> get_func,
         AccessType accessType=AccessType::PRIVATE,
         StaticType staticType=StaticType::NONE
     ):
     m_propName(name), m_accessType(accessType), 
-    m_staticType(staticType), m_memberPtr(memberPtr),
-    m_setFunc(set_func), m_getFunc(get_func)
-    {}
+    m_staticType(staticType), m_memberPtr(memberPtr)
+    {
+        if(std::holds_alternative<Set_Method>(set_func)) m_setFunc = std::get<Set_Method>(set_func);
+        if(std::holds_alternative<Get_Method>(get_func)) m_getFunc = std::get<Get_Method>(get_func);   
+    }
 
     std::string Name() const override
     {
@@ -92,9 +95,17 @@ private:
         return obj_.get##NAME(); \
     }
 
-#define PROPERTY_DEFAULT(CLASS, MEMBER, NAME, ACCESS, STATICFLAG) \
+#define PROPERTY(CLASS, MEMBER, NAME, ACCESS, STATICFLAG) \
     new PropertyInfo<CLASS, decltype(CLASS::MEMBER)> \
     (#NAME, &CLASS::MEMBER, SETFUNC(CLASS, NAME, MEMBER), GETFUNC(CLASS, NAME), AccessType::ACCESS, StaticType::STATICFLAG)
+
+#define PROPERTYREADONLY(CLASS, MEMBER, NAME, ACCESS, STATICFLAG) \
+    new PropertyInfo<CLASS, decltype(CLASS::MEMBER)> \
+    (#NAME, &CLASS::MEMBER, nullptr, GETFUNC(CLASS, NAME), AccessType::ACCESS, StaticType::STATICFLAG)    
+
+#define PROPERTYDEFAULT(CLASS, MEMBER, NAME, ACCESS, STATICFLAG) \
+    new PropertyInfo<CLASS, decltype(CLASS::MEMBER)> \
+    (#NAME, &CLASS::MEMBER, nullptr, nullptr, AccessType::ACCESS, StaticType::STATICFLAG)
 
 #define SET(NAME, TYPE) \
     void set##NAME(const TYPE& value)

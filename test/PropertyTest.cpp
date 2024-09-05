@@ -9,8 +9,9 @@ class Person
 public:
     int x;
     double y;
+    std::string z;
     Person(){}
-    Person(int x, double y):x(x),y(y){}
+    Person(int x, double y, std::string z):x(x),y(y),z(z){}
     SET(X, int)
     {
         x=value;
@@ -28,11 +29,16 @@ public:
     {
         return y;
     }
+    GET(Z, std::string)
+    {
+        return z;
+    }
     static auto Register()
     {
         return Type<Person>()
-        .AddProperty(PROPERTY_DEFAULT(Person, x, X, PUBLIC, NONE))
-        .AddProperty(PROPERTY_DEFAULT(Person, y, Y, PUBLIC, NONE))
+        .AddProperty(PROPERTY(Person, x, X, PUBLIC, NONE))
+        .AddProperty(PROPERTY(Person, y, Y, PUBLIC, NONE))
+        .AddProperty(PROPERTYREADONLY(Person, z, Z, PUBLIC, NONE))
         .AddField(FIELD(Person, x, PUBLIC, NONE))
         .AddField(FIELD(Person, y, PUBLIC, NONE));
     }
@@ -46,12 +52,13 @@ int main()
     cout << propX->Name() << " " << AccessType2String(propX->GetAccess()) << endl;
     cout << propY->Name() << " " << AccessType2String(propY->GetAccess()) << endl;
 
-    Person test(12, 45.6);
+    Person test(12, 45.6, "I am bigger.");
     Object obj(test);
     cout << obj.GetData(typeInfo_person).x << " " << obj.GetData(typeInfo_person).y << endl;
     propX->InvokeSet(obj, 56);
     propY->InvokeSet(obj, 67.9);
     
     cout << obj.GetData(typeInfo_person).x << " " << obj.GetData(typeInfo_person).y << endl;
+    cout << obj.GetData(typeInfo_person).z << endl;
     return 0;
 }
