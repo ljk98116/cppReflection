@@ -22,11 +22,12 @@ public:
         T (ClassT::*memberPtr),
         std::variant<Set_Method, std::nullptr_t> set_func,
         std::variant<Get_Method, std::nullptr_t> get_func,
+        bool readonly = false,
         AccessType accessType=AccessType::PRIVATE,
         StaticType staticType=StaticType::NONE
     ):
     m_propName(name), m_accessType(accessType), 
-    m_staticType(staticType), m_memberPtr(memberPtr)
+    m_staticType(staticType), m_memberPtr(memberPtr),m_readonly(readonly)
     {
         if(std::holds_alternative<Set_Method>(set_func)) m_setFunc = std::get<Set_Method>(set_func);
         if(std::holds_alternative<Get_Method>(get_func)) m_getFunc = std::get<Get_Method>(get_func);   
@@ -46,8 +47,14 @@ public:
         return m_staticType;
     }
 
+    bool ReadOnly() const override
+    {
+        return m_readonly;
+    }
+
     void InvokeSet(Object& obj, const Object& value) override
     {
+        if(m_readonly) throw std::runtime_error("try to modify readonly attr");
         auto val = value.GetData<T>();
         m_setFunc(obj, val);
     }
@@ -78,6 +85,7 @@ private:
     AccessType m_accessType;
     StaticType m_staticType;
     T (ClassT::*m_memberPtr);
+    bool m_readonly;
 };
 
 #define SETFUNC(CLASS, NAME, MEMBER) \
@@ -97,15 +105,19 @@ private:
 
 #define PROPERTY(CLASS, MEMBER, NAME, ACCESS, STATICFLAG) \
     new PropertyInfo<CLASS, decltype(CLASS::MEMBER)> \
-    (#NAME, &CLASS::MEMBER, SETFUNC(CLASS, NAME, MEMBER), GETFUNC(CLASS, NAME), AccessType::ACCESS, StaticType::STATICFLAG)
+    (#NAME, &CLASS::MEMBER, SETFUNC(CLASS, NAME, MEMBER), GETFUNC(CLASS, NAME), false, AccessType::ACCESS, StaticType::STATICFLAG)
 
 #define PROPERTYREADONLY(CLASS, MEMBER, NAME, ACCESS, STATICFLAG) \
     new PropertyInfo<CLASS, decltype(CLASS::MEMBER)> \
-    (#NAME, &CLASS::MEMBER, nullptr, GETFUNC(CLASS, NAME), AccessType::ACCESS, StaticType::STATICFLAG)    
+    (#NAME, &CLASS::MEMBER, nullptr, GETFUNC(CLASS, NAME), true, AccessType::ACCESS, StaticType::STATICFLAG)    
 
 #define PROPERTYDEFAULT(CLASS, MEMBER, NAME, ACCESS, STATICFLAG) \
     new PropertyInfo<CLASS, decltype(CLASS::MEMBER)> \
-    (#NAME, &CLASS::MEMBER, nullptr, nullptr, AccessType::ACCESS, StaticType::STATICFLAG)
+    (#NAME, &CLASS::MEMBER, nullptr, nullptr, false, AccessType::ACCESS, StaticType::STATICFLAG)
+
+#define PROPERTYREADONLYDEFAULT(CLASS, MEMBER, NAME, ACCESS, STATICFLAG) \
+    new PropertyInfo<CLASS, decltype(CLASS::MEMBER)> \
+    (#NAME, &CLASS::MEMBER, nullptr, nullptr, true, AccessType::ACCESS, StaticType::STATICFLAG)
 
 #define SET(NAME, TYPE) \
     void set##NAME(const TYPE& value)

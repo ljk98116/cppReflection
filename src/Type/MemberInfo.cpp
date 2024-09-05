@@ -18,4 +18,9 @@ void MemberInfo::DestroyObject(void *obj)
 {
     
 }
+
+bool MemberInfo::ReadOnly() const
+{
+    return false;
+}
 }

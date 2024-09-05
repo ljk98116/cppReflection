@@ -18,6 +18,7 @@ public:
     virtual void InvokeSet(Object& obj, const Object& value);
     virtual Object InvokeGet(Object& obj);
     virtual void DestroyObject(void *obj);
+    virtual bool ReadOnly() const;
 private:
 
 };
