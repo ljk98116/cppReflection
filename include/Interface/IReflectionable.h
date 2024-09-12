@@ -17,6 +17,12 @@ enum StaticType
     NONE
 };
 
+enum VirtualType
+{
+    VIRTUAL,
+    NONVIRTUAL
+};
+
 std::string AccessType2String(AccessType acc);
 std::string StaticType2String(StaticType st);
 

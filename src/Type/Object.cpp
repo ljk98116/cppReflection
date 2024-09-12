@@ -5,7 +5,7 @@ namespace Reflection
 
 Object::~Object()
 {
-    m_typeInfo->DestroyObject(m_data);
+    //m_typeInfo->DestroyObject(m_data.get());
 }
 
 }

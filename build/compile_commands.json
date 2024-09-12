@@ -1,0 +1,27 @@
+[
+{
+  "directory": "/data/personal_projects/Reflection/build/src",
+  "command": "/usr/bin/g++ -Dreflection_EXPORTS -I/data/personal_projects/Reflection/include -I/data/personal_projects/Reflection -g -fPIC -std=gnu++17 -o CMakeFiles/reflection.dir/Interface/IReflectionable.cpp.o -c /data/personal_projects/Reflection/src/Interface/IReflectionable.cpp",
+  "file": "/data/personal_projects/Reflection/src/Interface/IReflectionable.cpp"
+},
+{
+  "directory": "/data/personal_projects/Reflection/build/src",
+  "command": "/usr/bin/g++ -Dreflection_EXPORTS -I/data/personal_projects/Reflection/include -I/data/personal_projects/Reflection -g -fPIC -std=gnu++17 -o CMakeFiles/reflection.dir/Type/MemberInfo.cpp.o -c /data/personal_projects/Reflection/src/Type/MemberInfo.cpp",
+  "file": "/data/personal_projects/Reflection/src/Type/MemberInfo.cpp"
+},
+{
+  "directory": "/data/personal_projects/Reflection/build/src",
+  "command": "/usr/bin/g++ -Dreflection_EXPORTS -I/data/personal_projects/Reflection/include -I/data/personal_projects/Reflection -g -fPIC -std=gnu++17 -o CMakeFiles/reflection.dir/Type/Object.cpp.o -c /data/personal_projects/Reflection/src/Type/Object.cpp",
+  "file": "/data/personal_projects/Reflection/src/Type/Object.cpp"
+},
+{
+  "directory": "/data/personal_projects/Reflection/build/test",
+  "command": "/usr/bin/g++  -I/data/personal_projects/Reflection/include -I/data/personal_projects/Reflection -g -std=gnu++17 -o CMakeFiles/PropertyTestOOP.dir/PropertyTestOOP.cpp.o -c /data/personal_projects/Reflection/test/PropertyTestOOP.cpp",
+  "file": "/data/personal_projects/Reflection/test/PropertyTestOOP.cpp"
+},
+{
+  "directory": "/data/personal_projects/Reflection/build/test",
+  "command": "/usr/bin/g++  -I/data/personal_projects/Reflection/include -I/data/personal_projects/Reflection -g -std=gnu++17 -o CMakeFiles/PropertyTest.dir/PropertyTest.cpp.o -c /data/personal_projects/Reflection/test/PropertyTest.cpp",
+  "file": "/data/personal_projects/Reflection/test/PropertyTest.cpp"
+}
+]

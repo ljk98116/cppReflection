@@ -1,0 +1,9 @@
+/data/personal_projects/Reflection/build/CMakeFiles/rebuild_cache.dir
+/data/personal_projects/Reflection/build/CMakeFiles/edit_cache.dir
+/data/personal_projects/Reflection/build/src/CMakeFiles/rebuild_cache.dir
+/data/personal_projects/Reflection/build/src/CMakeFiles/edit_cache.dir
+/data/personal_projects/Reflection/build/src/CMakeFiles/reflection.dir
+/data/personal_projects/Reflection/build/test/CMakeFiles/rebuild_cache.dir
+/data/personal_projects/Reflection/build/test/CMakeFiles/PropertyTestOOP.dir
+/data/personal_projects/Reflection/build/test/CMakeFiles/edit_cache.dir
+/data/personal_projects/Reflection/build/test/CMakeFiles/PropertyTest.dir

@@ -32,6 +32,15 @@ public:
     {
         return m_fields;
     }
+
+    auto operator+(const std::vector<std::shared_ptr<MemberInfo> >& rhs)
+    {
+        for(auto item : rhs)
+        {
+            m_fields.push_back(item);
+        }
+        return *this;
+    }
 private:
     std::vector<std::shared_ptr<MemberInfo> > m_fields;
 };    

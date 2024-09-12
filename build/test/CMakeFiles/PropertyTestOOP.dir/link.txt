@@ -1,0 +1,1 @@
+/usr/bin/g++ -g CMakeFiles/PropertyTestOOP.dir/PropertyTestOOP.cpp.o -o PropertyTestOOP  -Wl,-rpath,/data/personal_projects/Reflection/build/src ../src/libreflection.so 

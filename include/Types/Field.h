@@ -36,6 +36,26 @@ public:
     {
         return m_staticType;
     }
+
+    StaticType GetVirtualType() const override
+    {
+        throw std::runtime_error("fieldinfo is nonvirtual");
+    }
+
+    void SetAccess(AccessType access) override
+    {
+        m_accessType = access;
+    }
+
+    void SetStaticType(StaticType staticType) override
+    {
+        m_staticType = staticType;
+    }
+
+    void SetVirtualType(VirtualType virtualType) override
+    {
+        throw std::runtime_error("fieldInfo is nonvirtual");
+    }
 private:
     std::string m_propName = "Unknown";
     AccessType m_accessType;

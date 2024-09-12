@@ -6,6 +6,7 @@
 #include "MemberInfo.h"
 #include "Object.h"
 #include <variant>
+#include <iostream>
 
 namespace Reflection
 {
@@ -15,9 +16,12 @@ class PropertyInfo : public MemberInfo
 {
     using Set_Method = std::function<void(Object&, const T&)>;
     using Get_Method = std::function<T(Object&)>;
+    using Static_Set_Method = std::function<void(const T&)>;
+    using Static_Get_Method = std::function<T()>;
 public:
     using ClassT = ClassT_;
-    explicit PropertyInfo(
+    //类成员属性
+    PropertyInfo(
         std::string name,
         T (ClassT::*memberPtr),
         std::variant<Set_Method, std::nullptr_t> set_func,
@@ -32,11 +36,30 @@ public:
         if(std::holds_alternative<Set_Method>(set_func)) m_setFunc = std::get<Set_Method>(set_func);
         if(std::holds_alternative<Get_Method>(get_func)) m_getFunc = std::get<Get_Method>(get_func);   
     }
+    //静态成员属性
+    PropertyInfo(
+        std::string name,
+        T *staticMemPtr,
+        std::variant<Static_Set_Method, std::nullptr_t> set_func,
+        std::variant<Static_Get_Method, std::nullptr_t> get_func,
+        bool readonly = false,
+        AccessType accessType=AccessType::PRIVATE,
+        StaticType staticType=StaticType::STATIC
+    ):
+    m_propName(name), m_accessType(accessType), 
+    m_staticType(StaticType::STATIC), m_staticMemPtr(staticMemPtr), m_readonly(readonly)
+    {
+        if(std::holds_alternative<Static_Set_Method>(set_func)) m_staticSetFunc = std::get<Static_Set_Method>(set_func);
+        if(std::holds_alternative<Static_Get_Method>(get_func)) m_staticGetFunc = std::get<Static_Get_Method>(get_func);   
+    }
+
+    virtual ~PropertyInfo(){}
 
     std::string Name() const override
     {
         return m_propName;
     }
+
     AccessType GetAccess() const override
     {
         return m_accessType;
@@ -47,24 +70,75 @@ public:
         return m_staticType;
     }
 
+    VirtualType GetVirtualType() const override
+    {
+        throw std::runtime_error("propertyinfo is nonvirtual");
+    }
+
+    void SetAccess(AccessType access) override
+    {
+        m_accessType = access;
+    }
+
+    void SetStaticType(StaticType staticType) override
+    {
+        m_staticType = staticType;
+    }
+
+    void SetVirtualType(VirtualType virtualType) override
+    {
+        throw std::runtime_error("propertyInfo is nonvirtual");
+    }
+
     bool ReadOnly() const override
     {
         return m_readonly;
     }
 
+    //注意子类object访问基类保护属性的情况,需要看obj对应的类是否为ClassT的子类
+    //memberinfo需要能获取子类的类型
     void InvokeSet(Object& obj, const Object& value) override
     {
         if(m_readonly) throw std::runtime_error("try to modify readonly attr");
+        if(!Accessable(obj)) throw std::runtime_error("access propertyInfo denied");
+
         auto val = value.GetData<T>();
-        m_setFunc(obj, val);
+
+        if(m_staticType == StaticType::STATIC) m_staticSetFunc(val);
+        else m_setFunc(obj, val);
+    }
+    //静态属性，看是否能访问到
+    void InvokeSet(const Object& value) override
+    {
+        if(m_readonly) throw std::runtime_error("try to modify readonly static attr");
+        if(m_accessType != AccessType::PUBLIC) throw std::runtime_error("try to modify private/protect static attr");
+
+        auto val = value.GetData<T>();
+
+        if(m_staticType == StaticType::STATIC) m_staticSetFunc(val);
+        else throw std::runtime_error("try to modify nonstatic member without object ptr");
     }
 
     Object InvokeGet(Object& obj) override
     {
+        if(!Accessable(obj)) throw std::runtime_error("access propertyInfo denied");
+        if(m_staticType == StaticType::STATIC) return m_staticGetFunc();
         return m_getFunc(obj);
     }
 
+    Object InvokeGet() override
+    {
+        if(m_accessType != AccessType::PUBLIC) throw std::runtime_error("access nonpublic attr");
+        if(m_staticType != StaticType::STATIC) throw std::runtime_error("try to access nonstatic member without object ptr");
+        return m_staticGetFunc();
+    }
+
 private:
+    bool Accessable(const Object& obj)
+    {
+        auto typeInfo = obj.GetTypeInfo();
+        return m_accessType == AccessType::PUBLIC;
+    }
     const Set_Method default_setfunc = [this](Object& obj, const T& value)
     {
         ClassT tmp = obj.GetData<ClassT>();
@@ -78,13 +152,27 @@ private:
         return tmp.*m_memberPtr;
     };
 
+    const Static_Set_Method default_static_setfunc = [this](const T& value)
+    {
+        *m_staticMemPtr = value;
+    };
+
+    const Static_Get_Method default_static_getfunc = [this]()
+    {
+        return *m_staticMemPtr;
+    };
     Set_Method m_setFunc = default_setfunc;
     Get_Method m_getFunc = default_getfunc;
 
+    Static_Set_Method m_staticSetFunc = default_static_setfunc;
+    Static_Get_Method m_staticGetFunc = default_static_getfunc;
     std::string m_propName = "Unknown";
+public:
     AccessType m_accessType;
     StaticType m_staticType;
+private:
     T (ClassT::*m_memberPtr);
+    T *m_staticMemPtr;
     bool m_readonly;
 };
 
@@ -103,6 +191,18 @@ private:
         return obj_.get##NAME(); \
     }
 
+#define STATIC_SETFUNC(CLASS, NAME, MEMBER) \
+    [](const decltype(CLASS::MEMBER)& value) \
+    { \
+        CLASS::set##NAME(value); \
+    }
+
+#define STATIC_GETFUNC(CLASS, NAME) \
+    []() \
+    { \
+        return CLASS::get##NAME(); \
+    }
+
 #define PROPERTY(CLASS, MEMBER, NAME, ACCESS, STATICFLAG) \
     new PropertyInfo<CLASS, decltype(CLASS::MEMBER)> \
     (#NAME, &CLASS::MEMBER, SETFUNC(CLASS, NAME, MEMBER), GETFUNC(CLASS, NAME), false, AccessType::ACCESS, StaticType::STATICFLAG)
@@ -119,12 +219,31 @@ private:
     new PropertyInfo<CLASS, decltype(CLASS::MEMBER)> \
     (#NAME, &CLASS::MEMBER, nullptr, nullptr, true, AccessType::ACCESS, StaticType::STATICFLAG)
 
+#define STATIC_PROPERTY(CLASS, MEMBER, NAME, ACCESS) \
+    new PropertyInfo<CLASS, decltype(CLASS::MEMBER)> \
+    (#NAME, &CLASS::MEMBER, STATIC_SETFUNC(CLASS, NAME, MEMBER), STATIC_GETFUNC(CLASS, NAME), false, AccessType::ACCESS, StaticType::STATIC)
+
+#define STATIC_PROPERTYREADONLY(CLASS, MEMBER, NAME, ACCESS) \
+    new PropertyInfo<CLASS, decltype(CLASS::MEMBER)> \
+    (#NAME, &CLASS::MEMBER, nullptr, STATIC_GETFUNC(CLASS, NAME), true, AccessType::ACCESS, StaticType::STATIC)    
+
+#define STATIC_PROPERTYDEFAULT(CLASS, MEMBER, NAME, ACCESS) \
+    new PropertyInfo<CLASS, decltype(CLASS::MEMBER)> \
+    (#NAME, &CLASS::MEMBER, nullptr, nullptr, false, AccessType::ACCESS, StaticType::STATIC)
+
+#define STATIC_PROPERTYREADONLYDEFAULT(CLASS, MEMBER, NAME, ACCESS) \
+    new PropertyInfo<CLASS, decltype(CLASS::MEMBER)> \
+    (#NAME, &CLASS::MEMBER, nullptr, nullptr, true, AccessType::ACCESS, StaticType::STATIC)
+
 #define SET(NAME, TYPE) \
     void set##NAME(const TYPE& value)
 
 #define GET(NAME, TYPE) \
     TYPE get##NAME()
+
+#define STATIC_SET(NAME, TYPE) \
+    static void set##NAME(const TYPE& value)
+
+#define STATIC_GET(NAME, TYPE) \
+    static TYPE get##NAME()
 }
-
-
-

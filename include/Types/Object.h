@@ -30,46 +30,51 @@ public:
 
     void *GetRawData()
     {
-        return m_data;
+        return m_data.get();
+    }
+
+    auto GetTypeInfo() const
+    {
+        return m_typeInfo;
     }
 private:
-    void *m_data;
+    std::shared_ptr<void> m_data;
+    //具体数据的Type<T>
     std::shared_ptr<MemberInfo> m_typeInfo; 
 };
 
 template <typename T>
 T Object::GetData() const
 {
-    return *reinterpret_cast<T*>(m_data);
+    return *reinterpret_cast<T*>(m_data.get());
 }
 
 template <typename T>
 typename T::ClassT 
 Object::GetData(T&& data) const
 {
-    return *reinterpret_cast<typename T::ClassT*>(m_data);
+    return *reinterpret_cast<typename T::ClassT*>(m_data.get());
 }
 
 template <typename T>
 typename T::ClassT
 Object::GetData(const T& data) const
 {
-    return *reinterpret_cast<typename T::ClassT*>(m_data);
+    return *reinterpret_cast<typename T::ClassT*>(m_data.get());
 }
 
 template <typename T>
 void Object::SetData(const T& data)
 {
-    delete reinterpret_cast<T*>(m_data);
-    m_data = new T;
-    *((T*)m_data) = data;        
+    m_data.reset();
+    m_data = std::shared_ptr<void>(new T);
+    *((T*)m_data.get()) = data;        
 }
 
 template <typename T>
 Object::Object(T data)
 {
-    m_data = new T;
-    *((T*)m_data) = data;
+    m_data = std::shared_ptr<void>(new T);
     auto typeInfo = Type<T>().Register();
     std::shared_ptr<decltype(typeInfo)> childPtr = std::make_shared<decltype(typeInfo)>();
     *childPtr = typeInfo;
