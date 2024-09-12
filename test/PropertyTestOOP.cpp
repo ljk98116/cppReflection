@@ -59,9 +59,9 @@ int main()
     cout << AccessType2String(prop_bstr2->GetAccess()) << endl;
 
     Object c(C{});
-    prop_a->InvokeSet(c, 56);
-    //prop_bstr1->InvokeSet(c, "error"); # denied
-    //prop_bstr2->InvokeSet(c, "protected"); # denied
+    //prop_a->InvokeSet(c, 56); # protected denied
+    //prop_bstr1->InvokeSet(c, "error"); # private denied
+    //prop_bstr2->InvokeSet(c, "protected"); # protected denied
 
     return 0;
 }

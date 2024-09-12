@@ -97,7 +97,7 @@ public:
             auto typeInfo = Type<typename Base::ClassT>().Register();
             std::shared_ptr<decltype(typeInfo)> childPtr = std::make_shared<decltype(typeInfo)>();
             *childPtr = typeInfo;
-            RegisterBase(std::static_pointer_cast<MemberInfo>(childPtr));
+            RegisterBase(std::static_pointer_cast<MemberInfo>(childPtr), base);
             m_baseList.AddBaseClass(base);
         }
         return *this;
@@ -126,10 +126,11 @@ public:
     }
 private:
     //需要更改属性是否可见
-    void RegisterBase(std::shared_ptr<MemberInfo> baseClass)
+    template <typename Base>
+    void RegisterBase(std::shared_ptr<MemberInfo> baseClass, Base *base)
     {
-        auto access = baseClass->GetAccess();
-        auto virt = baseClass->GetVirtualType();
+        auto access = base->GetAccess();
+        auto virt = base->GetVirtualType();
         //更改属性是否可见
         auto props = baseClass->GetProperties();
         auto fields = baseClass->GetFields();
@@ -143,8 +144,8 @@ private:
             if(access == AccessType::PROTECT && field->GetAccess() != AccessType::PRIVATE) field->SetAccess(AccessType::PROTECT);
             else if(access == AccessType::PRIVATE) field->SetAccess(AccessType::PRIVATE);
         }
-        m_propList = m_propList + baseClass->GetProperties();
-        m_fieldList = m_fieldList + baseClass->GetFields();
+        m_propList = m_propList + props;
+        m_fieldList = m_fieldList + fields;
         m_baseList = m_baseList + baseClass->GetBaseClasses();
     }
     PropertyList m_propList;
