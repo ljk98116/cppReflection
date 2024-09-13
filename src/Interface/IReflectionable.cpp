@@ -1,5 +1,3 @@
-#pragma once
-
 #include <include/Interface/IReflectionable.h>
 namespace Reflection
 {

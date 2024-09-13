@@ -44,7 +44,11 @@ public:
     {
         throw std::runtime_error("Base class Info has no static type");
     }
-
+    template <typename T>
+    bool operator==(const Base<T>& rhs)
+    {
+        return Type2String<ClassT>() == Type2String<T>();
+    }
 private:
     AccessType m_accessType;
     VirtualType m_virtualType;

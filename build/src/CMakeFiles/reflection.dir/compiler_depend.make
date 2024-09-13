@@ -152,7 +152,32 @@ src/CMakeFiles/reflection.dir/Interface/IReflectionable.cpp.o: ../src/Interface/
   /usr/include/asm-generic/errno.h \
   /usr/include/asm-generic/errno-base.h \
   /usr/include/x86_64-linux-gnu/bits/types/error_t.h \
-  /usr/include/c++/9/bits/basic_string.tcc
+  /usr/include/c++/9/bits/basic_string.tcc \
+  /usr/include/c++/9/memory \
+  /usr/include/c++/9/bits/stl_construct.h \
+  /usr/include/c++/9/bits/stl_uninitialized.h \
+  /usr/include/c++/9/utility \
+  /usr/include/c++/9/bits/stl_relops.h \
+  /usr/include/c++/9/bits/stl_tempbuf.h \
+  /usr/include/c++/9/bits/stl_raw_storage_iter.h \
+  /usr/include/c++/9/ext/concurrence.h \
+  /usr/include/c++/9/bits/uses_allocator.h \
+  /usr/include/c++/9/bits/unique_ptr.h \
+  /usr/include/c++/9/tuple \
+  /usr/include/c++/9/array \
+  /usr/include/c++/9/stdexcept \
+  /usr/include/c++/9/bits/invoke.h \
+  /usr/include/c++/9/bits/shared_ptr.h \
+  /usr/include/c++/9/bits/shared_ptr_base.h \
+  /usr/include/c++/9/bits/allocated_ptr.h \
+  /usr/include/c++/9/bits/refwrap.h \
+  /usr/include/c++/9/ext/aligned_buffer.h \
+  /usr/include/c++/9/bits/shared_ptr_atomic.h \
+  /usr/include/c++/9/bits/atomic_base.h \
+  /usr/include/c++/9/bits/atomic_lockfree_defines.h \
+  /usr/include/c++/9/backward/auto_ptr.h \
+  /usr/include/c++/9/pstl/glue_memory_defs.h \
+  /usr/include/c++/9/pstl/execution_defs.h
 
 src/CMakeFiles/reflection.dir/Type/MemberInfo.cpp.o: ../src/Type/MemberInfo.cpp \
   /usr/include/stdc-predef.h \
@@ -342,7 +367,15 @@ src/CMakeFiles/reflection.dir/Type/MemberInfo.cpp.o: ../src/Type/MemberInfo.cpp 
   ../include/Types/Type2String.h \
   ../include/Types/PropertyList.h \
   ../include/Types/FieldList.h \
-  ../include/Types/BaseList.h
+  ../include/Types/BaseList.h \
+  /usr/include/c++/9/set \
+  /usr/include/c++/9/bits/stl_tree.h \
+  /usr/include/c++/9/bits/node_handle.h \
+  /usr/include/c++/9/optional \
+  /usr/include/c++/9/bits/enable_special_members.h \
+  /usr/include/c++/9/bits/stl_set.h \
+  /usr/include/c++/9/bits/stl_multiset.h \
+  /usr/include/c++/9/bits/erase_if.h
 
 src/CMakeFiles/reflection.dir/Type/Object.cpp.o: ../src/Type/Object.cpp \
   /usr/include/stdc-predef.h \
@@ -532,14 +565,40 @@ src/CMakeFiles/reflection.dir/Type/Object.cpp.o: ../src/Type/Object.cpp \
   ../include/Types/Type2String.h \
   ../include/Types/PropertyList.h \
   ../include/Types/FieldList.h \
-  ../include/Types/BaseList.h
+  ../include/Types/BaseList.h \
+  /usr/include/c++/9/set \
+  /usr/include/c++/9/bits/stl_tree.h \
+  /usr/include/c++/9/bits/node_handle.h \
+  /usr/include/c++/9/optional \
+  /usr/include/c++/9/bits/enable_special_members.h \
+  /usr/include/c++/9/bits/stl_set.h \
+  /usr/include/c++/9/bits/stl_multiset.h \
+  /usr/include/c++/9/bits/erase_if.h
 
+
+/usr/include/c++/9/bits/stl_multiset.h:
+
+/usr/include/c++/9/bits/stl_set.h:
+
+/usr/include/c++/9/bits/node_handle.h:
 
 ../include/Types/BaseList.h:
 
 ../include/Types/Type2String.h:
 
+/usr/include/c++/9/bits/stl_vector.h:
+
+/usr/include/c++/9/vector:
+
+../include/Types/MemberInfo.h:
+
+../include/Types/PropertyList.h:
+
+../src/Type/MemberInfo.cpp:
+
 /usr/include/c++/9/backward/auto_ptr.h:
+
+/usr/include/c++/9/bits/stl_tree.h:
 
 /usr/include/c++/9/bits/atomic_lockfree_defines.h:
 
@@ -565,16 +624,6 @@ src/CMakeFiles/reflection.dir/Type/Object.cpp.o: ../src/Type/Object.cpp \
 
 /usr/include/c++/9/memory:
 
-/usr/include/c++/9/bits/stl_vector.h:
-
-/usr/include/c++/9/vector:
-
-../include/Types/MemberInfo.h:
-
-../include/Types/PropertyList.h:
-
-../src/Type/MemberInfo.cpp:
-
 /usr/include/c++/9/utility:
 
 /usr/include/c++/9/bits/basic_string.tcc:
@@ -582,6 +631,8 @@ src/CMakeFiles/reflection.dir/Type/Object.cpp.o: ../src/Type/Object.cpp \
 /usr/include/x86_64-linux-gnu/bits/types/error_t.h:
 
 /usr/include/asm-generic/errno.h:
+
+/usr/include/c++/9/set:
 
 /usr/include/linux/errno.h:
 
@@ -594,6 +645,8 @@ src/CMakeFiles/reflection.dir/Type/Object.cpp.o: ../src/Type/Object.cpp \
 /usr/include/x86_64-linux-gnu/bits/types/__fpos_t.h:
 
 /usr/include/stdio.h:
+
+/usr/include/c++/9/bits/enable_special_members.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h:
 
@@ -781,6 +834,8 @@ src/CMakeFiles/reflection.dir/Type/Object.cpp.o: ../src/Type/Object.cpp \
 
 /usr/include/c++/9/new:
 
+/usr/include/c++/9/bits/erase_if.h:
+
 /usr/include/c++/9/bits/vector.tcc:
 
 /usr/include/x86_64-linux-gnu/c++/9/bits/os_defines.h:
@@ -876,6 +931,8 @@ src/CMakeFiles/reflection.dir/Type/Object.cpp.o: ../src/Type/Object.cpp \
 /usr/include/c++/9/ext/string_conversions.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/timer_t.h:
+
+/usr/include/c++/9/optional:
 
 /usr/include/endian.h:
 

@@ -28,6 +28,7 @@ public:
     {
         return m_base;
     }
+    size_t size() const {return m_base.size();}
     auto operator+(const std::vector<std::shared_ptr<MemberInfo> >& rhs)
     {
         for(auto item : rhs)
@@ -35,6 +36,18 @@ public:
             m_base.push_back(item);
         }
         return *this;
+    }
+    void push_back(std::shared_ptr<MemberInfo> base)
+    {
+        m_base.push_back(base);
+    }
+    void resize(size_t sz)
+    {
+        m_base.resize(sz);
+    }
+    std::shared_ptr<MemberInfo>& operator[](size_t idx)
+    {
+        return m_base[idx];
     }
 private:
     //Base<T>

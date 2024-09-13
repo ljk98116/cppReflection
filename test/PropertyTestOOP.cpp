@@ -46,6 +46,52 @@ private:
 
 };
 
+class C1
+{
+public:
+    C1(){}
+    ~C1(){}
+    static auto Register()
+    {
+        return Type<C1>().AddProperty(PROPERTYDEFAULT(C1, x, "X", PUBLIC, NONE));
+    }
+private:
+    int x;
+};
+
+class C2 : virtual public C1
+{
+public:
+    C2(){}
+    virtual ~C2(){}
+    static auto Register()
+    {
+        return Type<C2>().AddBaseClass(BASE(C1, PUBLIC, VIRTUAL));
+    }
+};
+
+class C3 : virtual public C1
+{
+public:
+    C3(){}
+    virtual ~C3(){}
+    static auto Register()
+    {
+        return Type<C3>().AddBaseClass(BASE(C1, PUBLIC, VIRTUAL));
+    }
+};
+
+class C4 : public C2, public C3
+{
+public:
+    C4(){}
+    virtual ~C4(){}
+    static auto Register()
+    {
+        return Type<C4>().AddBaseClass(BASE(C2, PUBLIC, NONVIRTUAL)).AddBaseClass(BASE(C3, PUBLIC, NONVIRTUAL));
+    }
+};
+
 int main()
 {
     auto typeInfo = typeof(C);
@@ -63,5 +109,7 @@ int main()
     //prop_bstr1->InvokeSet(c, "error"); # private denied
     //prop_bstr2->InvokeSet(c, "protected"); # protected denied
 
+    auto t = typeof(C4);//if C2 not inherit C1 with virtual runtime error expected
+    //Object x(C4{});
     return 0;
 }

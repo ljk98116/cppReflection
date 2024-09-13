@@ -38,7 +38,6 @@ public:
     virtual void SetStaticType(StaticType staticType);
     virtual void SetVirtualType(VirtualType virtualType);
 private:
-    
 };
 
 }

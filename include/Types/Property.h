@@ -132,7 +132,11 @@ public:
         if(m_staticType != StaticType::STATIC) throw std::runtime_error("try to access nonstatic member without object ptr");
         return m_staticGetFunc();
     }
-
+    template <typename Class, typename T_>
+    bool operator==(const PropertyInfo<Class, T_>& rhs)
+    {
+        return Type2String<ClassT>() == Type2String<Class>() && Name() == rhs.Name();
+    }
 private:
     bool Accessable(const Object& obj)
     {

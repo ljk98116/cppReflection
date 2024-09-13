@@ -1,9 +1,12 @@
 #pragma once
 
 #include <string>
+#include <memory>
+
 namespace Reflection
 {
 
+class MemberInfo;
 enum AccessType
 {
     PUBLIC,

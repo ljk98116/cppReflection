@@ -32,7 +32,7 @@ public:
     {
         return m_fields;
     }
-
+    size_t size() const {return m_fields.size();}
     auto operator+(const std::vector<std::shared_ptr<MemberInfo> >& rhs)
     {
         for(auto item : rhs)
@@ -40,6 +40,18 @@ public:
             m_fields.push_back(item);
         }
         return *this;
+    }
+    void push_back(std::shared_ptr<MemberInfo> field)
+    {
+        m_fields.push_back(field);
+    }
+    void resize(size_t sz)
+    {
+        m_fields.resize(sz);
+    }
+    std::shared_ptr<MemberInfo>& operator[](size_t idx)
+    {
+        return m_fields[idx];
     }
 private:
     std::vector<std::shared_ptr<MemberInfo> > m_fields;

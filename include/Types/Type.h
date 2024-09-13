@@ -11,9 +11,19 @@
 #include <vector>
 #include <type_traits>
 #include <stdexcept>
+#include <set>
 
 namespace Reflection
 {
+
+struct compare_MemberInfoPtr
+{
+    bool operator()(std::shared_ptr<MemberInfo> item1, std::shared_ptr<MemberInfo> item2)
+    {
+        return item1->Name() == item2->Name();
+    }
+};
+
 //包含ClassT_的所有属性信息，包括父类
 template <typename ClassT_>
 class Type : public MemberInfo
@@ -144,9 +154,21 @@ private:
             if(access == AccessType::PROTECT && field->GetAccess() != AccessType::PRIVATE) field->SetAccess(AccessType::PROTECT);
             else if(access == AccessType::PRIVATE) field->SetAccess(AccessType::PRIVATE);
         }
+        //需要处理菱形继承问题，父类信息如果重复出现，看父类的baseList是否带有虚属性，如果没有抛异常
         m_propList = m_propList + props;
         m_fieldList = m_fieldList + fields;
         m_baseList = m_baseList + baseClass->GetBaseClasses();
+        //check virtual inherit
+        std::set<std::string> us;
+        for(auto item : m_baseList.GetBaseClasses())
+        {
+            //parent class showed twice or more
+            if(us.count(item->Name()) != 0) 
+            {
+                if(item->GetVirtualType() == VirtualType::NONVIRTUAL) throw std::runtime_error("inherit from grandpa class twice"); 
+            }
+            us.insert(item->Name());
+        }
     }
     PropertyList m_propList;
     FieldList m_fieldList;

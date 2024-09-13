@@ -154,4 +154,9 @@ src/CMakeFiles/reflection.dir/Type/MemberInfo.cpp.o: \
  /data/personal_projects/Reflection/include/Types/Type2String.h \
  /data/personal_projects/Reflection/include/Types/PropertyList.h \
  /data/personal_projects/Reflection/include/Types/FieldList.h \
- /data/personal_projects/Reflection/include/Types/BaseList.h
+ /data/personal_projects/Reflection/include/Types/BaseList.h \
+ /usr/include/c++/9/set /usr/include/c++/9/bits/stl_tree.h \
+ /usr/include/c++/9/bits/node_handle.h /usr/include/c++/9/optional \
+ /usr/include/c++/9/bits/enable_special_members.h \
+ /usr/include/c++/9/bits/stl_set.h /usr/include/c++/9/bits/stl_multiset.h \
+ /usr/include/c++/9/bits/erase_if.h
