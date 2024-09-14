@@ -115,13 +115,10 @@ public:
         auto base_Infos = obj_typeInfo->GetBaseClasses();
         size_t off = 0;
         //当前class具有虚表指针？
-        if(obj_typeInfo->GetVirtualType() == VirtualType::VIRTUAL) off += 8;
         for(auto base_info : base_Infos)
         {
-            std::cout << base_info->GetClassName() << std::endl;
             if(base_info->GetClassName() == Type2String<ClassT>()) break;
-            if(base_info->GetVirtualType() == VirtualType::VIRTUAL) off -= 8;
-            off += base_info->GetSize();                
+            off += base_info->GetSize();
         }
         auto val = value.GetData<T>();
         if(m_staticType == StaticType::STATIC) m_staticSetFunc(val);
@@ -164,7 +161,6 @@ public:
         //看基类是否有虚表指针
         for(auto base_info : base_Infos)
         {
-            if(base_info->GetVirtualType() == VirtualType::VIRTUAL) off += 8;
             if(base_info->GetClassName() == Type2String<ClassT>()) break;
             off += base_info->GetSize();
         }

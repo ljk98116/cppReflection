@@ -170,6 +170,11 @@ private:
             else if(access == AccessType::PRIVATE) field->SetAccess(AccessType::PRIVATE);
         }
         //需要处理菱形继承问题，父类信息如果重复出现，看父类的baseList是否带有虚属性，如果没有抛异常
+        for(auto item : baseClass->GetBaseClasses())
+        {
+            if(item->GetInheritType() == VirtualType::VIRTUAL) 
+                base->SetSize(base->GetSize() - item->GetSize());
+        }
         m_baseList = m_baseList + baseClass->GetBaseClasses();
         //check virtual inherit
         std::unordered_set<std::string> us;
@@ -178,7 +183,7 @@ private:
             //parent class showed twice or more
             if(us.find(item->Name()) != us.end()) 
             {
-                if(item->GetInheritType() == VirtualType::NONVIRTUAL) throw std::runtime_error("inherit from grandpa class twice"); 
+                if(item->GetInheritType() == VirtualType::NONVIRTUAL) throw std::runtime_error("inherit from grandpa class twice");
             }
             us.insert(item->Name());
         }
@@ -207,6 +212,7 @@ private:
     FieldList m_fieldList;
     //基类信息
     BaseList m_baseList;
+
     //FunctionList m_funcList;
     static std::string m_name;
     VirtualType m_virt;

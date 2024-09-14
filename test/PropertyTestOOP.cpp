@@ -66,12 +66,20 @@ public:
     C2(){}
     virtual ~C2(){}
     std::string s;
+    GET(Y, int)
+    {
+        return y;
+    }
+    SET(Y, int)
+    {
+        y = value;
+    }
     static auto Register()
     {
         return Type<C2>(VirtualType::VIRTUAL)
         .AddBaseClass(BASE(C1, PUBLIC, VIRTUAL, VIRTUAL))
         .AddField(FIELD(C2, s, PUBLIC, NONE))
-        .AddProperty(PROPERTYDEFAULT(C2, y, Y, PUBLIC, NONE));
+        .AddProperty(PROPERTY(C2, y, Y, PUBLIC, NONE));
     }
 private:
     int y;
@@ -123,7 +131,10 @@ int main()
     auto t = typeof(C4);//if C2 not inherit C1 with virtual runtime error expected
     Object x(C4{});
     auto prop_x = t.GetProperty("X");
+    auto prop_y = t.GetProperty("Y");
     prop_x->InvokeSet(x, 14);
     cout << x.GetData(t).Val() << endl;
+    prop_y->InvokeSet(x, 67);
+    cout << x.GetData(t).getY() << endl;
     return 0;
 }

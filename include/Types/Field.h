@@ -91,7 +91,6 @@ public:
         //看基类是否有虚表指针
         for(auto base_info : base_Infos)
         {
-            if(base_info->GetVirtualType() == VirtualType::VIRTUAL) off += 8;
             if(base_info->GetClassName() == Type2String<ClassT>()) break;
             off += base_info->GetSize();
         }
@@ -128,7 +127,6 @@ public:
         //看基类是否有虚表指针
         for(auto base_info : base_Infos)
         {
-            if(base_info->GetVirtualType() == VirtualType::VIRTUAL) off += 8;
             if(base_info->GetClassName() == Type2String<ClassT>()) break;
             off += base_info->GetSize();
         }

@@ -47,7 +47,7 @@ public:
 
     size_t GetSize() override
     {
-        return sizeof(ClassT);
+        return m_sz;
     }
     StaticType GetStaticType() const override
     {
@@ -56,6 +56,10 @@ public:
     VirtualType GetInheritType() override
     {
         return m_inherit;
+    }
+    void SetSize(size_t sz)
+    {
+        m_sz = sz;
     }
     template <typename T>
     bool operator==(const Base<T>& rhs)
@@ -66,6 +70,7 @@ private:
     AccessType m_accessType;
     VirtualType m_virtualType;
     VirtualType m_inherit;
+    size_t m_sz = sizeof(ClassT);
 };
 
 

@@ -7,9 +7,6 @@ class BaseList
 {
 public:
     BaseList()=default;
-    explicit BaseList(std::vector<std::shared_ptr<MemberInfo> > members) :
-    m_base(members)
-    {}
     template <typename BaseInfo_>
     void AddBaseClass(BaseInfo_* base)
     {
