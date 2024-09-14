@@ -37,6 +37,9 @@ public:
     virtual void SetAccess(AccessType access);
     virtual void SetStaticType(StaticType staticType);
     virtual void SetVirtualType(VirtualType virtualType);
+    virtual std::string GetClassName() = 0;
+    virtual VirtualType GetInheritType();
+    virtual size_t GetSize();
 private:
 };
 

@@ -22,6 +22,10 @@ public:
     m_propName(name), m_accessType(accessType), 
     m_staticType(staticType), m_memberPtr(memberPtr)
     {}
+    std::string GetClassName() override
+    {
+        return Type2String<ClassT>();
+    }
 
     std::string Name() const override
     {
@@ -55,6 +59,10 @@ public:
     void SetVirtualType(VirtualType virtualType) override
     {
         throw std::runtime_error("fieldInfo is nonvirtual");
+    }
+    size_t GetSize() override
+    {
+        return sizeof(ClassT);
     }
 private:
     std::string m_propName = "Unknown";

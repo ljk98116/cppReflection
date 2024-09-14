@@ -63,6 +63,15 @@ std::vector<std::shared_ptr<MemberInfo>> MemberInfo::GetBaseClasses() const
     return std::vector<std::shared_ptr<MemberInfo>>();
 }
 
+size_t MemberInfo::GetSize()
+{
+    return 0;
+}
+
+VirtualType MemberInfo::GetInheritType()
+{
+    return VirtualType::NONVIRTUAL;
+}
 void MemberInfo::SetAccess(AccessType access){}
 void MemberInfo::SetStaticType(StaticType staticType){}
 void MemberInfo::SetVirtualType(VirtualType virtualType){}

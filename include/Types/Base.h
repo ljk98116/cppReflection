@@ -18,12 +18,17 @@ public:
     //需要利用TypeInfo进行初始化
     Base(
         AccessType accessType=AccessType::PRIVATE, 
-        VirtualType virtualType=VirtualType::NONVIRTUAL
+        VirtualType virtualType=VirtualType::NONVIRTUAL,
+        VirtualType inheritVirtType=VirtualType::NONVIRTUAL
     ):
-    m_accessType(accessType),m_virtualType(virtualType)
+    m_accessType(accessType),m_virtualType(virtualType), m_inherit(inheritVirtType)
     {}
 
     virtual ~Base(){}
+    std::string GetClassName() override
+    {
+        return Type2String<ClassT>();
+    }
 
     std::string Name() const override
     {
@@ -40,9 +45,17 @@ public:
         return m_virtualType;
     }
 
+    size_t GetSize() override
+    {
+        return sizeof(ClassT);
+    }
     StaticType GetStaticType() const override
     {
         throw std::runtime_error("Base class Info has no static type");
+    }
+    VirtualType GetInheritType() override
+    {
+        return m_inherit;
     }
     template <typename T>
     bool operator==(const Base<T>& rhs)
@@ -52,9 +65,10 @@ public:
 private:
     AccessType m_accessType;
     VirtualType m_virtualType;
+    VirtualType m_inherit;
 };
 
 
-#define BASE(CLASS, ACCESS, VIRT) new Base<CLASS>(AccessType::ACCESS, VirtualType::VIRT)
+#define BASE(CLASS, ACCESS, VIRT, Inherit) new Base<CLASS>(AccessType::ACCESS, VirtualType::VIRT, VirtualType::Inherit)
 
 }

@@ -24,7 +24,7 @@ public:
     virtual ~B(){}
     static auto Register()
     {
-        return Type<B>().AddBaseClass(BASE(A, PUBLIC, NONVIRTUAL))
+        return Type<B>().AddBaseClass(BASE(A, PUBLIC, VIRTUAL, NONVIRTUAL))
         .AddProperty(PROPERTYDEFAULT(B, b_str1, B_STR1, PRIVATE, NONE))
         .AddProperty(PROPERTYDEFAULT(B, b_str2, B_STR2, PROTECT, NONE));
     }
@@ -40,7 +40,7 @@ public:
     virtual ~C(){}
     static auto Register()
     {
-        return Type<C>().AddBaseClass(BASE(B, PROTECT, NONVIRTUAL));
+        return Type<C>().AddBaseClass(BASE(B, PROTECT, VIRTUAL, NONVIRTUAL));
     }
 private:
 
@@ -51,9 +51,10 @@ class C1
 public:
     C1(){}
     ~C1(){}
+    int Val() const {return x;}
     static auto Register()
     {
-        return Type<C1>().AddProperty(PROPERTYDEFAULT(C1, x, "X", PUBLIC, NONE));
+        return Type<C1>().AddProperty(PROPERTYDEFAULT(C1, x, X, PUBLIC, NONE));
     }
 private:
     int x;
@@ -66,7 +67,7 @@ public:
     virtual ~C2(){}
     static auto Register()
     {
-        return Type<C2>().AddBaseClass(BASE(C1, PUBLIC, VIRTUAL));
+        return Type<C2>(VirtualType::VIRTUAL).AddBaseClass(BASE(C1, PUBLIC, VIRTUAL, VIRTUAL));
     }
 };
 
@@ -77,7 +78,7 @@ public:
     virtual ~C3(){}
     static auto Register()
     {
-        return Type<C3>().AddBaseClass(BASE(C1, PUBLIC, VIRTUAL));
+        return Type<C3>(VirtualType::VIRTUAL).AddBaseClass(BASE(C1, PUBLIC, VIRTUAL, VIRTUAL));
     }
 };
 
@@ -88,7 +89,9 @@ public:
     virtual ~C4(){}
     static auto Register()
     {
-        return Type<C4>().AddBaseClass(BASE(C2, PUBLIC, NONVIRTUAL)).AddBaseClass(BASE(C3, PUBLIC, NONVIRTUAL));
+        return Type<C4>(VirtualType::VIRTUAL)
+        .AddBaseClass(BASE(C2, PUBLIC, VIRTUAL, NONVIRTUAL))
+        .AddBaseClass(BASE(C3, PUBLIC, VIRTUAL, NONVIRTUAL));
     }
 };
 
@@ -109,7 +112,11 @@ int main()
     //prop_bstr1->InvokeSet(c, "error"); # private denied
     //prop_bstr2->InvokeSet(c, "protected"); # protected denied
 
+    //多重继承，如果存在虚拟继承，属性指针需要加上16的偏移, 2个虚表指针大小
     auto t = typeof(C4);//if C2 not inherit C1 with virtual runtime error expected
-    //Object x(C4{});
+    Object x(C4{});
+    auto prop_x = t.GetProperty("X");
+    prop_x->InvokeSet(x, 14);
+    cout << x.GetData(t).Val() << endl;
     return 0;
 }

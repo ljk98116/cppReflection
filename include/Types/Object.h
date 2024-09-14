@@ -33,6 +33,10 @@ public:
         return m_data.get();
     }
 
+    std::shared_ptr<void>& Data()
+    {
+        return m_data;
+    }
     auto GetTypeInfo() const
     {
         return m_typeInfo;
@@ -75,6 +79,7 @@ template <typename T>
 Object::Object(T data)
 {
     m_data = std::shared_ptr<void>(new T);
+    *((T*)m_data.get()) = data; 
     auto typeInfo = Type<T>().Register();
     std::shared_ptr<decltype(typeInfo)> childPtr = std::make_shared<decltype(typeInfo)>();
     *childPtr = typeInfo;

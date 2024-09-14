@@ -11,7 +11,9 @@
 #include <vector>
 #include <type_traits>
 #include <stdexcept>
-#include <set>
+#include <unordered_set>
+#include <algorithm>
+#include <iostream>
 
 namespace Reflection
 {
@@ -30,8 +32,13 @@ class Type : public MemberInfo
 {
 public:
     using ClassT = ClassT_;
-    Type(){}
+
+    explicit Type(VirtualType virt = VirtualType::NONVIRTUAL):
+    m_virt(virt)
+    {}
+
     virtual ~Type(){}
+
     static auto create()
     {
         return Type<ClassT_>();
@@ -39,7 +46,10 @@ public:
     //explicit Type(PropertyList propList, FieldList_ fieldList, FunctionList_ funcList):
     //m_propList(propList), m_fieldList(fieldList), m_funcList(funcList)
     //{}
-
+    std::string GetClassName() override
+    {
+        return Type2String<ClassT>();
+    }
     std::string Name() const override
     {
         return m_name;
@@ -56,7 +66,7 @@ public:
 
     VirtualType GetVirtualType() const override
     {
-        return VirtualType::NONVIRTUAL;
+        return m_virt;
     }
 
     template <typename Property>
@@ -66,6 +76,11 @@ public:
         return *this;
     }   
 
+    size_t GetSize() override
+    {
+        return sizeof(ClassT);
+    }
+    
     std::shared_ptr<MemberInfo> GetProperty(const std::string& name) override
     {
         return m_propList.GetProperty(name);
@@ -155,20 +170,38 @@ private:
             else if(access == AccessType::PRIVATE) field->SetAccess(AccessType::PRIVATE);
         }
         //需要处理菱形继承问题，父类信息如果重复出现，看父类的baseList是否带有虚属性，如果没有抛异常
-        m_propList = m_propList + props;
-        m_fieldList = m_fieldList + fields;
         m_baseList = m_baseList + baseClass->GetBaseClasses();
         //check virtual inherit
-        std::set<std::string> us;
+        std::unordered_set<std::string> us;
         for(auto item : m_baseList.GetBaseClasses())
         {
             //parent class showed twice or more
-            if(us.count(item->Name()) != 0) 
+            if(us.find(item->Name()) != us.end()) 
             {
-                if(item->GetVirtualType() == VirtualType::NONVIRTUAL) throw std::runtime_error("inherit from grandpa class twice"); 
+                if(item->GetInheritType() == VirtualType::NONVIRTUAL) throw std::runtime_error("inherit from grandpa class twice"); 
             }
             us.insert(item->Name());
         }
+        m_propList = m_propList + props;
+        m_fieldList = m_fieldList + fields;
+        int cnt = 0;
+        us.clear();
+        for(int i=0;i<m_propList.size();++i)
+        {
+            if(us.find(m_propList[i]->GetClassName() + "::" + m_propList[i]->Name()) != us.end()) continue;
+            us.insert(m_propList[i]->GetClassName() + "::" + m_propList[i]->Name());
+            m_propList[cnt++] = m_propList[i];
+        }
+        m_propList.resize(cnt);
+        us.clear();
+        cnt = 0;
+        for(int i=0;i<m_fieldList.size();++i)
+        {
+            if(us.find(m_fieldList[i]->GetClassName() + "::" + m_fieldList[i]->Name()) != us.end()) continue;
+            us.insert(m_fieldList[i]->GetClassName() + "::" + m_fieldList[i]->Name());
+            m_fieldList[cnt++] = m_fieldList[i];
+        }    
+        m_fieldList.resize(cnt);    
     }
     PropertyList m_propList;
     FieldList m_fieldList;
@@ -176,6 +209,7 @@ private:
     BaseList m_baseList;
     //FunctionList m_funcList;
     static std::string m_name;
+    VirtualType m_virt;
 };
 
 template <typename ClassT_>

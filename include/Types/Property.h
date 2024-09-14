@@ -54,7 +54,11 @@ public:
     }
 
     virtual ~PropertyInfo(){}
-
+    std::string GetClassName() override
+    {
+        return Type2String<ClassT>();
+    }
+    
     std::string Name() const override
     {
         return m_propName;
@@ -94,7 +98,11 @@ public:
     {
         return m_readonly;
     }
-
+    
+    size_t GetSize() override
+    {
+        return sizeof(ClassT);
+    }
     //注意子类object访问基类保护属性的情况,需要看obj对应的类是否为ClassT的子类
     //memberinfo需要能获取子类的类型
     void InvokeSet(Object& obj, const Object& value) override
@@ -102,10 +110,32 @@ public:
         if(m_readonly) throw std::runtime_error("try to modify readonly attr");
         if(!Accessable(obj)) throw std::runtime_error("access propertyInfo denied");
 
+        //获取obj的typeInfo,看是否为本属性所在类的基类,根据虚表数量计算指针的偏移位置，需要改变obj
+        auto obj_typeInfo = obj.GetTypeInfo();
+        auto base_Infos = obj_typeInfo->GetBaseClasses();
+        size_t off = 0;
+        if(obj_typeInfo->GetVirtualType() == VirtualType::VIRTUAL) off += 8;
+        for(auto base_info : base_Infos)
+        {
+            if(base_info->GetVirtualType() == VirtualType::VIRTUAL) off += 8;
+            if(base_info->GetClassName() == Type2String<ClassT>()) break;
+            off += base_info->GetSize();
+        }
         auto val = value.GetData<T>();
-
         if(m_staticType == StaticType::STATIC) m_staticSetFunc(val);
-        else m_setFunc(obj, val);
+        else
+        {
+            if(off == 0) m_setFunc(obj, val);
+            else
+            {
+                //提取基类对象
+                void *basePtr = (void*)((uintptr_t)obj.Data().get() + off);
+                Object obj2(*(ClassT*)basePtr);
+                m_setFunc(obj2, val);
+                //内存操作
+                memcpy((void*)((uintptr_t)obj.Data().get() + off), obj2.Data().get(), sizeof(ClassT));
+            }
+        }
     }
     //静态属性，看是否能访问到
     void InvokeSet(const Object& value) override
