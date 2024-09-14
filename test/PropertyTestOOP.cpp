@@ -65,10 +65,16 @@ class C2 : virtual public C1
 public:
     C2(){}
     virtual ~C2(){}
+    std::string s;
     static auto Register()
     {
-        return Type<C2>(VirtualType::VIRTUAL).AddBaseClass(BASE(C1, PUBLIC, VIRTUAL, VIRTUAL));
+        return Type<C2>(VirtualType::VIRTUAL)
+        .AddBaseClass(BASE(C1, PUBLIC, VIRTUAL, VIRTUAL))
+        .AddField(FIELD(C2, s, PUBLIC, NONE))
+        .AddProperty(PROPERTYDEFAULT(C2, y, Y, PUBLIC, NONE));
     }
+private:
+    int y;
 };
 
 class C3 : virtual public C1
@@ -78,7 +84,8 @@ public:
     virtual ~C3(){}
     static auto Register()
     {
-        return Type<C3>(VirtualType::VIRTUAL).AddBaseClass(BASE(C1, PUBLIC, VIRTUAL, VIRTUAL));
+        return Type<C3>(VirtualType::VIRTUAL)
+        .AddBaseClass(BASE(C1, PUBLIC, VIRTUAL, VIRTUAL));
     }
 };
 

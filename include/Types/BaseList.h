@@ -1,5 +1,5 @@
 #pragma once
-
+#include <iostream>
 namespace Reflection
 {
 
@@ -13,8 +13,13 @@ public:
     template <typename BaseInfo_>
     void AddBaseClass(BaseInfo_* base)
     {
-        auto ptr = std::shared_ptr<MemberInfo>(base);
-        m_base.push_back(ptr);
+        m_base.push_back(std::shared_ptr<MemberInfo>(base));
+        int i = 1;
+        while(m_base.size() - i > 0 && m_base[m_base.size() - i - 1]->GetInheritType() == VirtualType::VIRTUAL)
+        {
+            m_base[m_base.size() - i - 1].swap(m_base[m_base.size() - i]);
+            ++i; 
+        }
     }
     std::shared_ptr<MemberInfo> GetBaseClass(const std::string& name)
     {
@@ -34,12 +39,24 @@ public:
         for(auto item : rhs)
         {
             m_base.push_back(item);
+            int i = 1;
+            while(m_base.size() - i > 0 && m_base[m_base.size() - i - 1]->GetInheritType() == VirtualType::VIRTUAL)
+            {
+                m_base[m_base.size() - i - 1].swap(m_base[m_base.size() - i]);
+                ++i; 
+            }            
         }
         return *this;
     }
-    void push_back(std::shared_ptr<MemberInfo> base)
+    void push_back(std::shared_ptr<MemberInfo> ptr)
     {
-        m_base.push_back(base);
+        m_base.push_back(std::shared_ptr<MemberInfo>(ptr));
+        int i = 1;
+        while(m_base.size() - i > 0 && m_base[m_base.size() - i - 1]->GetInheritType() == VirtualType::VIRTUAL)
+        {
+            m_base[m_base.size() - i - 1].swap(m_base[m_base.size() - i]);
+            ++i; 
+        } 
     }
     void resize(size_t sz)
     {

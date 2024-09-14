@@ -114,12 +114,14 @@ public:
         auto obj_typeInfo = obj.GetTypeInfo();
         auto base_Infos = obj_typeInfo->GetBaseClasses();
         size_t off = 0;
+        //当前class具有虚表指针？
         if(obj_typeInfo->GetVirtualType() == VirtualType::VIRTUAL) off += 8;
         for(auto base_info : base_Infos)
         {
-            if(base_info->GetVirtualType() == VirtualType::VIRTUAL) off += 8;
+            std::cout << base_info->GetClassName() << std::endl;
             if(base_info->GetClassName() == Type2String<ClassT>()) break;
-            off += base_info->GetSize();
+            if(base_info->GetVirtualType() == VirtualType::VIRTUAL) off -= 8;
+            off += base_info->GetSize();                
         }
         auto val = value.GetData<T>();
         if(m_staticType == StaticType::STATIC) m_staticSetFunc(val);
@@ -130,7 +132,8 @@ public:
             {
                 //提取基类对象
                 void *basePtr = (void*)((uintptr_t)obj.Data().get() + off);
-                Object obj2(*(ClassT*)basePtr);
+                auto value = *(ClassT*)basePtr;
+                Object obj2(value);
                 m_setFunc(obj2, val);
                 //内存操作
                 memcpy((void*)((uintptr_t)obj.Data().get() + off), obj2.Data().get(), sizeof(ClassT));
@@ -152,8 +155,23 @@ public:
     Object InvokeGet(Object& obj) override
     {
         if(!Accessable(obj)) throw std::runtime_error("access propertyInfo denied");
+        //获取obj的typeInfo,看是否为本属性所在类的基类,根据虚表数量计算指针的偏移位置，需要改变obj
+        auto obj_typeInfo = obj.GetTypeInfo();
+        auto base_Infos = obj_typeInfo->GetBaseClasses();
+        size_t off = 0;
+        //当前class具有虚表指针？
+        if(obj_typeInfo->GetVirtualType() == VirtualType::VIRTUAL) off += 8;
+        //看基类是否有虚表指针
+        for(auto base_info : base_Infos)
+        {
+            if(base_info->GetVirtualType() == VirtualType::VIRTUAL) off += 8;
+            if(base_info->GetClassName() == Type2String<ClassT>()) break;
+            off += base_info->GetSize();
+        }
+        auto basePtr = (ClassT*)((uintptr_t)obj.Data().get() + off);
+        Object obj2(*(ClassT*)basePtr);
         if(m_staticType == StaticType::STATIC) return m_staticGetFunc();
-        return m_getFunc(obj);
+        return m_getFunc(obj2);
     }
 
     Object InvokeGet() override
@@ -162,6 +180,7 @@ public:
         if(m_staticType != StaticType::STATIC) throw std::runtime_error("try to access nonstatic member without object ptr");
         return m_staticGetFunc();
     }
+    
     template <typename Class, typename T_>
     bool operator==(const PropertyInfo<Class, T_>& rhs)
     {
