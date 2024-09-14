@@ -136,5 +136,6 @@ int main()
     cout << x.GetData(t).Val() << endl;
     prop_y->InvokeSet(x, 67);
     cout << x.GetData(t).getY() << endl;
+    
     return 0;
 }

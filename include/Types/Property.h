@@ -157,7 +157,7 @@ public:
         auto base_Infos = obj_typeInfo->GetBaseClasses();
         size_t off = 0;
         //当前class具有虚表指针？
-        if(obj_typeInfo->GetVirtualType() == VirtualType::VIRTUAL) off += 8;
+        //if(obj_typeInfo->GetVirtualType() == VirtualType::VIRTUAL) off += 8;
         //看基类是否有虚表指针
         for(auto base_info : base_Infos)
         {
