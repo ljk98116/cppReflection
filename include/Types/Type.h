@@ -170,11 +170,29 @@ private:
             else if(access == AccessType::PRIVATE) field->SetAccess(AccessType::PRIVATE);
         }
         //需要处理菱形继承问题，父类信息如果重复出现，看父类的baseList是否带有虚属性，如果没有抛异常
-        for(auto item : baseClass->GetBaseClasses())
+        //内存对齐,减去补齐到对应倍数的父类,虚继承和前面的父类成员对齐，没有父类默认向8的倍数对齐，虚表指针
+        for(int i=0;i<baseClass->GetBaseClasses().size();++i)
         {
-            if(item->GetInheritType() == VirtualType::VIRTUAL) 
-                base->SetSize(base->GetSize() - item->GetSize());
+            auto item = baseClass->GetBaseClasses()[i];
+            size_t sz = item->GetSize();
+            if(i == 0 && item->GetInheritType() == VirtualType::VIRTUAL)
+            {
+                //虚函数类唯一继承虚基类，与虚表指针对齐
+                if(item->GetVirtualType() == VirtualType::VIRTUAL)
+                {
+                    sz = (item->GetSize() / 8 + ((item->GetSize() % 8) != 0)) * 8;
+                }
+                else
+                {
+                    //gcc默认与4对齐
+                    sz = (item->GetSize() / 4 + ((item->GetSize() % 4) != 0)) * 4;
+                }
+            }
+            base->SetSize(base->GetSize() - sz);
+            //std::cout << item->GetClassName() << " " << sz << " " << item->GetSize() << std::endl;
         }
+
+        //
         m_baseList = m_baseList + baseClass->GetBaseClasses();
         //check virtual inherit
         std::unordered_set<std::string> us;

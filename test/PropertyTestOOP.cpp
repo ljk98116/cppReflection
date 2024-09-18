@@ -46,7 +46,7 @@ private:
 
 };
 
-class C1
+class C1//4
 {
 public:
     C1(){}
@@ -57,10 +57,10 @@ public:
         return Type<C1>().AddProperty(PROPERTYDEFAULT(C1, x, X, PUBLIC, NONE));
     }
 private:
-    int x;
+    int x=0;
 };
 
-class C2 : virtual public C1
+class C2 : virtual public C1//8 + 4 +
 {
 public:
     C2(){}
@@ -77,12 +77,12 @@ public:
     static auto Register()
     {
         return Type<C2>(VirtualType::VIRTUAL)
-        .AddBaseClass(BASE(C1, PUBLIC, VIRTUAL, VIRTUAL))
+        .AddBaseClass(BASE(C1, PUBLIC, NONVIRTUAL, VIRTUAL))
         .AddField(FIELD(C2, s, PUBLIC, NONE))
         .AddProperty(PROPERTY(C2, y, Y, PUBLIC, NONE));
     }
 private:
-    int y;
+    int y=0;
 };
 
 class C3 : virtual public C1
@@ -93,7 +93,7 @@ public:
     static auto Register()
     {
         return Type<C3>(VirtualType::VIRTUAL)
-        .AddBaseClass(BASE(C1, PUBLIC, VIRTUAL, VIRTUAL));
+        .AddBaseClass(BASE(C1, PUBLIC, NONVIRTUAL, VIRTUAL));
     }
 };
 
@@ -128,8 +128,11 @@ int main()
     //prop_bstr2->InvokeSet(c, "protected"); # protected denied
 
     //多重继承，如果存在虚拟继承，属性指针需要加上16的偏移, 2个虚表指针大小
+    cout << sizeof(C1) << " " << sizeof(C2) << " " << sizeof(C3) << " " << sizeof(string) << endl;
     auto t = typeof(C4);//if C2 not inherit C1 with virtual runtime error expected
-    Object x(C4{});
+    auto it = C4{};
+    Object x(it);
+    cout << it.getY() << endl;
     auto prop_x = t.GetProperty("X");
     auto prop_y = t.GetProperty("Y");
     prop_x->InvokeSet(x, 14);

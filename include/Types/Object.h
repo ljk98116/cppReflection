@@ -57,6 +57,7 @@ template <typename T>
 typename T::ClassT 
 Object::GetData(T&& data) const
 {
+    if(m_data == nullptr) throw std::runtime_error("object is empty");
     return *reinterpret_cast<typename T::ClassT*>(m_data.get());
 }
 
@@ -64,6 +65,7 @@ template <typename T>
 typename T::ClassT
 Object::GetData(const T& data) const
 {
+    if(m_data == nullptr) throw std::runtime_error("object is empty");
     return *reinterpret_cast<typename T::ClassT*>(m_data.get());
 }
 
@@ -85,4 +87,6 @@ Object::Object(T data)
     *childPtr = typeInfo;
     m_typeInfo = std::static_pointer_cast<MemberInfo>(childPtr);
 }
+
+
 }

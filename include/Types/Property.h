@@ -115,6 +115,7 @@ public:
         auto base_Infos = obj_typeInfo->GetBaseClasses();
         size_t off = 0;
         //当前class具有虚表指针？
+        //if(obj_typeInfo->GetVirtualType() == VirtualType::VIRTUAL) off += 8;
         for(auto base_info : base_Infos)
         {
             if(base_info->GetClassName() == Type2String<ClassT>()) break;
@@ -164,8 +165,7 @@ public:
             if(base_info->GetClassName() == Type2String<ClassT>()) break;
             off += base_info->GetSize();
         }
-        auto basePtr = (ClassT*)((uintptr_t)obj.Data().get() + off);
-        Object obj2(*(ClassT*)basePtr);
+        Object obj2((ClassT)(*(ClassT*)((uintptr_t)obj.Data().get() + off)));
         if(m_staticType == StaticType::STATIC) return m_staticGetFunc();
         return m_getFunc(obj2);
     }
