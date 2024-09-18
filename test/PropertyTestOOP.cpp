@@ -58,6 +58,7 @@ public:
     }
 private:
     int x=0;
+    char c;
 };
 
 class C2 : virtual public C1//8 + 4 +
@@ -83,6 +84,7 @@ public:
     }
 private:
     int y=0;
+    char c;
 };
 
 class C3 : virtual public C1

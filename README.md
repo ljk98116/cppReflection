@@ -101,3 +101,5 @@ int main()
     return 0;
 }
 ```
+目前属性反射可以支持虚继承，典型例子(test/PropertyTestOOP.cpp)
+
