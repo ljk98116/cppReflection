@@ -63,6 +63,15 @@ std::vector<std::shared_ptr<MemberInfo>> MemberInfo::GetBaseClasses() const
     return std::vector<std::shared_ptr<MemberInfo>>();
 }
 
+std::shared_ptr<MemberInfo> MemberInfo::GetMethod(const std::string& name)
+{
+    return nullptr;
+}
+std::vector<std::shared_ptr<MemberInfo>> MemberInfo::GetMethods() const
+{
+    return std::vector<std::shared_ptr<MemberInfo>>();
+}
+
 size_t MemberInfo::GetSize()
 {
     return 0;
@@ -72,7 +81,29 @@ VirtualType MemberInfo::GetInheritType()
 {
     return VirtualType::NONVIRTUAL;
 }
+
+Object MemberInfo::Invoke(Object obj1)
+{
+    throw std::logic_error("not implemented");
+}
+
+Object MemberInfo::Invoke(Object obj1, Object obj2)
+{
+    throw std::logic_error("not implemented");
+}
+
+Object MemberInfo::Invoke(Object obj1, Object obj2, Object obj3)
+{
+    throw std::logic_error("not implemented");
+}
+
+Object MemberInfo::Invoke(Object obj1, Object obj2, Object obj3, Object obj4)
+{
+    throw std::logic_error("not implemented");
+}
+
 void MemberInfo::SetAccess(AccessType access){}
 void MemberInfo::SetStaticType(StaticType staticType){}
 void MemberInfo::SetVirtualType(VirtualType virtualType){}
+
 }

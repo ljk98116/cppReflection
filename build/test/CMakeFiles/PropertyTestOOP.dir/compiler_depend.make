@@ -410,10 +410,14 @@ test/CMakeFiles/PropertyTestOOP.dir/PropertyTestOOP.cpp.o: ../test/PropertyTestO
   ../include/Types/PropertyList.h \
   ../include/Types/FieldList.h \
   ../include/Types/BaseList.h \
+  ../include/Types/MethodList.h \
   ../include/Types/Property.h \
   ../include/Types/Field.h \
-  ../include/Types/Base.h
+  ../include/Types/Base.h \
+  ../include/Types/Method.h
 
+
+../include/Types/Method.h:
 
 ../include/Types/Field.h:
 
@@ -1010,6 +1014,8 @@ test/CMakeFiles/PropertyTestOOP.dir/PropertyTestOOP.cpp.o: ../test/PropertyTestO
 /usr/include/c++/9/bits/valarray_array.tcc:
 
 /usr/include/x86_64-linux-gnu/bits/sigthread.h:
+
+../include/Types/MethodList.h:
 
 /usr/include/x86_64-linux-gnu/bits/signal_ext.h:
 

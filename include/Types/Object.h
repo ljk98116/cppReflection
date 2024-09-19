@@ -41,6 +41,20 @@ public:
     {
         return m_typeInfo;
     }
+
+    template <typename T>
+    operator T()
+    {
+        try
+        {
+            return GetData<T>();
+        }
+        catch(const std::exception& e)
+        {
+            std::cerr << e.what() << '\n';
+        }
+        return *(T*)nullptr;
+    }
 private:
     std::shared_ptr<void> m_data;
     //具体数据的Type<T>

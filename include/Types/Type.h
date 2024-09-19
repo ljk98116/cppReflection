@@ -5,6 +5,7 @@
 #include "PropertyList.h"
 #include "FieldList.h"
 #include "BaseList.h"
+#include "MethodList.h"
 
 #include "traits.h"
 
@@ -108,6 +109,23 @@ public:
         return m_fieldList.GetFields();
     }
 
+    template <typename Method>
+    auto AddMethod(Method* method)
+    {
+        m_funcList.AddMethod(method);
+        return *this;
+    }
+
+    std::shared_ptr<MemberInfo> GetMethod(const std::string& name) override
+    {
+        return m_funcList.GetMethod(name);
+    }
+
+    std::vector<std::shared_ptr<MemberInfo> > GetMethods() const override
+    {
+        return m_funcList.GetMethods();
+    }    
+
     //设置父类
     template <typename Base>
     auto AddBaseClass(Base *base)
@@ -149,6 +167,7 @@ public:
         ClassT *data = reinterpret_cast<ClassT*>(obj);
         delete data;
     }
+
 private:
     //需要更改属性是否可见
     template <typename Base>
@@ -159,6 +178,7 @@ private:
         //更改属性是否可见
         auto props = baseClass->GetProperties();
         auto fields = baseClass->GetFields();
+        auto methods = baseClass->GetMethods();
         for(auto& prop : props)
         {
             if(access == AccessType::PROTECT && prop->GetAccess() != AccessType::PRIVATE) prop->SetAccess(AccessType::PROTECT);
@@ -168,6 +188,11 @@ private:
         {
             if(access == AccessType::PROTECT && field->GetAccess() != AccessType::PRIVATE) field->SetAccess(AccessType::PROTECT);
             else if(access == AccessType::PRIVATE) field->SetAccess(AccessType::PRIVATE);
+        }
+        for(auto& method : methods)
+        {
+            if(access == AccessType::PROTECT && method->GetAccess() != AccessType::PRIVATE) method->SetAccess(AccessType::PROTECT);
+            else if(access == AccessType::PRIVATE) method->SetAccess(AccessType::PRIVATE);
         }
         //需要处理菱形继承问题，父类信息如果重复出现，看父类的baseList是否带有虚属性，如果没有抛异常
         //内存对齐,减去补齐到对应倍数的父类,虚继承和前面的父类成员对齐，没有父类默认向8的倍数对齐，虚表指针
@@ -207,6 +232,7 @@ private:
         }
         m_propList = m_propList + props;
         m_fieldList = m_fieldList + fields;
+        m_funcList = m_funcList + methods;
         int cnt = 0;
         us.clear();
         for(int i=0;i<m_propList.size();++i)
@@ -224,14 +250,24 @@ private:
             us.insert(m_fieldList[i]->GetClassName() + "::" + m_fieldList[i]->Name());
             m_fieldList[cnt++] = m_fieldList[i];
         }    
-        m_fieldList.resize(cnt);    
+        m_fieldList.resize(cnt);  
+
+        us.clear();
+        cnt = 0;
+        for(int i=0;i<m_funcList.size();++i)
+        {
+            if(us.find(m_funcList[i]->GetClassName() + "::" + m_funcList[i]->Name()) != us.end()) continue;
+            us.insert(m_funcList[i]->GetClassName() + "::" + m_funcList[i]->Name());
+            m_funcList[cnt++] = m_funcList[i];
+        }    
+        m_funcList.resize(cnt);
     }
     PropertyList m_propList;
     FieldList m_fieldList;
     //基类信息
     BaseList m_baseList;
+    MethodList m_funcList;
 
-    //FunctionList m_funcList;
     static std::string m_name;
     VirtualType m_virt;
 };

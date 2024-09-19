@@ -26,6 +26,14 @@ enum VirtualType
     NONVIRTUAL
 };
 
+enum FuncType
+{
+    Member,
+    Constructor,
+    Destructor,
+    Normal
+};
+
 std::string AccessType2String(AccessType acc);
 std::string StaticType2String(StaticType st);
 

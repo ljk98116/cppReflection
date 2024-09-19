@@ -10,8 +10,11 @@ public:
     A(){}
     static auto Register()
     {
-        return Type<A>().AddProperty(PROPERTYDEFAULT(A, a, ATTR_A, PUBLIC, NONE));
+        return Type<A>()
+        .AddProperty(PROPERTYDEFAULT(A, a, ATTR_A, PUBLIC, NONE))
+        .AddMethod(STATICMEMBERMETHOD(add, &A::add, PUBLIC));
     }
+    static int add(int a, int b){return a+b;}
 private:
     int a;
 };
@@ -67,6 +70,10 @@ public:
     C2(){}
     virtual ~C2(){}
     std::string s;
+    std::string Add(char c)
+    {
+        return s + c;
+    }
     GET(Y, int)
     {
         return y;
@@ -80,14 +87,15 @@ public:
         return Type<C2>(VirtualType::VIRTUAL)
         .AddBaseClass(BASE(C1, PUBLIC, NONVIRTUAL, VIRTUAL))
         .AddField(FIELD(C2, s, PUBLIC, NONE))
-        .AddProperty(PROPERTY(C2, y, Y, PUBLIC, NONE));
+        .AddProperty(PROPERTY(C2, y, Y, PUBLIC, NONE))
+        .AddMethod(NORMALMEMBERMETHOD(Add, &C2::Add, PUBLIC, NONE, NONVIRTUAL));
     }
 private:
     int y=0;
     char c;
 };
 
-class C3 : virtual public C1
+class C3 : public C1
 {
 public:
     C3(){}
@@ -95,7 +103,7 @@ public:
     static auto Register()
     {
         return Type<C3>(VirtualType::VIRTUAL)
-        .AddBaseClass(BASE(C1, PUBLIC, NONVIRTUAL, VIRTUAL));
+        .AddBaseClass(BASE(C1, PUBLIC, NONVIRTUAL, NONVIRTUAL));
     }
 };
 
@@ -138,9 +146,18 @@ int main()
     auto prop_x = t.GetProperty("X");
     auto prop_y = t.GetProperty("Y");
     prop_x->InvokeSet(x, 14);
-    cout << x.GetData(t).Val() << endl;
+    //cout << x.GetData(t).Val() << endl;
     prop_y->InvokeSet(x, 67);
     cout << x.GetData(t).getY() << endl;
-    
+    int y = prop_y->InvokeGet(x);
+    cout << y << endl;
+
+    auto addFuncInfo = t.GetMethod("Add");
+    auto ret = addFuncInfo->Invoke(std::ref(x), 'o');
+    cout << (std::string)ret << endl;
+
+    auto addFuncInfo2 = typeInfo.GetMethod("add");
+    auto ret2 = addFuncInfo2->Invoke(67, 89);
+    cout << (int)ret2 << endl;
     return 0;
 }

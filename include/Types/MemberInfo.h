@@ -3,6 +3,7 @@
 #include <vector>
 #include <string>
 #include <memory>
+#include <variant>
 
 #include <include/Interface/IReflectionable.h>
 
@@ -33,6 +34,8 @@ public:
     virtual std::vector<std::shared_ptr<MemberInfo> > GetFields() const;
     virtual std::shared_ptr<MemberInfo> GetBaseClass(const std::string& name);
     virtual std::vector<std::shared_ptr<MemberInfo> > GetBaseClasses() const;
+    virtual std::shared_ptr<MemberInfo> GetMethod(const std::string& name);
+    virtual std::vector<std::shared_ptr<MemberInfo> > GetMethods() const;
 
     virtual void SetAccess(AccessType access);
     virtual void SetStaticType(StaticType staticType);
@@ -40,7 +43,15 @@ public:
     virtual std::string GetClassName() = 0;
     virtual VirtualType GetInheritType();
     virtual size_t GetSize();
+
+    //父类接口，子类实现，参数传入子类的变长参数invoke,左值或者右值作为参数
+    virtual Object Invoke(Object obj1);
+    virtual Object Invoke(Object obj1, Object obj2);
+    virtual Object Invoke(Object obj1, Object obj2, Object obj3);
+    virtual Object Invoke(Object obj1, Object obj2, Object obj3, Object obj4);
 private:
+    //orin:1.3G x86:1.4G
 };
+
 
 }
