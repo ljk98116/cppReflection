@@ -153,7 +153,7 @@ int main()
     cout << y << endl;
 
     auto addFuncInfo = t.GetMethod("Add");
-    auto ret = addFuncInfo->Invoke(std::ref(x), 'o');
+    auto ret = addFuncInfo->Invoke(x, 'o');
     cout << (std::string)ret << endl;
 
     auto addFuncInfo2 = typeInfo.GetMethod("add");

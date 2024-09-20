@@ -38,10 +38,16 @@ int main()
 {
     B b;
     A* ptr = &b;
+    A& ref = b;
     ptr->display();
     REGISTERRTTICLASS(B);
     auto obj = Object(ptr);
     auto met = obj.GetTypeInfo()->GetMethod("display");
     met->Invoke(obj);
+
+    auto obj2 = Object(ref);
+    cout << typeid(ref).name() << endl;
+    auto met2 = obj2.GetTypeInfo()->GetMethod("display");
+    met2->Invoke(obj2);
     return 0;
 }
