@@ -202,6 +202,30 @@ Type/Object.cpp.s:
 	cd /data/personal_projects/Reflection/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/reflection.dir/build.make src/CMakeFiles/reflection.dir/Type/Object.cpp.s
 .PHONY : Type/Object.cpp.s
 
+Type/TypeFactory.o: Type/TypeFactory.cpp.o
+.PHONY : Type/TypeFactory.o
+
+# target to build an object file
+Type/TypeFactory.cpp.o:
+	cd /data/personal_projects/Reflection/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/reflection.dir/build.make src/CMakeFiles/reflection.dir/Type/TypeFactory.cpp.o
+.PHONY : Type/TypeFactory.cpp.o
+
+Type/TypeFactory.i: Type/TypeFactory.cpp.i
+.PHONY : Type/TypeFactory.i
+
+# target to preprocess a source file
+Type/TypeFactory.cpp.i:
+	cd /data/personal_projects/Reflection/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/reflection.dir/build.make src/CMakeFiles/reflection.dir/Type/TypeFactory.cpp.i
+.PHONY : Type/TypeFactory.cpp.i
+
+Type/TypeFactory.s: Type/TypeFactory.cpp.s
+.PHONY : Type/TypeFactory.s
+
+# target to generate assembly for a file
+Type/TypeFactory.cpp.s:
+	cd /data/personal_projects/Reflection/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/reflection.dir/build.make src/CMakeFiles/reflection.dir/Type/TypeFactory.cpp.s
+.PHONY : Type/TypeFactory.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -220,6 +244,9 @@ help:
 	@echo "... Type/Object.o"
 	@echo "... Type/Object.i"
 	@echo "... Type/Object.s"
+	@echo "... Type/TypeFactory.o"
+	@echo "... Type/TypeFactory.i"
+	@echo "... Type/TypeFactory.s"
 .PHONY : help
 
 

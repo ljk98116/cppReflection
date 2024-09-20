@@ -28,7 +28,7 @@ public:
         }
         return nullptr;
     }
-    std::vector<std::shared_ptr<MemberInfo> > GetFields() const
+    std::vector<std::shared_ptr<MemberInfo> >& GetFields()
     {
         return m_fields;
     }

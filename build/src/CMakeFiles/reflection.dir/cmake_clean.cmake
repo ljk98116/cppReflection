@@ -5,6 +5,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/reflection.dir/Type/MemberInfo.cpp.o.d"
   "CMakeFiles/reflection.dir/Type/Object.cpp.o"
   "CMakeFiles/reflection.dir/Type/Object.cpp.o.d"
+  "CMakeFiles/reflection.dir/Type/TypeFactory.cpp.o"
+  "CMakeFiles/reflection.dir/Type/TypeFactory.cpp.o.d"
   "libreflection.pdb"
   "libreflection.so"
 )

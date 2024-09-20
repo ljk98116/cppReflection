@@ -130,6 +130,19 @@ reflection/fast:
 .PHONY : reflection/fast
 
 #=============================================================================
+# Target rules for targets named MethodTest1
+
+# Build rule for target.
+MethodTest1: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 MethodTest1
+.PHONY : MethodTest1
+
+# fast build rule for target.
+MethodTest1/fast:
+	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/MethodTest1.dir/build.make test/CMakeFiles/MethodTest1.dir/build
+.PHONY : MethodTest1/fast
+
+#=============================================================================
 # Target rules for targets named PropertyTestOOP
 
 # Build rule for target.
@@ -163,6 +176,7 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
+	@echo "... MethodTest1"
 	@echo "... PropertyTest"
 	@echo "... PropertyTestOOP"
 	@echo "... reflection"

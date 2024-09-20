@@ -29,13 +29,13 @@ public:
     virtual bool ReadOnly() const;
 
     virtual std::shared_ptr<MemberInfo> GetProperty(const std::string& name);
-    virtual std::vector<std::shared_ptr<MemberInfo> > GetProperties() const;
+    virtual std::vector<std::shared_ptr<MemberInfo> >& GetProperties();
     virtual std::shared_ptr<MemberInfo> GetField(const std::string& name);
-    virtual std::vector<std::shared_ptr<MemberInfo> > GetFields() const;
+    virtual std::vector<std::shared_ptr<MemberInfo> >& GetFields();
     virtual std::shared_ptr<MemberInfo> GetBaseClass(const std::string& name);
-    virtual std::vector<std::shared_ptr<MemberInfo> > GetBaseClasses() const;
+    virtual std::vector<std::shared_ptr<MemberInfo> >& GetBaseClasses();
     virtual std::shared_ptr<MemberInfo> GetMethod(const std::string& name);
-    virtual std::vector<std::shared_ptr<MemberInfo> > GetMethods() const;
+    virtual std::vector<std::shared_ptr<MemberInfo> >& GetMethods();
 
     virtual void SetAccess(AccessType access);
     virtual void SetStaticType(StaticType staticType);

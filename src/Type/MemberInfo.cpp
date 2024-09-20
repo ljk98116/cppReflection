@@ -3,7 +3,7 @@
 
 namespace Reflection
 {
-
+static auto ret = std::vector<std::shared_ptr<MemberInfo> >();
 void MemberInfo::InvokeSet(Object& obj, const Object& value)
 {
 
@@ -39,9 +39,10 @@ std::shared_ptr<MemberInfo> MemberInfo::GetProperty(const std::string& name)
     return nullptr;
 }
 
-std::vector<std::shared_ptr<MemberInfo> > MemberInfo::GetProperties() const
+std::vector<std::shared_ptr<MemberInfo> >& MemberInfo::GetProperties()
 {
-    return std::vector<std::shared_ptr<MemberInfo> >();
+    throw std::logic_error("not implemented");
+    return ret;
 }
 
 std::shared_ptr<MemberInfo> MemberInfo::GetField(const std::string& name)
@@ -49,27 +50,30 @@ std::shared_ptr<MemberInfo> MemberInfo::GetField(const std::string& name)
     return nullptr;
 }
 
-std::vector<std::shared_ptr<MemberInfo> > MemberInfo::GetFields() const
+std::vector<std::shared_ptr<MemberInfo> >& MemberInfo::GetFields()
 {
-    return std::vector<std::shared_ptr<MemberInfo> >();
+    throw std::logic_error("not implemented");
+    return ret;
 }
 
 std::shared_ptr<MemberInfo> MemberInfo::GetBaseClass(const std::string& name)
 {
     return nullptr;
 }
-std::vector<std::shared_ptr<MemberInfo>> MemberInfo::GetBaseClasses() const
+std::vector<std::shared_ptr<MemberInfo>>& MemberInfo::GetBaseClasses()
 {
-    return std::vector<std::shared_ptr<MemberInfo>>();
+    throw std::logic_error("not implemented");
+    return ret;
 }
 
 std::shared_ptr<MemberInfo> MemberInfo::GetMethod(const std::string& name)
 {
     return nullptr;
 }
-std::vector<std::shared_ptr<MemberInfo>> MemberInfo::GetMethods() const
+std::vector<std::shared_ptr<MemberInfo>>& MemberInfo::GetMethods()
 {
-    return std::vector<std::shared_ptr<MemberInfo>>();
+    throw std::logic_error("not implemented");
+    return ret;
 }
 
 size_t MemberInfo::GetSize()

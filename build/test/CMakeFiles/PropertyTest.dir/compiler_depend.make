@@ -411,6 +411,7 @@ test/CMakeFiles/PropertyTest.dir/PropertyTest.cpp.o: ../test/PropertyTest.cpp \
   ../include/Types/FieldList.h \
   ../include/Types/BaseList.h \
   ../include/Types/MethodList.h \
+  ../include/Types/TypeFactory.h \
   ../include/Types/Property.h \
   ../include/Types/Field.h \
   ../include/Types/Base.h \
@@ -422,6 +423,8 @@ test/CMakeFiles/PropertyTest.dir/PropertyTest.cpp.o: ../test/PropertyTest.cpp \
 ../include/Types/Field.h:
 
 ../include/Types/Property.h:
+
+../include/Types/TypeFactory.h:
 
 ../include/Types/BaseList.h:
 

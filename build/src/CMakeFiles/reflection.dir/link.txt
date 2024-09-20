@@ -1,1 +1,1 @@
-/usr/bin/g++ -fPIC -g -shared -Wl,-soname,libreflection.so -o libreflection.so CMakeFiles/reflection.dir/Interface/IReflectionable.cpp.o CMakeFiles/reflection.dir/Type/MemberInfo.cpp.o CMakeFiles/reflection.dir/Type/Object.cpp.o 
+/usr/bin/g++ -fPIC -g -shared -Wl,-soname,libreflection.so -o libreflection.so CMakeFiles/reflection.dir/Interface/IReflectionable.cpp.o CMakeFiles/reflection.dir/Type/MemberInfo.cpp.o CMakeFiles/reflection.dir/Type/Object.cpp.o CMakeFiles/reflection.dir/Type/TypeFactory.cpp.o 

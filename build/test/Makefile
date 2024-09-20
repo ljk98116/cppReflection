@@ -117,6 +117,20 @@ depend:
 .PHONY : depend
 
 # Convenience name for target.
+test/CMakeFiles/MethodTest1.dir/rule:
+	cd /data/personal_projects/Reflection/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/CMakeFiles/MethodTest1.dir/rule
+.PHONY : test/CMakeFiles/MethodTest1.dir/rule
+
+# Convenience name for target.
+MethodTest1: test/CMakeFiles/MethodTest1.dir/rule
+.PHONY : MethodTest1
+
+# fast build rule for target.
+MethodTest1/fast:
+	cd /data/personal_projects/Reflection/build && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/MethodTest1.dir/build.make test/CMakeFiles/MethodTest1.dir/build
+.PHONY : MethodTest1/fast
+
+# Convenience name for target.
 test/CMakeFiles/PropertyTestOOP.dir/rule:
 	cd /data/personal_projects/Reflection/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/CMakeFiles/PropertyTestOOP.dir/rule
 .PHONY : test/CMakeFiles/PropertyTestOOP.dir/rule
@@ -143,6 +157,30 @@ PropertyTest: test/CMakeFiles/PropertyTest.dir/rule
 PropertyTest/fast:
 	cd /data/personal_projects/Reflection/build && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/PropertyTest.dir/build.make test/CMakeFiles/PropertyTest.dir/build
 .PHONY : PropertyTest/fast
+
+MethodTest1.o: MethodTest1.cpp.o
+.PHONY : MethodTest1.o
+
+# target to build an object file
+MethodTest1.cpp.o:
+	cd /data/personal_projects/Reflection/build && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/MethodTest1.dir/build.make test/CMakeFiles/MethodTest1.dir/MethodTest1.cpp.o
+.PHONY : MethodTest1.cpp.o
+
+MethodTest1.i: MethodTest1.cpp.i
+.PHONY : MethodTest1.i
+
+# target to preprocess a source file
+MethodTest1.cpp.i:
+	cd /data/personal_projects/Reflection/build && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/MethodTest1.dir/build.make test/CMakeFiles/MethodTest1.dir/MethodTest1.cpp.i
+.PHONY : MethodTest1.cpp.i
+
+MethodTest1.s: MethodTest1.cpp.s
+.PHONY : MethodTest1.s
+
+# target to generate assembly for a file
+MethodTest1.cpp.s:
+	cd /data/personal_projects/Reflection/build && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/MethodTest1.dir/build.make test/CMakeFiles/MethodTest1.dir/MethodTest1.cpp.s
+.PHONY : MethodTest1.cpp.s
 
 PropertyTest.o: PropertyTest.cpp.o
 .PHONY : PropertyTest.o
@@ -200,8 +238,12 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
+	@echo "... MethodTest1"
 	@echo "... PropertyTest"
 	@echo "... PropertyTestOOP"
+	@echo "... MethodTest1.o"
+	@echo "... MethodTest1.i"
+	@echo "... MethodTest1.s"
 	@echo "... PropertyTest.o"
 	@echo "... PropertyTest.i"
 	@echo "... PropertyTest.s"

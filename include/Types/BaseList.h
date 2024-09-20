@@ -26,7 +26,7 @@ public:
         }
         return nullptr;
     }
-    std::vector<std::shared_ptr<MemberInfo> > GetBaseClasses() const
+    std::vector<std::shared_ptr<MemberInfo> >& GetBaseClasses()
     {
         return m_base;
     }

@@ -28,7 +28,7 @@ public:
         }
         return nullptr;
     }
-    std::vector<std::shared_ptr<MemberInfo> > GetProperties() const
+    std::vector<std::shared_ptr<MemberInfo> >& GetProperties()
     {
         return m_props;
     }

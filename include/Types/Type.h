@@ -6,7 +6,7 @@
 #include "FieldList.h"
 #include "BaseList.h"
 #include "MethodList.h"
-
+#include "TypeFactory.h"
 #include "traits.h"
 
 #include <vector>
@@ -18,6 +18,13 @@
 
 namespace Reflection
 {
+
+template <typename ClassT_>
+class Type;
+
+template <typename T>
+static std::shared_ptr<MemberInfo> AsMemberInfo(Type<T>&& item);
+
 
 struct compare_MemberInfoPtr
 {
@@ -87,7 +94,7 @@ public:
         return m_propList.GetProperty(name);
     }
 
-    std::vector<std::shared_ptr<MemberInfo> > GetProperties() const override
+    std::vector<std::shared_ptr<MemberInfo> >& GetProperties() override
     {
         return m_propList.GetProperties();
     }
@@ -104,7 +111,7 @@ public:
         return m_fieldList.GetField(name);
     }
 
-    std::vector<std::shared_ptr<MemberInfo> > GetFields() const override
+    std::vector<std::shared_ptr<MemberInfo> >& GetFields() override
     {
         return m_fieldList.GetFields();
     }
@@ -118,10 +125,10 @@ public:
 
     std::shared_ptr<MemberInfo> GetMethod(const std::string& name) override
     {
-        return m_funcList.GetMethod(name);
+        return m_funcList.GetMethod(name, Type2String<ClassT>());
     }
 
-    std::vector<std::shared_ptr<MemberInfo> > GetMethods() const override
+    std::vector<std::shared_ptr<MemberInfo> >& GetMethods()override
     {
         return m_funcList.GetMethods();
     }    
@@ -151,14 +158,20 @@ public:
         return m_baseList.GetBaseClass(name);
     }    
 
-    std::vector<std::shared_ptr<MemberInfo> > GetBaseClasses() const override
+    std::vector<std::shared_ptr<MemberInfo> >& GetBaseClasses() override
     {
         return m_baseList.GetBaseClasses();
     }    
 
     auto Register()
     {
-        if constexpr (HasRegister<ClassT>::value) return ClassT::Register();
+        if constexpr (HasRegister<ClassT>::value) 
+        {
+            auto ret = ClassT::Register();
+            if(!FactoryInstance().HasKey(typeid(ClassT).name()))
+                FactoryInstance().insert(std::make_pair(std::string(typeid(ClassT).name()), AsMemberInfo(std::move(ret))));
+            return ret;
+        }
         else return Type<ClassT>();
     }
 
@@ -275,6 +288,18 @@ private:
 template <typename ClassT_>
 std::string Type<ClassT_>::m_name = Type2String<ClassT_>();
 
+template <typename T>
+static std::shared_ptr<MemberInfo> AsMemberInfo(Type<T>&& item)
+{
+    std::shared_ptr<Type<T> > tmp = std::make_shared<Type<T> >();
+    *tmp = item;
+    return std::static_pointer_cast<MemberInfo>(tmp);
+}
+
 #define typeof(CLASS) Type<CLASS>().Register()
+
+//实现RTTI需要提前注册
+#define REGISTERRTTICLASS(CLASS) \
+    FactoryInstance().insert(std::make_pair<std::string, std::shared_ptr<MemberInfo> >(std::string(typeid(CLASS).name()), AsMemberInfo(typeof(CLASS))))
 
 }

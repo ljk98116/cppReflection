@@ -312,6 +312,7 @@ test/CMakeFiles/PropertyTest.dir/PropertyTest.cpp.o: \
  /data/personal_projects/Reflection/include/Types/FieldList.h \
  /data/personal_projects/Reflection/include/Types/BaseList.h \
  /data/personal_projects/Reflection/include/Types/MethodList.h \
+ /data/personal_projects/Reflection/include/Types/TypeFactory.h \
  /data/personal_projects/Reflection/include/Types/Property.h \
  /data/personal_projects/Reflection/include/Types/Field.h \
  /data/personal_projects/Reflection/include/Types/Base.h \

@@ -50,14 +50,24 @@ public:
     }
 
     template <typename ...Rest>
-    RetT invoke(Rest&&... args)
+    Object invoke(Rest&&... args)
     {
         if constexpr (sizeof...(Rest) == sizeof...(Args))
         {
-            if(m_access == AccessType::PUBLIC) return m_func(std::forward<Args>(args)...);
+            if(m_access == AccessType::PUBLIC)
+            {
+                if constexpr (std::is_same<RetT, void>::value)
+                {
+                    m_func(std::forward<Args>(args)...);
+                    return Object(nullptr);
+                }
+                else return m_func(std::forward<Args>(args)...);
+            }
             throw std::runtime_error("can not access");
         }
         else throw std::logic_error("not implemented");
+        if constexpr (std::is_same<RetT, void>::value) return Object(nullptr);
+        else return Object(nullptr);
     }
 
     Object Invoke(Object obj1) override
@@ -131,15 +141,28 @@ public:
         return Type2String<ClassT>();   
     }
 
+    std::shared_ptr<MemberInfo> GetBaseClass(const std::string& name) override
+    {
+        auto typeInfo = typeof(ClassT);
+        return typeInfo.GetBaseClass(name);
+    }
+
     //注意基类指针、引用调用子类虚方法时的情况，需要进行RTTI判断
     template <typename T, typename ...Rest>
-    RetT invoke(T&& obj, Rest&&... args)
+    Object invoke(T&& obj, Rest&&... args)
     {
         if constexpr (sizeof...(Rest) == sizeof...(Args))
         {            
-            return ((ClassT)(obj).*m_func)(std::forward<Rest>(args)...);
+            if constexpr (std::is_same<RetT, void>::value)
+            {
+                ((ClassT)(obj).*m_func)(std::forward<Rest>(args)...);
+                return Object(nullptr);
+            }
+            else return ((ClassT)(obj).*m_func)(std::forward<Rest>(args)...);
         }
         else throw std::logic_error("not implemented");
+        if constexpr (std::is_same<RetT, void>::value) return Object(nullptr);
+        else return Object(nullptr);
     }
 
     Object Invoke(Object obj1) override
