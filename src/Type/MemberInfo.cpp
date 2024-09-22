@@ -70,7 +70,19 @@ std::shared_ptr<MemberInfo> MemberInfo::GetMethod(const std::string& name)
 {
     return nullptr;
 }
+
 std::vector<std::shared_ptr<MemberInfo>>& MemberInfo::GetMethods()
+{
+    throw std::logic_error("not implemented");
+    return ret;
+}
+
+std::shared_ptr<MemberInfo> MemberInfo::GetConstructor(const std::string& name)
+{
+    return nullptr;
+}
+
+std::vector<std::shared_ptr<MemberInfo>>& MemberInfo::GetConstructors()
 {
     throw std::logic_error("not implemented");
     return ret;

@@ -37,6 +37,9 @@ public:
     virtual std::shared_ptr<MemberInfo> GetMethod(const std::string& name);
     virtual std::vector<std::shared_ptr<MemberInfo> >& GetMethods();
 
+    virtual std::shared_ptr<MemberInfo> GetConstructor(const std::string& name);
+    virtual std::vector<std::shared_ptr<MemberInfo> >& GetConstructors();
+
     virtual void SetAccess(AccessType access);
     virtual void SetStaticType(StaticType staticType);
     virtual void SetVirtualType(VirtualType virtualType);

@@ -123,6 +123,13 @@ public:
         return *this;
     }
 
+    template <typename Constructor>
+    auto AddConstructor(Constructor *constructor)
+    {
+        m_constructorList.AddMethod(constructor);
+        return *this;
+    }
+
     std::shared_ptr<MemberInfo> GetMethod(const std::string& name) override
     {
         return m_funcList.GetMethod(name, Type2String<ClassT>());
@@ -132,6 +139,16 @@ public:
     {
         return m_funcList.GetMethods();
     }    
+
+    std::shared_ptr<MemberInfo> GetConstructor(const std::string& name) override
+    {
+        return m_constructorList.GetMethod(name, Type2String<ClassT>());
+    }
+
+    std::vector<std::shared_ptr<MemberInfo> >& GetConstructors()override
+    {
+        return m_constructorList.GetMethods();
+    }
 
     //设置父类
     template <typename Base>
@@ -280,7 +297,7 @@ private:
     //基类信息
     BaseList m_baseList;
     MethodList m_funcList;
-
+    MethodList m_constructorList;
     static std::string m_name;
     VirtualType m_virt;
 };

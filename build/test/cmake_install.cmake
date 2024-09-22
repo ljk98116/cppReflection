@@ -1,4 +1,4 @@
-# Install script for directory: /data/personal_projects/Reflection/test
+# Install script for directory: /home/ljk98/c++/C++20学习/cppReflection/test
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

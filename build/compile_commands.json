@@ -1,37 +1,37 @@
 [
 {
-  "directory": "/data/personal_projects/Reflection/build/src",
-  "command": "/usr/bin/g++ -Dreflection_EXPORTS -I/data/personal_projects/Reflection/include -I/data/personal_projects/Reflection -g -fPIC -std=gnu++17 -o CMakeFiles/reflection.dir/Interface/IReflectionable.cpp.o -c /data/personal_projects/Reflection/src/Interface/IReflectionable.cpp",
-  "file": "/data/personal_projects/Reflection/src/Interface/IReflectionable.cpp"
+  "directory": "/home/ljk98/c++/C++20学习/cppReflection/build",
+  "command": "/usr/bin/g++ -Dreflection_EXPORTS -I/home/ljk98/c++/C++20学习/cppReflection/include -I/home/ljk98/c++/C++20学习/cppReflection -g -fPIC -o src/CMakeFiles/reflection.dir/Interface/IReflectionable.cpp.o -c /home/ljk98/c++/C++20学习/cppReflection/src/Interface/IReflectionable.cpp",
+  "file": "/home/ljk98/c++/C++20学习/cppReflection/src/Interface/IReflectionable.cpp"
 },
 {
-  "directory": "/data/personal_projects/Reflection/build/src",
-  "command": "/usr/bin/g++ -Dreflection_EXPORTS -I/data/personal_projects/Reflection/include -I/data/personal_projects/Reflection -g -fPIC -std=gnu++17 -o CMakeFiles/reflection.dir/Type/MemberInfo.cpp.o -c /data/personal_projects/Reflection/src/Type/MemberInfo.cpp",
-  "file": "/data/personal_projects/Reflection/src/Type/MemberInfo.cpp"
+  "directory": "/home/ljk98/c++/C++20学习/cppReflection/build",
+  "command": "/usr/bin/g++ -Dreflection_EXPORTS -I/home/ljk98/c++/C++20学习/cppReflection/include -I/home/ljk98/c++/C++20学习/cppReflection -g -fPIC -o src/CMakeFiles/reflection.dir/Type/MemberInfo.cpp.o -c /home/ljk98/c++/C++20学习/cppReflection/src/Type/MemberInfo.cpp",
+  "file": "/home/ljk98/c++/C++20学习/cppReflection/src/Type/MemberInfo.cpp"
 },
 {
-  "directory": "/data/personal_projects/Reflection/build/src",
-  "command": "/usr/bin/g++ -Dreflection_EXPORTS -I/data/personal_projects/Reflection/include -I/data/personal_projects/Reflection -g -fPIC -std=gnu++17 -o CMakeFiles/reflection.dir/Type/Object.cpp.o -c /data/personal_projects/Reflection/src/Type/Object.cpp",
-  "file": "/data/personal_projects/Reflection/src/Type/Object.cpp"
+  "directory": "/home/ljk98/c++/C++20学习/cppReflection/build",
+  "command": "/usr/bin/g++ -Dreflection_EXPORTS -I/home/ljk98/c++/C++20学习/cppReflection/include -I/home/ljk98/c++/C++20学习/cppReflection -g -fPIC -o src/CMakeFiles/reflection.dir/Type/Object.cpp.o -c /home/ljk98/c++/C++20学习/cppReflection/src/Type/Object.cpp",
+  "file": "/home/ljk98/c++/C++20学习/cppReflection/src/Type/Object.cpp"
 },
 {
-  "directory": "/data/personal_projects/Reflection/build/src",
-  "command": "/usr/bin/g++ -Dreflection_EXPORTS -I/data/personal_projects/Reflection/include -I/data/personal_projects/Reflection -g -fPIC -std=gnu++17 -o CMakeFiles/reflection.dir/Type/TypeFactory.cpp.o -c /data/personal_projects/Reflection/src/Type/TypeFactory.cpp",
-  "file": "/data/personal_projects/Reflection/src/Type/TypeFactory.cpp"
+  "directory": "/home/ljk98/c++/C++20学习/cppReflection/build",
+  "command": "/usr/bin/g++ -Dreflection_EXPORTS -I/home/ljk98/c++/C++20学习/cppReflection/include -I/home/ljk98/c++/C++20学习/cppReflection -g -fPIC -o src/CMakeFiles/reflection.dir/Type/TypeFactory.cpp.o -c /home/ljk98/c++/C++20学习/cppReflection/src/Type/TypeFactory.cpp",
+  "file": "/home/ljk98/c++/C++20学习/cppReflection/src/Type/TypeFactory.cpp"
 },
 {
-  "directory": "/data/personal_projects/Reflection/build/test",
-  "command": "/usr/bin/g++  -I/data/personal_projects/Reflection/include -I/data/personal_projects/Reflection -g -std=gnu++17 -o CMakeFiles/MethodTest1.dir/MethodTest1.cpp.o -c /data/personal_projects/Reflection/test/MethodTest1.cpp",
-  "file": "/data/personal_projects/Reflection/test/MethodTest1.cpp"
+  "directory": "/home/ljk98/c++/C++20学习/cppReflection/build",
+  "command": "/usr/bin/g++ -I/home/ljk98/c++/C++20学习/cppReflection/include -I/home/ljk98/c++/C++20学习/cppReflection -g -o test/CMakeFiles/PropertyTest.dir/PropertyTest.cpp.o -c /home/ljk98/c++/C++20学习/cppReflection/test/PropertyTest.cpp",
+  "file": "/home/ljk98/c++/C++20学习/cppReflection/test/PropertyTest.cpp"
 },
 {
-  "directory": "/data/personal_projects/Reflection/build/test",
-  "command": "/usr/bin/g++  -I/data/personal_projects/Reflection/include -I/data/personal_projects/Reflection -g -std=gnu++17 -o CMakeFiles/PropertyTestOOP.dir/PropertyTestOOP.cpp.o -c /data/personal_projects/Reflection/test/PropertyTestOOP.cpp",
-  "file": "/data/personal_projects/Reflection/test/PropertyTestOOP.cpp"
+  "directory": "/home/ljk98/c++/C++20学习/cppReflection/build",
+  "command": "/usr/bin/g++ -I/home/ljk98/c++/C++20学习/cppReflection/include -I/home/ljk98/c++/C++20学习/cppReflection -g -o test/CMakeFiles/PropertyTestOOP.dir/PropertyTestOOP.cpp.o -c /home/ljk98/c++/C++20学习/cppReflection/test/PropertyTestOOP.cpp",
+  "file": "/home/ljk98/c++/C++20学习/cppReflection/test/PropertyTestOOP.cpp"
 },
 {
-  "directory": "/data/personal_projects/Reflection/build/test",
-  "command": "/usr/bin/g++  -I/data/personal_projects/Reflection/include -I/data/personal_projects/Reflection -g -std=gnu++17 -o CMakeFiles/PropertyTest.dir/PropertyTest.cpp.o -c /data/personal_projects/Reflection/test/PropertyTest.cpp",
-  "file": "/data/personal_projects/Reflection/test/PropertyTest.cpp"
+  "directory": "/home/ljk98/c++/C++20学习/cppReflection/build",
+  "command": "/usr/bin/g++ -I/home/ljk98/c++/C++20学习/cppReflection/include -I/home/ljk98/c++/C++20学习/cppReflection -g -o test/CMakeFiles/MethodTest1.dir/MethodTest1.cpp.o -c /home/ljk98/c++/C++20学习/cppReflection/test/MethodTest1.cpp",
+  "file": "/home/ljk98/c++/C++20学习/cppReflection/test/MethodTest1.cpp"
 }
 ]

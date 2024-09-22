@@ -24,10 +24,15 @@ class B : public A
 {
 public:
     B(){}
+    B(std::string s1, std::string s2):
+    b_str1(s1), b_str2(s2)
+    {}
+
     virtual ~B(){}
     static auto Register()
     {
         return Type<B>().AddBaseClass(BASE(A, PUBLIC, VIRTUAL, NONVIRTUAL))
+        .AddConstructor(CONSTRUCTOR(PUBLIC, string, string))
         .AddProperty(PROPERTYDEFAULT(B, b_str1, B_STR1, PRIVATE, NONE))
         .AddProperty(PROPERTYDEFAULT(B, b_str2, B_STR2, PROTECT, NONE));
     }
@@ -160,6 +165,7 @@ int main()
     auto ret2 = addFuncInfo2->Invoke(67, 89);
     cout << (int)ret2 << endl;
 
-    
+    //auto constructorInfo = typeof(B).GetConstructor("B<std::string, std::string>");
+    //auto ret3 = constructorInfo->Invoke("b1", "b2");
     return 0;
 }

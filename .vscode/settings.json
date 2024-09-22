@@ -74,7 +74,10 @@
         "typeinfo": "cpp",
         "valarray": "cpp",
         "variant": "cpp",
-        "strstream": "cpp"
+        "strstream": "cpp",
+        "compare": "cpp",
+        "concepts": "cpp",
+        "__verbose_abort": "cpp"
     },
     "github.experimental.multipleAccounts": true,
     "C_Cpp.default.compilerArgs": [
