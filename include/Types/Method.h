@@ -155,14 +155,28 @@ public:
         {            
             if constexpr (std::is_same<RetT, void>::value)
             {
-                ((ClassT)(obj).*m_func)(std::forward<Rest>(args)...);
+                if(obj.IsPointer()) ((ClassT*)(obj)->*m_func)(std::forward<Rest>(args)...);
+                else if(obj.IsRef()) (((std::reference_wrapper<ClassT>)(obj)).get().*m_func)(std::forward<Rest>(args)...);
+                else
+                {
+                    if constexpr (std::is_abstract_v<ClassT>) throw std::runtime_error("abstract cast");
+                    else ((ClassT)(obj).*m_func)(std::forward<Rest>(args)...);
+                }
                 return Object(nullptr);
             }
-            else return ((ClassT)(obj).*m_func)(std::forward<Rest>(args)...);
+            else
+            {
+                if(obj.IsPointer()) return ((ClassT*)(obj)->*m_func)(std::forward<Rest>(args)...);
+                else if(obj.IsRef()) return (((std::reference_wrapper<ClassT>)(obj)).get().*m_func)(std::forward<Rest>(args)...);
+                else
+                {
+                    if constexpr (std::is_abstract_v<ClassT>) throw std::runtime_error("abstract cast");
+                    else return ((ClassT)(obj).*m_func)(std::forward<Rest>(args)...);                    
+                }              
+            }
         }
         else throw std::logic_error("not implemented");
-        if constexpr (std::is_same<RetT, void>::value) return Object(nullptr);
-        else return Object(nullptr);
+        return Object(nullptr);
     }
 
     Object Invoke(Object obj1) override

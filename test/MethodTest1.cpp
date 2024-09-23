@@ -7,10 +7,7 @@ using namespace Reflection;
 class A
 {
 public:
-    virtual void display()
-    {
-        cout << "this is class A" << endl;
-    }
+    virtual void display() = 0;
     static auto Register()
     {
         return Type<A>(VirtualType::VIRTUAL)
@@ -45,7 +42,7 @@ int main()
     auto met = obj.GetTypeInfo()->GetMethod("display");
     met->Invoke(obj);
 
-    auto obj2 = Object(ref);
+    auto obj2 = Object(std::ref(ref));
     cout << typeid(ref).name() << endl;
     auto met2 = obj2.GetTypeInfo()->GetMethod("display");
     met2->Invoke(obj2);

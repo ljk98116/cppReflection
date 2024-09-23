@@ -417,4 +417,5 @@ test/CMakeFiles/PropertyTest.dir/PropertyTest.cpp.o
  /data/personal_projects/Reflection/include/Types/Field.h
  /data/personal_projects/Reflection/include/Types/Base.h
  /data/personal_projects/Reflection/include/Types/Method.h
+ /data/personal_projects/Reflection/include/Types/Constructor.h
 

@@ -73,15 +73,15 @@ test/CMakeFiles/PropertyTestOOP.dir/PropertyTestOOP.cpp.o: test/CMakeFiles/Prope
 test/CMakeFiles/PropertyTestOOP.dir/PropertyTestOOP.cpp.o: ../test/PropertyTestOOP.cpp
 test/CMakeFiles/PropertyTestOOP.dir/PropertyTestOOP.cpp.o: test/CMakeFiles/PropertyTestOOP.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/data/personal_projects/Reflection/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object test/CMakeFiles/PropertyTestOOP.dir/PropertyTestOOP.cpp.o"
-	cd /data/personal_projects/Reflection/build/test && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT test/CMakeFiles/PropertyTestOOP.dir/PropertyTestOOP.cpp.o -MF CMakeFiles/PropertyTestOOP.dir/PropertyTestOOP.cpp.o.d -o CMakeFiles/PropertyTestOOP.dir/PropertyTestOOP.cpp.o -c /data/personal_projects/Reflection/test/PropertyTestOOP.cpp
+	cd /data/personal_projects/Reflection/build/test && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT test/CMakeFiles/PropertyTestOOP.dir/PropertyTestOOP.cpp.o -MF CMakeFiles/PropertyTestOOP.dir/PropertyTestOOP.cpp.o.d -o CMakeFiles/PropertyTestOOP.dir/PropertyTestOOP.cpp.o -c /data/personal_projects/Reflection/test/PropertyTestOOP.cpp
 
 test/CMakeFiles/PropertyTestOOP.dir/PropertyTestOOP.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/PropertyTestOOP.dir/PropertyTestOOP.cpp.i"
-	cd /data/personal_projects/Reflection/build/test && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /data/personal_projects/Reflection/test/PropertyTestOOP.cpp > CMakeFiles/PropertyTestOOP.dir/PropertyTestOOP.cpp.i
+	cd /data/personal_projects/Reflection/build/test && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /data/personal_projects/Reflection/test/PropertyTestOOP.cpp > CMakeFiles/PropertyTestOOP.dir/PropertyTestOOP.cpp.i
 
 test/CMakeFiles/PropertyTestOOP.dir/PropertyTestOOP.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/PropertyTestOOP.dir/PropertyTestOOP.cpp.s"
-	cd /data/personal_projects/Reflection/build/test && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /data/personal_projects/Reflection/test/PropertyTestOOP.cpp -o CMakeFiles/PropertyTestOOP.dir/PropertyTestOOP.cpp.s
+	cd /data/personal_projects/Reflection/build/test && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /data/personal_projects/Reflection/test/PropertyTestOOP.cpp -o CMakeFiles/PropertyTestOOP.dir/PropertyTestOOP.cpp.s
 
 # Object files for target PropertyTestOOP
 PropertyTestOOP_OBJECTS = \

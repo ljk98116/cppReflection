@@ -415,8 +415,11 @@ test/CMakeFiles/PropertyTest.dir/PropertyTest.cpp.o: ../test/PropertyTest.cpp \
   ../include/Types/Property.h \
   ../include/Types/Field.h \
   ../include/Types/Base.h \
-  ../include/Types/Method.h
+  ../include/Types/Method.h \
+  ../include/Types/Constructor.h
 
+
+../include/Types/Constructor.h:
 
 ../include/Types/Method.h:
 

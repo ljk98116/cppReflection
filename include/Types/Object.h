@@ -13,7 +13,13 @@ class Object
 {
 public:
     template <typename T>
-    Object(T&& data);
+    Object(T data);
+
+    template <typename T>
+    Object(T *data);
+
+    template <typename T>
+    Object(std::reference_wrapper<T> data);
 
     Object(Object&& obj)
     {
@@ -75,10 +81,14 @@ public:
         }
         return *(T*)nullptr;
     }
+    bool IsPointer() const {return m_isPointer;}
+    bool IsRef() const {return m_isRef;}
 private:
     std::shared_ptr<void> m_data;
     //具体数据的Type<T>
     std::shared_ptr<MemberInfo> m_typeInfo; 
+    bool m_isPointer = false;
+    bool m_isRef = false;
 };
 
     template <typename T>
@@ -120,43 +130,61 @@ private:
     }
 
     template <typename T>
-    Object::Object(T&& data)
+    Object::Object(T data)
     {
         //解决RTTI问题，需要替代对应的虚函数
-        
-        //std::cout << Type2String<T>() << " " << Type2String<decltype(data)>() << std::endl;
-        constexpr bool is_ref = true;
-        std::shared_ptr<MemberInfo> derivedTypeInfo = nullptr;
-        using RawType = std::remove_pointer_t<std::remove_reference_t<T> >;
-
-        if constexpr (std::is_pointer_v<std::remove_reference_t<T> >)
-            derivedTypeInfo = FactoryInstance()[typeid(*data).name()];
-        else
-            derivedTypeInfo = FactoryInstance()[typeid(data).name()];
-
-        if constexpr (std::is_same<RawType, Object>::value) throw std::runtime_error("build object with object");
-        else m_data = std::shared_ptr<void>(new RawType);
-
-        if constexpr (std::is_pointer_v<std::remove_reference_t<T>>) *((RawType*)m_data.get()) = *data;
-        else *((RawType*)m_data.get()) = data;
-
-        //std::cout << Type2String<RawType>() << std::endl;
-        
-        auto typeInfo = Type<RawType>().Register();
-        //使用derivedTypeInfo中的method信息替换typeInfo中虚函数的对应项
-        if constexpr (std::is_pointer_v<std::remove_reference_t<T> > || std::is_reference_v<T>)
+        m_data = std::shared_ptr<void>(new T);
+        *((T*)m_data.get()) = data;
+        auto typeInfo = Type<T>().Register();
+        std::shared_ptr<decltype(typeInfo)> childPtr = std::make_shared<decltype(typeInfo)>();
+        *childPtr = typeInfo;
+        m_typeInfo = std::static_pointer_cast<MemberInfo>(childPtr);
+    }
+   
+    template <typename T>
+    Object::Object(T *data)
+    {
+        m_isPointer = true;
+        std::shared_ptr<MemberInfo> derivedTypeInfo = FactoryInstance()[typeid(*data).name()];
+        m_data = std::shared_ptr<void>(new T*);
+        *((T**)m_data.get()) = data;
+        auto typeInfo = Type<T>().Register();
+        for(int i=0;i<typeInfo.GetMethods().size();++i)
         {
-            for(int i=0;i<typeInfo.GetMethods().size();++i)
+            //基类虚函数重写为派生类的对应函数
+            if(typeInfo.GetMethods()[i]->GetVirtualType() == VirtualType::VIRTUAL)
             {
-                //基类虚函数重写为派生类的对应函数
-                if(typeInfo.GetMethods()[i]->GetVirtualType() == VirtualType::VIRTUAL)
+                for(auto method_ : derivedTypeInfo->GetMethods())
                 {
-                    for(auto method_ : derivedTypeInfo->GetMethods())
+                    if(method_->Name() == typeInfo.GetMethods()[i]->Name() && method_->GetClassName() == derivedTypeInfo->GetClassName())
                     {
-                        if(method_->Name() == typeInfo.GetMethods()[i]->Name() && method_->GetClassName() == derivedTypeInfo->GetClassName())
-                        {
-                            typeInfo.GetMethods()[i].swap(method_);
-                        }
+                        typeInfo.GetMethods()[i].swap(method_);
+                    }
+                }
+            }
+        }
+        std::shared_ptr<decltype(typeInfo)> childPtr = std::make_shared<decltype(typeInfo)>();
+        *childPtr = typeInfo;
+        m_typeInfo = std::static_pointer_cast<MemberInfo>(childPtr);        
+    }
+
+    template <typename T>
+    Object::Object(std::reference_wrapper<T> data)
+    {
+        m_isRef = true;
+        std::shared_ptr<MemberInfo> derivedTypeInfo = FactoryInstance()[typeid(data.get()).name()];
+        auto typeInfo = Type<T>().Register();
+        m_data = std::shared_ptr<void>(new std::reference_wrapper<T>(data));
+        for(int i=0;i<typeInfo.GetMethods().size();++i)
+        {
+            //基类虚函数重写为派生类的对应函数
+            if(typeInfo.GetMethods()[i]->GetVirtualType() == VirtualType::VIRTUAL)
+            {
+                for(auto method_ : derivedTypeInfo->GetMethods())
+                {
+                    if(method_->Name() == typeInfo.GetMethods()[i]->Name() && method_->GetClassName() == derivedTypeInfo->GetClassName())
+                    {
+                        typeInfo.GetMethods()[i].swap(method_);
                     }
                 }
             }
@@ -164,6 +192,5 @@ private:
         std::shared_ptr<decltype(typeInfo)> childPtr = std::make_shared<decltype(typeInfo)>();
         *childPtr = typeInfo;
         m_typeInfo = std::static_pointer_cast<MemberInfo>(childPtr);
-    }
-   
+    }   
 }
