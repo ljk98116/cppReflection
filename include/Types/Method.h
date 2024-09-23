@@ -155,23 +155,23 @@ public:
         {            
             if constexpr (std::is_same<RetT, void>::value)
             {
-                if(obj.IsPointer()) ((ClassT*)(obj)->*m_func)(std::forward<Rest>(args)...);
-                else if(obj.IsRef()) (((std::reference_wrapper<ClassT>)(obj)).get().*m_func)(std::forward<Rest>(args)...);
+                if(obj.IsPointer()) ((ClassT*)(obj)->*m_func)(std::forward<Args>(args)...);
+                else if(obj.IsRef()) (((std::reference_wrapper<ClassT>)(obj)).get().*m_func)(std::forward<Args>(args)...);
                 else
                 {
                     if constexpr (std::is_abstract_v<ClassT>) throw std::runtime_error("abstract cast");
-                    else ((ClassT)(obj).*m_func)(std::forward<Rest>(args)...);
+                    else ((ClassT)(obj).*m_func)(std::forward<Args>(args)...);
                 }
                 return Object(nullptr);
             }
             else
             {
-                if(obj.IsPointer()) return ((ClassT*)(obj)->*m_func)(std::forward<Rest>(args)...);
-                else if(obj.IsRef()) return (((std::reference_wrapper<ClassT>)(obj)).get().*m_func)(std::forward<Rest>(args)...);
+                if(obj.IsPointer()) return ((ClassT*)(obj)->*m_func)(std::forward<Args>(args)...);
+                else if(obj.IsRef()) return (((std::reference_wrapper<ClassT>)(obj)).get().*m_func)(std::forward<Args>(args)...);
                 else
                 {
                     if constexpr (std::is_abstract_v<ClassT>) throw std::runtime_error("abstract cast");
-                    else return ((ClassT)(obj).*m_func)(std::forward<Rest>(args)...);                    
+                    else return ((ClassT)(obj).*m_func)(std::forward<Args>(args)...);                    
                 }              
             }
         }
@@ -181,23 +181,32 @@ public:
 
     Object Invoke(Object obj1) override
     {
-        return this->invoke<Object>(std::forward<Object>(obj1));
+        return invoke(obj1);
     }
 
     Object Invoke(Object obj1, Object obj2) override
     {
-        return this->invoke<Object, Object>(std::forward<Object>(obj1), std::forward<Object>(obj2));
+        return invoke(obj1, obj2);
     }
 
     Object Invoke(Object obj1, Object obj2, Object obj3) override
     {
-        return this->invoke<Object, Object, Object>(std::forward<Object>(obj1), std::forward<Object>(obj2), std::forward<Object>(obj3));
+        return invoke(obj1, obj2, obj3);
     }
 
     Object Invoke(Object obj1, Object obj2, Object obj3, Object obj4) override
     {
-        return this->invoke<Object, Object, Object, Object>(std::forward<Object>(obj1), std::forward<Object>(obj2), 
-                    std::forward<Object>(obj3), std::forward<Object>(obj4));
+        return invoke(obj1, obj2, obj3, obj4);
+    }
+
+    Object Invoke(Object obj1, Object obj2, Object obj3, Object obj4, Object obj5) override
+    {
+        return invoke(obj1, obj2, obj3, obj4, obj5);
+    }
+
+    Object Invoke(Object obj1, Object obj2, Object obj3, Object obj4, Object obj5, Object obj6) override
+    {
+        return invoke(obj1, obj2, obj3, obj4, obj5, obj6);
     }
     //more params
 

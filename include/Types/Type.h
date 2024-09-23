@@ -6,6 +6,8 @@
 #include "FieldList.h"
 #include "BaseList.h"
 #include "MethodList.h"
+#include "ConstructorList.h"
+
 #include "TypeFactory.h"
 #include "traits.h"
 
@@ -140,14 +142,14 @@ public:
         return m_funcList.GetMethods();
     }    
 
-    std::shared_ptr<MemberInfo> GetConstructor(const std::string& name) override
+    std::shared_ptr<MemberInfo> GetConstructor(const std::vector<std::string>& args) override
     {
-        return m_constructorList.GetMethod(name, Type2String<ClassT>());
+        return m_constructorList.GetConstructor(args);
     }
 
     std::vector<std::shared_ptr<MemberInfo> >& GetConstructors()override
     {
-        return m_constructorList.GetMethods();
+        return m_constructorList.GetConstructors();
     }
 
     //设置父类
@@ -297,7 +299,7 @@ private:
     //基类信息
     BaseList m_baseList;
     MethodList m_funcList;
-    MethodList m_constructorList;
+    ConstructorList m_constructorList;
     static std::string m_name;
     VirtualType m_virt;
 };

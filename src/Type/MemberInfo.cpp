@@ -3,7 +3,10 @@
 
 namespace Reflection
 {
+
 static auto ret = std::vector<std::shared_ptr<MemberInfo> >();
+static auto ret2 = std::vector<std::string>();
+
 void MemberInfo::InvokeSet(Object& obj, const Object& value)
 {
 
@@ -77,8 +80,9 @@ std::vector<std::shared_ptr<MemberInfo>>& MemberInfo::GetMethods()
     return ret;
 }
 
-std::shared_ptr<MemberInfo> MemberInfo::GetConstructor(const std::string& name)
+std::shared_ptr<MemberInfo> MemberInfo::GetConstructor(const std::vector<std::string>& arg_vec)
 {
+    throw std::logic_error("not implemented");
     return nullptr;
 }
 
@@ -86,6 +90,12 @@ std::vector<std::shared_ptr<MemberInfo>>& MemberInfo::GetConstructors()
 {
     throw std::logic_error("not implemented");
     return ret;
+}
+
+std::vector<std::string>& MemberInfo::GetArg()
+{
+    throw std::runtime_error("not implemented");
+    return ret2;
 }
 
 size_t MemberInfo::GetSize()
@@ -96,6 +106,11 @@ size_t MemberInfo::GetSize()
 VirtualType MemberInfo::GetInheritType()
 {
     return VirtualType::NONVIRTUAL;
+}
+
+Object MemberInfo::Invoke()
+{
+    throw std::logic_error("not implemented");
 }
 
 Object MemberInfo::Invoke(Object obj1)
@@ -118,6 +133,15 @@ Object MemberInfo::Invoke(Object obj1, Object obj2, Object obj3, Object obj4)
     throw std::logic_error("not implemented");
 }
 
+Object MemberInfo::Invoke(Object obj1, Object obj2, Object obj3, Object obj4, Object obj5)
+{
+    throw std::logic_error("not implemented");
+}
+
+Object MemberInfo::Invoke(Object obj1, Object obj2, Object obj3, Object obj4, Object obj5, Object obj6)
+{
+    throw std::logic_error("not implemented");
+}
 void MemberInfo::SetAccess(AccessType access){}
 void MemberInfo::SetStaticType(StaticType staticType){}
 void MemberInfo::SetVirtualType(VirtualType virtualType){}

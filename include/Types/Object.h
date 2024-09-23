@@ -133,8 +133,7 @@ private:
     Object::Object(T data)
     {
         //解决RTTI问题，需要替代对应的虚函数
-        m_data = std::shared_ptr<void>(new T);
-        *((T*)m_data.get()) = data;
+        m_data = std::shared_ptr<void>(new T(data));
         auto typeInfo = Type<T>().Register();
         std::shared_ptr<decltype(typeInfo)> childPtr = std::make_shared<decltype(typeInfo)>();
         *childPtr = typeInfo;

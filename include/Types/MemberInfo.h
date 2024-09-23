@@ -37,8 +37,9 @@ public:
     virtual std::shared_ptr<MemberInfo> GetMethod(const std::string& name);
     virtual std::vector<std::shared_ptr<MemberInfo> >& GetMethods();
 
-    virtual std::shared_ptr<MemberInfo> GetConstructor(const std::string& name);
+    virtual std::shared_ptr<MemberInfo> GetConstructor(const std::vector<std::string>& arg_vec);
     virtual std::vector<std::shared_ptr<MemberInfo> >& GetConstructors();
+    virtual std::vector<std::string>& GetArg();
 
     virtual void SetAccess(AccessType access);
     virtual void SetStaticType(StaticType staticType);
@@ -48,10 +49,13 @@ public:
     virtual size_t GetSize();
 
     //父类接口，子类实现，参数传入子类的变长参数invoke,左值或者右值作为参数
+    virtual Object Invoke();
     virtual Object Invoke(Object obj1);
     virtual Object Invoke(Object obj1, Object obj2);
     virtual Object Invoke(Object obj1, Object obj2, Object obj3);
     virtual Object Invoke(Object obj1, Object obj2, Object obj3, Object obj4);
+    virtual Object Invoke(Object obj1, Object obj2, Object obj3, Object obj4, Object obj5);
+    virtual Object Invoke(Object obj1, Object obj2, Object obj3, Object obj4, Object obj5, Object obj6);
 private:
     //orin:1.3G x86:1.4G
 };
