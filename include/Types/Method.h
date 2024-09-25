@@ -113,8 +113,9 @@ public:
     using ClassT = Class;
 
     MemberMethodInfo(std::string name, Ret(Class::*func)(Args...), AccessType access, StaticType staticType, VirtualType virt, FuncType funcType):
-    m_name(name), m_access(access), m_static(staticType), m_virtual(virt), m_funcType(funcType), m_func(func)
-    {}
+    m_name(init_method_name(name)), m_access(access), m_static(staticType), m_virtual(virt), m_funcType(funcType), m_func(func)
+    {
+    }
 
     std::string Name() const override
     {
@@ -211,6 +212,32 @@ public:
     //more params
 
 private:
+    template <typename T, typename ...Rest>
+    std::string ParseArgsImpl()
+    {
+        std::string ret = Type2String<T>();
+        if constexpr (sizeof...(Rest) == 0) return ret;
+        else
+        {
+            ret += ",";
+            return ret + ParseArgsImpl<Rest...>();
+        }
+    }
+    template <typename ...T>
+    std::string ParseArgs()
+    {
+        if constexpr (sizeof...(T) == 0) return "";
+        else return ParseArgsImpl<T...>();
+    }
+
+    std::string init_method_name(const std::string& name)
+    {
+        if constexpr (sizeof...(Args) == 0) return name;
+        else
+        {
+            return name + "<" + ParseArgs<Args...>() + ">";
+        }
+    }
     MemberFuncT m_func;
     StaticMemberFuncT m_staticFunc;
     std::string m_name;
@@ -234,4 +261,6 @@ private:
 
 #define STATICMEMBERMETHOD(NAME, FUNC, ACCESS) \
     new NormalMethodInfo(#NAME, FUNC, AccessType::ACCESS, StaticType::STATIC, VirtualType::NONVIRTUAL, FuncType::Member)
+
+#define MEMBERFUNCTION(RET, CLASS, PTR, ...) (RET (CLASS::*)(__VA_ARGS__))PTR
 }

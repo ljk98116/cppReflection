@@ -26,12 +26,17 @@ public:
     {
         cout << "this is class B, x=" << m_x << endl;
     }
+    void display(int x)
+    {
+        cout << "this is class B, display " << x << endl;
+    }
     static auto Register()
     {
         return Type<B>(VirtualType::VIRTUAL)
         .AddBaseClass(BASE(A, PUBLIC, VIRTUAL, NONVIRTUAL))
         .AddConstructor(CONSTRUCTOR(PUBLIC, B, int))
-        .AddMethod(NORMALMEMBERMETHOD(display, &B::display, PUBLIC, NONE, NONVIRTUAL));
+        .AddMethod(NORMALMEMBERMETHOD(display, MEMBERFUNCTION(void, B, &B::display, int), PUBLIC, NONE, NONVIRTUAL))
+        .AddMethod(NORMALMEMBERMETHOD(display, MEMBERFUNCTION(void, B, &B::display), PUBLIC, NONE, NONVIRTUAL));
     }
 private:
     int m_x;

@@ -93,7 +93,7 @@ public:
         .AddBaseClass(BASE(C1, PUBLIC, NONVIRTUAL, VIRTUAL))
         .AddField(FIELD(C2, s, PUBLIC, NONE))
         .AddProperty(PROPERTY(C2, y, Y, PUBLIC, NONE))
-        .AddMethod(NORMALMEMBERMETHOD(Add, &C2::Add, PUBLIC, NONE, NONVIRTUAL));
+        .AddMethod(NORMALMEMBERMETHOD(Add, MEMBERFUNCTION(std::string, C2, &C2::Add, char), PUBLIC, NONE, NONVIRTUAL));
     }
 private:
     int y=0;
@@ -157,7 +157,7 @@ int main()
     int y = prop_y->InvokeGet(x);
     cout << y << endl;
 
-    auto addFuncInfo = t.GetMethod("Add");
+    auto addFuncInfo = t.GetMethod("Add<char>");
     auto ret = addFuncInfo->Invoke(x, 'o');
     cout << (std::string)ret << endl;
 
