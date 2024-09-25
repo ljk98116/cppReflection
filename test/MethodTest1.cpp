@@ -11,7 +11,7 @@ public:
     static auto Register()
     {
         return Type<A>(VirtualType::VIRTUAL)
-        .AddMethod(NORMALMEMBERMETHOD(display, &A::display, PUBLIC, NONE, VIRTUAL));
+        .AddMethod(NORMALMEMBERMETHOD(void, A, display, ARGS(), PUBLIC, NONE, VIRTUAL));
     }
 };
 
@@ -35,8 +35,8 @@ public:
         return Type<B>(VirtualType::VIRTUAL)
         .AddBaseClass(BASE(A, PUBLIC, VIRTUAL, NONVIRTUAL))
         .AddConstructor(CONSTRUCTOR(PUBLIC, B, int))
-        .AddMethod(NORMALMEMBERMETHOD(display, MEMBERFUNCTION(void, B, &B::display, int), PUBLIC, NONE, NONVIRTUAL))
-        .AddMethod(NORMALMEMBERMETHOD(display, MEMBERFUNCTION(void, B, &B::display), PUBLIC, NONE, NONVIRTUAL));
+        .AddMethod(NORMALMEMBERMETHOD(void, B, display, ARGS(int), PUBLIC, NONE, NONVIRTUAL))
+        .AddMethod(NORMALMEMBERMETHOD(void, B, display, ARGS(), PUBLIC, NONE, NONVIRTUAL));
     }
 private:
     int m_x;

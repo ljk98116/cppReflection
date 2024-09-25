@@ -247,20 +247,14 @@ private:
     FuncType m_funcType;
 };
 
-#define NORMALMETHOD(NAME, FUNC, STATICFLAG) \
-    new NormalMethodInfo(#NAME, FUNC, AccessType::PUBLIC, StaticType::STATICFLAG, VirtualType::NONVIRTUAL, FuncType::Normal)
+#define ARGS(...) __VA_ARGS__
 
-#define NORMALMEMBERMETHOD(NAME, FUNC, ACCESS, STATICFLAG, VIRTUALFLAG) \
-    new MemberMethodInfo(#NAME, FUNC, AccessType::ACCESS, StaticType::STATICFLAG, VirtualType::VIRTUALFLAG, FuncType::Member)
+#define NORMALMETHOD(RET, NAME, ARGS, STATICFLAG) \
+    new NormalMethodInfo(#NAME, (RET(*)(ARGS))&NAME, AccessType::PUBLIC, StaticType::STATICFLAG, VirtualType::NONVIRTUAL, FuncType::Normal)    
 
-#define CONSTRUCTORMETHOD(NAME, FUNC, ACCESS) \
-    new MemberMethodInfo(#NAME, FUNC, AccessType::ACCESS, StaticType::NONE, VirtualType::NONVIRTUAL, FuncType::Constructor)
+#define NORMALMEMBERMETHOD(RET, CLASS, NAME, ARGS, ACCESS, STATICFLAG, VIRTUALFLAG) \
+    new MemberMethodInfo(#NAME, (RET(CLASS::*)(ARGS))&CLASS::NAME, AccessType::ACCESS, StaticType::STATICFLAG, VirtualType::VIRTUALFLAG, FuncType::Member)
 
-#define DESTRUCTORMETHOD(NAME, FUNC, ACCESS, VIRTUALFLAG) \
-    new MemberMethodInfo(#NAME, FUNC, AccessType::ACCESS, StaticType::NONE, VirtualType::VIRTUALFLAG, FuncType::Destructor)
-
-#define STATICMEMBERMETHOD(NAME, FUNC, ACCESS) \
-    new NormalMethodInfo(#NAME, FUNC, AccessType::ACCESS, StaticType::STATIC, VirtualType::NONVIRTUAL, FuncType::Member)
-
-#define MEMBERFUNCTION(RET, CLASS, PTR, ...) (RET (CLASS::*)(__VA_ARGS__))PTR
+#define STATICMEMBERMETHOD(RET, CLASS, NAME, ARGS, ACCESS) \
+    new NormalMethodInfo(#NAME, (RET(*)(ARGS))&CLASS::NAME, AccessType::ACCESS, StaticType::STATIC, VirtualType::NONVIRTUAL, FuncType::Member)
 }

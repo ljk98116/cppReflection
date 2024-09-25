@@ -12,7 +12,7 @@ public:
     {
         return Type<A>()
         .AddProperty(PROPERTYDEFAULT(A, a, ATTR_A, PUBLIC, NONE))
-        .AddMethod(STATICMEMBERMETHOD(add, &A::add, PUBLIC));
+        .AddMethod(STATICMEMBERMETHOD(int, A, add, ARGS(int,int), PUBLIC));
     }
     static int add(int a, int b){return a+b;}
 private:
@@ -93,7 +93,7 @@ public:
         .AddBaseClass(BASE(C1, PUBLIC, NONVIRTUAL, VIRTUAL))
         .AddField(FIELD(C2, s, PUBLIC, NONE))
         .AddProperty(PROPERTY(C2, y, Y, PUBLIC, NONE))
-        .AddMethod(NORMALMEMBERMETHOD(Add, MEMBERFUNCTION(std::string, C2, &C2::Add, char), PUBLIC, NONE, NONVIRTUAL));
+        .AddMethod(NORMALMEMBERMETHOD(std::string, C2, Add, ARGS(char), PUBLIC, NONE, NONVIRTUAL));
     }
 private:
     int y=0;
