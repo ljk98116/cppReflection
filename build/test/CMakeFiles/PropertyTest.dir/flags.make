@@ -6,5 +6,5 @@ CXX_DEFINES =
 
 CXX_INCLUDES = -I/data/personal_projects/Reflection/include -I/data/personal_projects/Reflection
 
-CXX_FLAGS = -g -g -std=gnu++17
+CXX_FLAGS = -g -g -frtti -std=gnu++17
 

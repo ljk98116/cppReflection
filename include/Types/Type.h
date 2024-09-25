@@ -82,7 +82,16 @@ public:
     template <typename Property>
     auto AddProperty(Property* prop)
     {
-        m_propList.AddProperty(prop);
+        //没有出现过，或者出现过且与当类类名相同时替换
+        if(m_propList.GetProperty(prop->Name()) == nullptr) m_propList.AddProperty(prop);
+        else if(prop->GetClassName() == Type2String<ClassT>() || prop->GetBaseClass(Type2String<ClassT>()) != nullptr)
+        {
+            std::shared_ptr<MemberInfo> ptr = std::shared_ptr<MemberInfo>(prop);
+            for(auto& prop_ : m_propList.GetProperties())
+            {
+                if(prop_->Name() == prop->Name()) prop_ = ptr;
+            }
+        }
         return *this;
     }   
 
@@ -104,7 +113,16 @@ public:
     template <typename Field>
     auto AddField(Field* prop)
     {
-        m_fieldList.AddField(prop);
+        //没有出现过，或者出现过且与当类类名相同时替换
+        if(m_fieldList.GetField(prop->Name()) == nullptr) m_fieldList.AddField(prop);
+        else if(prop->GetClassName() == Type2String<ClassT>() || prop->GetBaseClass(Type2String<ClassT>()) != nullptr)
+        {
+            std::shared_ptr<MemberInfo> ptr = std::shared_ptr<MemberInfo>(prop);
+            for(auto& field_ : m_fieldList.GetFields())
+            {
+                if(field_->Name() == prop->Name()) field_ = ptr;
+            }
+        }
         return *this;
     }   
 
@@ -121,7 +139,16 @@ public:
     template <typename Method>
     auto AddMethod(Method* method)
     {
-        m_funcList.AddMethod(method);
+        //没有出现过，或者出现过且与当类类名相同时替换
+        if(m_funcList.GetMethod(method->Name()) == nullptr) m_funcList.AddMethod(method);
+        else if(method->GetClassName() == Type2String<ClassT>() || method->GetBaseClass(Type2String<ClassT>()) != nullptr)
+        {
+            std::shared_ptr<MemberInfo> ptr = std::shared_ptr<MemberInfo>(method);
+            for(auto& method_ : m_funcList.GetMethods())
+            {
+                if(method_->Name() == method->Name()) method_ = ptr;
+            }
+        }
         return *this;
     }
 
@@ -134,7 +161,7 @@ public:
 
     std::shared_ptr<MemberInfo> GetMethod(const std::string& name) override
     {
-        return m_funcList.GetMethod(name, Type2String<ClassT>());
+        return m_funcList.GetMethod(name);
     }
 
     std::vector<std::shared_ptr<MemberInfo> >& GetMethods()override

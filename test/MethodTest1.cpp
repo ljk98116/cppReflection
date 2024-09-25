@@ -45,6 +45,7 @@ int main()
     ptr->display();
     REGISTERRTTICLASS(B);
     auto obj = Object(ptr);
+    auto obj_ = obj;
     auto met = obj.GetTypeInfo()->GetMethod("display");
     met->Invoke(obj);
 
@@ -56,7 +57,8 @@ int main()
     auto constructor = typeof(B).GetConstructor(ARGTYPE(int));
     auto obj3 = constructor->Invoke(9);
     ((B)obj3).display();
-    //auto met3 = obj3.GetTypeInfo()->GetMethod("display");
-    //met3->Invoke(obj3);
+
+    auto met3 = obj3.GetTypeInfo()->GetMethod("display");
+    met3->Invoke(obj3);
     return 0;
 }

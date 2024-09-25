@@ -5,7 +5,6 @@
 #include "MemberInfo.h"
 #include "Type.h"
 #include "TypeFactory.h"
-
 namespace Reflection
 {
 //确保更改Object的值时重新分配空间
@@ -25,18 +24,24 @@ public:
     {
         m_data = obj.m_data;
         m_typeInfo = obj.m_typeInfo;
+        m_isPointer = obj.m_isPointer;
+        m_isRef = obj.m_isRef;
     }
 
-    Object(Object& obj)
+    Object(const Object& obj)
     {
         m_data = obj.m_data;
         m_typeInfo = obj.m_typeInfo;
+        m_isPointer = obj.m_isPointer;
+        m_isRef = obj.m_isRef;
     }
 
     Object operator=(const Object& obj)
     {
         m_data = obj.m_data;
         m_typeInfo = obj.m_typeInfo;
+        m_isPointer = obj.m_isPointer;
+        m_isRef = obj.m_isRef;
         return *this;        
     }
 

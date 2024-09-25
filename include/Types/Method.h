@@ -155,7 +155,7 @@ public:
         {            
             if constexpr (std::is_same<RetT, void>::value)
             {
-                if(obj.IsPointer()) ((ClassT*)(obj)->*m_func)(std::forward<Args>(args)...);
+                if(obj.IsPointer()) ((*(ClassT**)(obj.GetRawData()))->*m_func)(std::forward<Args>(args)...);
                 else if(obj.IsRef()) (((std::reference_wrapper<ClassT>)(obj)).get().*m_func)(std::forward<Args>(args)...);
                 else
                 {
@@ -166,7 +166,7 @@ public:
             }
             else
             {
-                if(obj.IsPointer()) return ((ClassT*)(obj)->*m_func)(std::forward<Args>(args)...);
+                if(obj.IsPointer()) return ((*(ClassT**)(obj.GetRawData()))->*m_func)(std::forward<Args>(args)...);
                 else if(obj.IsRef()) return (((std::reference_wrapper<ClassT>)(obj)).get().*m_func)(std::forward<Args>(args)...);
                 else
                 {
