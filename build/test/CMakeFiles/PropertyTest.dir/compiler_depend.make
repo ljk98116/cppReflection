@@ -417,7 +417,8 @@ test/CMakeFiles/PropertyTest.dir/PropertyTest.cpp.o: ../test/PropertyTest.cpp \
   ../include/Types/Field.h \
   ../include/Types/Base.h \
   ../include/Types/Method.h \
-  ../include/Types/Constructor.h
+  ../include/Types/Constructor.h \
+  ../include/Types/Destructor.h
 
 
 ../include/Types/Constructor.h:
@@ -951,6 +952,8 @@ test/CMakeFiles/PropertyTest.dir/PropertyTest.cpp.o: ../test/PropertyTest.cpp \
 /usr/include/c++/9/complex:
 
 /usr/include/c++/9/bits/stl_pair.h:
+
+../include/Types/Destructor.h:
 
 /usr/include/c++/9/bits/fs_dir.h:
 

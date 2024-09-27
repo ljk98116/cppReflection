@@ -24,6 +24,9 @@ namespace Reflection
 template <typename ClassT_>
 class Type;
 
+template <typename ClassT>
+class DestructorInfo;
+
 template <typename T>
 static std::shared_ptr<MemberInfo> AsMemberInfo(Type<T>&& item);
 
@@ -174,11 +177,22 @@ public:
         return m_constructorList.GetConstructor(args);
     }
 
-    std::vector<std::shared_ptr<MemberInfo> >& GetConstructors()override
+    std::vector<std::shared_ptr<MemberInfo> >& GetConstructors() override
     {
         return m_constructorList.GetConstructors();
     }
 
+    auto AddDestructor(DestructorInfo<ClassT> *destructor) 
+    {
+        m_destructor = std::shared_ptr<MemberInfo>(destructor);
+        return *this;
+    }
+
+    std::shared_ptr<MemberInfo> GetDestructor() override
+    {
+        return m_destructor;
+    }
+    
     //设置父类
     template <typename Base>
     auto AddBaseClass(Base *base)
@@ -323,6 +337,8 @@ private:
     }
     PropertyList m_propList;
     FieldList m_fieldList;
+    std::shared_ptr<MemberInfo> m_destructor;
+
     //基类信息
     BaseList m_baseList;
     MethodList m_funcList;

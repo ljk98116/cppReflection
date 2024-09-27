@@ -57,7 +57,6 @@ public:
         return typeInfo.GetBaseClass(name);
     }
 
-    //注意基类指针、引用调用子类虚方法时的情况，需要进行RTTI判断
     template <typename ...Rest>
     Object invoke(Rest&&... args)
     {

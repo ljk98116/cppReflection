@@ -39,6 +39,8 @@ public:
 
     virtual std::shared_ptr<MemberInfo> GetConstructor(const std::vector<std::string>& arg_vec);
     virtual std::vector<std::shared_ptr<MemberInfo> >& GetConstructors();
+
+    virtual std::shared_ptr<MemberInfo> GetDestructor();
     virtual std::vector<std::string>& GetArg();
 
     virtual void SetAccess(AccessType access);

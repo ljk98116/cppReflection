@@ -92,6 +92,12 @@ std::vector<std::shared_ptr<MemberInfo>>& MemberInfo::GetConstructors()
     return ret;
 }
 
+std::shared_ptr<MemberInfo> MemberInfo::GetDestructor()
+{
+    throw std::logic_error("not implemented");
+    return nullptr;    
+}
+
 std::vector<std::string>& MemberInfo::GetArg()
 {
     throw std::runtime_error("not implemented");

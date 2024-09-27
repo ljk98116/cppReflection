@@ -32,6 +32,7 @@ public:
     static auto Register()
     {
         return Type<B>().AddBaseClass(BASE(A, PUBLIC, VIRTUAL, NONVIRTUAL))
+        .AddDestructor(DESTRUCTOR(PUBLIC, VIRTUAL, B))
         .AddConstructor(CONSTRUCTOR(PUBLIC, B, string, string))
         .AddProperty(PROPERTYDEFAULT(B, b_str1, B_STR1, PRIVATE, NONE))
         .AddProperty(PROPERTYDEFAULT(B, b_str2, B_STR2, PROTECT, NONE));
@@ -48,7 +49,10 @@ public:
     virtual ~C(){}
     static auto Register()
     {
-        return Type<C>().AddBaseClass(BASE(B, PROTECT, VIRTUAL, NONVIRTUAL));
+        return Type<C>()
+        .AddBaseClass(BASE(B, PROTECT, VIRTUAL, NONVIRTUAL))
+        .AddConstructor(CONSTRUCTOR(PUBLIC, C))
+        .AddDestructor(DESTRUCTOR(PUBLIC, VIRTUAL, C));
     }
 private:
 
@@ -62,7 +66,10 @@ public:
     int Val() const {return x;}
     static auto Register()
     {
-        return Type<C1>().AddProperty(PROPERTYDEFAULT(C1, x, X, PUBLIC, NONE));
+        return Type<C1>()
+        .AddProperty(PROPERTYDEFAULT(C1, x, X, PUBLIC, NONE))
+        .AddDestructor(DESTRUCTOR(PUBLIC, NONVIRTUAL, C1))
+        ;
     }
 private:
     int x=0;
@@ -121,7 +128,8 @@ public:
     {
         return Type<C4>(VirtualType::VIRTUAL)
         .AddBaseClass(BASE(C2, PUBLIC, VIRTUAL, NONVIRTUAL))
-        .AddBaseClass(BASE(C3, PUBLIC, VIRTUAL, NONVIRTUAL));
+        .AddBaseClass(BASE(C3, PUBLIC, VIRTUAL, NONVIRTUAL))
+        .AddDestructor(DESTRUCTOR(PUBLIC, VIRTUAL, C4));
     }
 };
 
@@ -168,5 +176,9 @@ int main()
     auto binfo = typeof(B);
     auto constructorInfo = typeof(B).GetConstructor(ARGTYPE(string, string));
     auto ret3 = constructorInfo->Invoke("b1", "b2");
+
+    auto destructorInfo = t.GetDestructor();
+    destructorInfo->Invoke(x);
+
     return 0;
 }
