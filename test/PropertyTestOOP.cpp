@@ -34,8 +34,8 @@ public:
         return Type<B>().AddBaseClass(BASE(A, PUBLIC, VIRTUAL, NONVIRTUAL))
         .AddDestructor(DESTRUCTOR(PUBLIC, VIRTUAL, B))
         .AddConstructor(CONSTRUCTOR(PUBLIC, B, string, string))
-        .AddProperty(PROPERTYDEFAULT(B, b_str1, B_STR1, PRIVATE, NONE))
-        .AddProperty(PROPERTYDEFAULT(B, b_str2, B_STR2, PROTECT, NONE));
+        .AddProperty(PROPERTYDEFAULT(B, b_str1, B_STR1, PUBLIC, NONE))
+        .AddProperty(PROPERTYDEFAULT(B, b_str2, B_STR2, PUBLIC, NONE));
     }
 private:
     std::string b_str1;
@@ -63,13 +63,13 @@ class C1//4
 public:
     C1(){}
     ~C1(){}
-    int Val() const {return x;}
+    int GetX() const {return x;}
     static auto Register()
     {
         return Type<C1>()
         .AddProperty(PROPERTYDEFAULT(C1, x, X, PUBLIC, NONE))
         .AddDestructor(DESTRUCTOR(PUBLIC, NONVIRTUAL, C1))
-        ;
+        .AddMethod(NORMALMEMBERMETHOD(int, C1, GetX, ARGS(), PUBLIC, NONE, NONVIRTUAL));
     }
 private:
     int x=0;
@@ -107,7 +107,7 @@ private:
     char c;
 };
 
-class C3 : public C1
+class C3 : virtual public C1
 {
 public:
     C3(){}
@@ -115,7 +115,7 @@ public:
     static auto Register()
     {
         return Type<C3>(VirtualType::VIRTUAL)
-        .AddBaseClass(BASE(C1, PUBLIC, NONVIRTUAL, NONVIRTUAL));
+        .AddBaseClass(BASE(C1, PUBLIC, NONVIRTUAL, VIRTUAL));
     }
 };
 
@@ -159,7 +159,7 @@ int main()
     auto prop_x = t.GetProperty("X");
     auto prop_y = t.GetProperty("Y");
     prop_x->InvokeSet(x, 14);
-    //cout << x.GetData(t).Val() << endl;
+    cout << x.GetData(t).GetX() << endl;
     prop_y->InvokeSet(x, 67);
     cout << x.GetData(t).getY() << endl;
     int y = prop_y->InvokeGet(x);
@@ -175,7 +175,10 @@ int main()
 
     auto binfo = typeof(B);
     auto constructorInfo = typeof(B).GetConstructor(ARGTYPE(string, string));
-    auto ret3 = constructorInfo->Invoke("b1", "b2");
+    auto ret3 = constructorInfo->Invoke(string("b1"), string("b2"));
+    auto pb1 = binfo.GetProperty("B_STR1");
+    auto xx = pb1->InvokeGet(ret3);
+    cout << (string)(pb1->InvokeGet(ret3)) << endl;
 
     auto destructorInfo = t.GetDestructor();
     destructorInfo->Invoke(x);

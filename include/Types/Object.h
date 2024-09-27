@@ -129,8 +129,6 @@ private:
     template <typename T>
     void Object::SetData(const T& data)
     {
-        m_data.reset();
-        m_data = std::shared_ptr<void>(new T);
         *((T*)m_data.get()) = data;        
     }
 
@@ -150,8 +148,9 @@ private:
     {
         m_isPointer = true;
         std::shared_ptr<MemberInfo> derivedTypeInfo = FactoryInstance()[typeid(*data).name()];
-        m_data = std::shared_ptr<void>(new T*);
-        *((T**)m_data.get()) = data;
+        auto ptr = std::make_shared<T*>();
+        *ptr = data;
+        m_data = std::static_pointer_cast<void>(ptr);
         auto typeInfo = Type<T>().Register();
         for(int i=0;i<typeInfo.GetMethods().size();++i)
         {

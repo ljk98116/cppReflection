@@ -65,8 +65,8 @@ public:
             //调用对应的构造函数
             if(m_access == AccessType::PUBLIC)
             {
-                ClassT ret = ClassT(std::forward<Args>(args)...);
-                return Object(ret);
+                //Rest转化为Args
+                return Object(ClassT(std::forward<Args>((Args)args)...));
             }
         }
         else
@@ -122,6 +122,7 @@ private:
         m_args.push_back(Type2String<T>());
         if constexpr (sizeof...(Rest)) init_args<Rest...>();
     }
+
 
     std::string m_name;
     AccessType m_access;

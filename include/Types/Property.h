@@ -121,11 +121,12 @@ public:
             if(base_info->GetClassName() == Type2String<ClassT>()) break;
             off += base_info->GetSize();
         }
+        bool baseprop = Type2String<ClassT>() != obj_typeInfo->GetClassName();
         auto val = value.GetData<T>();
         if(m_staticType == StaticType::STATIC) m_staticSetFunc(val);
         else
         {
-            if(off == 0) m_setFunc(obj, val);
+            if(off == 0 || !baseprop) m_setFunc(obj, val);
             else
             {
                 //提取基类对象
@@ -150,6 +151,7 @@ public:
         else throw std::runtime_error("try to modify nonstatic member without object ptr");
     }
 
+    //子类对象基类属性或者子类对象子类属性
     Object InvokeGet(Object& obj) override
     {
         if(!Accessable(obj)) throw std::runtime_error("access propertyInfo denied");
@@ -165,7 +167,8 @@ public:
             if(base_info->GetClassName() == Type2String<ClassT>()) break;
             off += base_info->GetSize();
         }
-        Object obj2((ClassT)(*(ClassT*)((uintptr_t)obj.Data().get() + off)));
+        bool baseprop = Type2String<ClassT>() != obj_typeInfo->GetClassName();
+        Object obj2((ClassT)(*(ClassT*)((uintptr_t)obj.Data().get() + (baseprop ? off : 0))));
         if(m_staticType == StaticType::STATIC) return m_staticGetFunc();
         return m_getFunc(obj2);
     }

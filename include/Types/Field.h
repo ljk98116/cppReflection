@@ -94,11 +94,12 @@ public:
             if(base_info->GetClassName() == Type2String<ClassT>()) break;
             off += base_info->GetSize();
         }
+        bool baseprop = Type2String<ClassT>() != obj_typeInfo->GetClassName();
         auto val = value.GetData<T>();
         if(m_staticType == StaticType::STATIC) *m_staticMemPtr = val;
         else
         {
-            auto basePtr = (ClassT*)((uintptr_t)obj.Data().get() + off);
+            auto basePtr = (ClassT*)((uintptr_t)obj.Data().get() + (baseprop ? off : 0));
             *basePtr.*m_memberPtr = val;
         }
     }
@@ -130,8 +131,9 @@ public:
             if(base_info->GetClassName() == Type2String<ClassT>()) break;
             off += base_info->GetSize();
         }
+        bool baseprop = Type2String<ClassT>() != obj_typeInfo->GetClassName();
         if(m_staticType == StaticType::STATIC) return *m_staticMemPtr;
-        auto basePtr = (ClassT*)((uintptr_t)obj.Data().get() + off);
+        auto basePtr = (ClassT*)((uintptr_t)obj.Data().get() + (baseprop ? off : 0));
         return *basePtr.*m_memberPtr;
     }
 
