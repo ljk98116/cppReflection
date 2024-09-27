@@ -58,10 +58,10 @@ public:
             {
                 if constexpr (std::is_same<RetT, void>::value)
                 {
-                    m_func(std::forward<Args>((Args)args)...);
+                    m_func(std::forward<Args>(Args(args))...);
                     return Object(nullptr);
                 }
-                else return m_func(std::forward<Args>((Args)args)...);
+                else return m_func(std::forward<Args>(Args(args))...);
             }
             throw std::runtime_error("can not access");
         }
@@ -163,23 +163,23 @@ public:
         {            
             if constexpr (std::is_same<RetT, void>::value)
             {
-                if(obj.IsPointer() && *(ClassT**)(obj.GetRawData()) != nullptr) ((*(ClassT**)(obj.GetRawData()))->*m_func)(std::forward<Args>((Args)args)...);
-                else if(obj.IsRef()) (((std::reference_wrapper<ClassT>)(obj)).get().*m_func)(std::forward<Args>((Args)args)...);
+                if(obj.IsPointer() && *(ClassT**)(obj.GetRawData()) != nullptr) ((*(ClassT**)(obj.GetRawData()))->*m_func)(std::forward<Args>(Args(args))...);
+                else if(obj.IsRef()) (((std::reference_wrapper<ClassT>)(obj)).get().*m_func)(std::forward<Args>(Args(args))...);
                 else
                 {
                     if constexpr (std::is_abstract_v<ClassT>) throw std::runtime_error("abstract cast");
-                    else ((ClassT)(obj).*m_func)(std::forward<Args>((Args)args)...);
+                    else ((ClassT)(obj).*m_func)(std::forward<Args>(Args(args))...);
                 }
                 return Object(nullptr);
             }
             else
             {
-                if(obj.IsPointer() && *(ClassT**)(obj.GetRawData()) != nullptr) return ((*(ClassT**)(obj.GetRawData()))->*m_func)(std::forward<Args>((Args)args)...);
-                else if(obj.IsRef()) return (((std::reference_wrapper<ClassT>)(obj)).get().*m_func)(std::forward<Args>((Args)args)...);
+                if(obj.IsPointer() && *(ClassT**)(obj.GetRawData()) != nullptr) return ((*(ClassT**)(obj.GetRawData()))->*m_func)(std::forward<Args>(Args(args))...);
+                else if(obj.IsRef()) return (((std::reference_wrapper<ClassT>)(obj)).get().*m_func)(std::forward<Args>(Args(args))...);
                 else
                 {
                     if constexpr (std::is_abstract_v<ClassT>) throw std::runtime_error("abstract cast");
-                    else return ((ClassT)(obj).*m_func)(std::forward<Args>((Args)args)...);                    
+                    else return ((ClassT)(obj).*m_func)(std::forward<Args>(Args(args))...);                    
                 }              
             }
         }

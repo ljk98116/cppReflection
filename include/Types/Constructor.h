@@ -66,7 +66,7 @@ public:
             if(m_access == AccessType::PUBLIC)
             {
                 //Rest转化为Args
-                return Object(ClassT(std::forward<Args>((Args)args)...));
+                return Object(ClassT(std::forward<Args>(Args(args))...));
             }
         }
         else
