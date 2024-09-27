@@ -135,23 +135,12 @@ private:
 #define CONSTRUCTOR(ACCESS, ...) \
     new ConstructorInfo<__VA_ARGS__>(AccessType::ACCESS)
 
-template <typename T, typename ...Rest>
-static void InitArgsImpl(std::vector<std::string>& ret)
-{
-    ret.push_back(Type2String<T>());
-    if constexpr (sizeof...(Rest) > 0) InitArgsImpl<Rest...>();
-}
-
 template <typename ...T>
-static std::vector<std::string> InitArgs()
+std::vector<std::string> InitArgs()
 {
-    if constexpr (sizeof...(T) == 0) return std::vector<std::string>();
-    else
-    {
-        auto ret = std::vector<std::string>();
-        InitArgsImpl<T...>(ret);
-        return ret;
-    }
+    std::vector<std::string> ret;
+    (ret.push_back(Type2String<T>()), ...);
+    return ret;
 }
 
 #define ARGTYPE(...) \

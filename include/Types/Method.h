@@ -72,27 +72,34 @@ public:
 
     Object Invoke(Object obj1) override
     {
-        return invoke(std::forward<Object>(obj1));
+        return invoke(obj1);
     }
 
     Object Invoke(Object obj1, Object obj2) override
     {
-        return invoke(std::forward<Object>(obj1), std::forward<Object>(obj2));
+        return invoke(obj1, obj2);
     }
 
     Object Invoke(Object obj1, Object obj2, Object obj3) override
     {
-        return invoke(std::forward<Object>(obj1), std::forward<Object>(obj2), std::forward<Object>(obj3));
+        return invoke(obj1, obj2, obj3);
     }
 
     Object Invoke(Object obj1, Object obj2, Object obj3, Object obj4) override
     {
-        return invoke(std::forward<Object>(obj1), std::forward<Object>(obj2), 
-                    std::forward<Object>(obj3), std::forward<Object>(obj4));
+        return invoke(obj1, obj2, obj3, obj4);
     }
     //more params
+    Object Invoke(Object obj1, Object obj2, Object obj3, Object obj4, Object obj5) override
+    {
+        return invoke(obj1, obj2, obj3, obj4, obj5);
+    }
 
-
+    Object Invoke(Object obj1, Object obj2, Object obj3, Object obj4, Object obj5, Object obj6) override
+    {
+        return invoke(obj1, obj2, obj3, obj4, obj5, obj6);
+    }
+    
 private:
     FuncT m_func;
     std::string m_name;
@@ -235,7 +242,7 @@ private:
         if constexpr (sizeof...(Args) == 0) return name;
         else
         {
-            return name + "<" + ParseArgs<Args...>() + ">";
+            return name + "(" + ParseArgs<Args...>() + ")";
         }
     }
     MemberFuncT m_func;

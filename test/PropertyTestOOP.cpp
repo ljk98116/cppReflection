@@ -32,7 +32,7 @@ public:
     static auto Register()
     {
         return Type<B>().AddBaseClass(BASE(A, PUBLIC, VIRTUAL, NONVIRTUAL))
-        .AddConstructor(CONSTRUCTOR(PUBLIC, string, string))
+        .AddConstructor(CONSTRUCTOR(PUBLIC, B, string, string))
         .AddProperty(PROPERTYDEFAULT(B, b_str1, B_STR1, PRIVATE, NONE))
         .AddProperty(PROPERTYDEFAULT(B, b_str2, B_STR2, PROTECT, NONE));
     }
@@ -157,7 +157,7 @@ int main()
     int y = prop_y->InvokeGet(x);
     cout << y << endl;
 
-    auto addFuncInfo = t.GetMethod("Add<char>");
+    auto addFuncInfo = t.GetMethod("Add(char)");
     auto ret = addFuncInfo->Invoke(x, 'o');
     cout << (std::string)ret << endl;
 
@@ -165,7 +165,8 @@ int main()
     auto ret2 = addFuncInfo2->Invoke(67, 89);
     cout << (int)ret2 << endl;
 
-    //auto constructorInfo = typeof(B).GetConstructor("B<std::string, std::string>");
-    //auto ret3 = constructorInfo->Invoke("b1", "b2");
+    auto binfo = typeof(B);
+    auto constructorInfo = typeof(B).GetConstructor(ARGTYPE(string, string));
+    auto ret3 = constructorInfo->Invoke("b1", "b2");
     return 0;
 }

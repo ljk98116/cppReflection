@@ -52,7 +52,7 @@ int main()
     auto obj = Object(ptr);
     auto obj_ = obj;
     auto met = obj.GetTypeInfo()->GetMethod("display");
-    met->Invoke(obj);
+    met->Invoke(obj); 
 
     auto obj2 = Object(std::ref(ref));
     cout << typeid(ref).name() << endl;
