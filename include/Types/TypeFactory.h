@@ -27,10 +27,31 @@ public:
         std::lock_guard<std::mutex> lk(mut);
         return m_typeDict[name];
     }
+    template <typename MethodInfo_>
+    void RegisterMethod(MethodInfo_ *method)
+    {
+        std::lock_guard<std::mutex> lk(mut);
+        m_funcs.push_back(std::shared_ptr<MemberInfo>(method));
+    }
+
+    std::shared_ptr<MemberInfo> GetMethod(const std::string& name, const std::vector<std::string>& args)
+    {
+        for(auto& method : m_funcs)
+        {
+            if(method->Name() == name && method->GetArg() == args) return method;
+        }
+        return nullptr;
+    }
 private:
     std::unordered_map<std::string, std::shared_ptr<MemberInfo> > m_typeDict;
+    std::vector<std::shared_ptr<MemberInfo> > m_funcs;
     std::mutex mut;
 };
 
 TypeFactory& FactoryInstance();
+template <typename MethodInfo_>
+void RegisterMethod(MethodInfo_ *method)
+{
+    FactoryInstance().RegisterMethod(method);
+}
 }

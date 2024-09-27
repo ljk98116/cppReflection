@@ -115,7 +115,9 @@ public:
     static auto Register()
     {
         return Type<C3>(VirtualType::VIRTUAL)
-        .AddBaseClass(BASE(C1, PUBLIC, NONVIRTUAL, VIRTUAL));
+        .AddBaseClass(BASE(C1, PUBLIC, NONVIRTUAL, VIRTUAL))
+        .AddConstructor(CONSTRUCTOR(PUBLIC, C3))
+        .AddDestructor(DESTRUCTOR(PUBLIC, VIRTUAL, C3));
     }
 };
 

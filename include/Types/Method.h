@@ -22,7 +22,9 @@ public:
 
     NormalMethodInfo(std::string name, Ret(*func)(Args...), AccessType access, StaticType staticType, VirtualType virt, FuncType funcType):
     m_name(name), m_func(func), m_access(access), m_static(staticType), m_virtual(virt), m_funcType(funcType)
-    {}
+    {
+        if constexpr (sizeof...(Args) > 0) init_args<Args...>();
+    }
 
     std::string Name() const override
     {
@@ -100,13 +102,24 @@ public:
         return invoke(obj1, obj2, obj3, obj4, obj5, obj6);
     }
     
+    std::vector<std::string>& GetArg() override
+    {
+        return m_args;
+    }
 private:
+    template <typename T, typename ...Rest>
+    void init_args()
+    {
+        m_args.push_back(Type2String<T>());
+        if constexpr (sizeof...(Rest)) init_args<Rest...>();
+    }
     FuncT m_func;
     std::string m_name;
     AccessType m_access;
     StaticType m_static;
     VirtualType m_virtual;
     FuncType m_funcType;
+    std::vector<std::string> m_args;
 };
 
 template <typename Ret, typename Class, typename ...Args>
@@ -122,6 +135,7 @@ public:
     MemberMethodInfo(std::string name, Ret(Class::*func)(Args...), AccessType access, StaticType staticType, VirtualType virt, FuncType funcType):
     m_name(init_method_name(name)), m_access(access), m_static(staticType), m_virtual(virt), m_funcType(funcType), m_func(func)
     {
+        if constexpr (sizeof...(Args) > 0) init_args<Args...>();
     }
 
     std::string Name() const override
@@ -153,6 +167,11 @@ public:
     {
         auto typeInfo = typeof(ClassT);
         return typeInfo.GetBaseClass(name);
+    }
+
+    std::vector<std::string>& GetArg() override
+    {
+        return m_args;
     }
 
     //注意基类指针、引用调用子类虚方法时的情况，需要进行RTTI判断
@@ -245,6 +264,14 @@ private:
             return name + "(" + ParseArgs<Args...>() + ")";
         }
     }
+
+    template <typename T, typename ...Rest>
+    void init_args()
+    {
+        m_args.push_back(Type2String<T>());
+        if constexpr (sizeof...(Rest)) init_args<Rest...>();
+    }
+
     MemberFuncT m_func;
     StaticMemberFuncT m_staticFunc;
     std::string m_name;
@@ -252,6 +279,7 @@ private:
     StaticType m_static;
     VirtualType m_virtual;
     FuncType m_funcType;
+    std::vector<std::string> m_args;
 };
 
 #define ARGS(...) __VA_ARGS__

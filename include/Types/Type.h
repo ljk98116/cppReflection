@@ -192,7 +192,7 @@ public:
     {
         return m_destructor;
     }
-    
+
     //设置父类
     template <typename Base>
     auto AddBaseClass(Base *base)
@@ -338,7 +338,6 @@ private:
     PropertyList m_propList;
     FieldList m_fieldList;
     std::shared_ptr<MemberInfo> m_destructor;
-
     //基类信息
     BaseList m_baseList;
     MethodList m_funcList;

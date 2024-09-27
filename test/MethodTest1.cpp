@@ -42,6 +42,16 @@ private:
     int m_x;
 };
 
+int Sub(int x, int y)
+{
+    return x - y;
+}
+
+static double mult(int x, int y)
+{
+    return x * y;
+}
+
 int main()
 {
     B b(9);
@@ -65,5 +75,15 @@ int main()
 
     auto met3 = obj3.GetTypeInfo()->GetMethod("display");
     met3->Invoke(obj3);
+
+    RegisterMethod(NORMALMETHOD(int, Sub, ARGS(int, int), NONE));
+    auto subinfo = GetMethod("Sub", ARGTYPE(int, int));
+    auto ret = subinfo->Invoke(89, 75);
+    cout << (int)ret << endl;
+
+    RegisterMethod(NORMALMETHOD(double, mult, ARGS(int, int), STATIC));
+    auto multinfo = GetMethod("mult", ARGTYPE(int, int));
+    auto ret2 = multinfo->Invoke(89, 75);
+    cout << (double)ret2 << endl;    
     return 0;
 }

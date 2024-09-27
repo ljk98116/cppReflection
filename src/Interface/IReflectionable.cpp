@@ -1,4 +1,6 @@
 #include <include/Interface/IReflectionable.h>
+#include <include/Types/TypeFactory.h>
+
 namespace Reflection
 {
     std::string AccessType2String(AccessType acc)
@@ -15,4 +17,9 @@ namespace Reflection
         else if(st == StaticType::STATIC) return "STATIC";
         return "";
     }
+
+    std::shared_ptr<MemberInfo> GetMethod(const std::string& name, const std::vector<std::string>& args)
+    {
+        return FactoryInstance().GetMethod(name, args);
+    }  
 }
