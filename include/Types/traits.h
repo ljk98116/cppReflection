@@ -2,6 +2,7 @@
 
 #include <type_traits>
 #include <utility>
+#include <tuple>
 
 namespace Reflection
 {
@@ -76,5 +77,69 @@ using GetFunctionClass = typename FunctionClass<T>::type;
 
 template <typename T>
 using GetFunctionRet = typename FunctionRet<T>::type;
+
+
+//截取长度N后的部分
+template <int idx, int N, typename ...T>
+struct SequenceSuffix_Impl;
+
+template <int idx, int N, typename T, typename ...Rest>
+struct SequenceSuffix_Impl<idx, N, T, Rest...>
+{
+    using type = std::conditional_t<
+        std::is_same_v<std::integral_constant<int, idx>, std::integral_constant<int, N> >,
+        std::tuple<T, Rest...>,
+        typename SequenceSuffix_Impl<idx + 1, N, Rest...>::type
+    >;
+};
+
+template <int idx, int N>
+struct SequenceSuffix_Impl<idx, N>
+{
+    using type =std::tuple<>;
+};
+
+template <int N, typename ...T>
+using SequenceSuffix = typename SequenceSuffix_Impl<0, N, T...>::type;
+
+template<typename T>
+struct tuple_concat
+{
+    template <typename ...Rest>
+    std::tuple<T, Rest...> concat(std::tuple<Rest...> arg){}
+};
+
+//截取长度N后的部分
+template <int N, typename ...T>
+struct SequencePrefix_Impl;
+
+template <int N, typename T, typename ...Rest>
+struct SequencePrefix_Impl<N, T, Rest...>
+{
+    using type = std::conditional_t<
+        std::is_same_v<std::integral_constant<int, N>, std::integral_constant<int, 0>>,
+        std::tuple<>,
+        decltype(tuple_concat<T>().concat(typename SequencePrefix_Impl<N-1, Rest...>::type{}))
+    >;
+};
+
+template <int N>
+struct SequencePrefix_Impl<N>
+{
+    using type = std::tuple<>;
+};
+
+template <int N, typename ...T>
+using SequencePrefix = typename SequencePrefix_Impl<N, T...>::type;
+
+template <typename ...T>
+struct CastTypes
+{
+    template <typename ...U>
+    auto operator()(U&&... args)
+    {
+        return std::make_tuple(T(std::forward<U>(args))...);
+    }
+};
 
 }

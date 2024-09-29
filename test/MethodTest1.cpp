@@ -71,6 +71,7 @@ int main()
     auto met2 = obj2.GetTypeInfo()->GetMethod("display");
     met2->Invoke(obj2);
 
+    #if 1
     auto constructor = typeof(B).GetConstructor(ARGTYPE(int));
     auto obj3 = constructor->Invoke(9);
     ((B)obj3).display();
@@ -87,6 +88,6 @@ int main()
     auto multinfo = GetMethod("mult", ARGTYPE(int, int));
     auto ret2 = multinfo->Invoke(89, 75);
     cout << (double)ret2 << endl;
-        
+    #endif
     return 0;
 }
