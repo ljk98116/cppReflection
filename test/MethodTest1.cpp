@@ -4,6 +4,8 @@
 using namespace std;
 using namespace Reflection;
 
+class B;
+
 class A
 {
 public:
@@ -84,6 +86,7 @@ int main()
     RegisterMethod(NORMALMETHOD(double, mult, ARGS(int, int), STATIC));
     auto multinfo = GetMethod("mult", ARGTYPE(int, int));
     auto ret2 = multinfo->Invoke(89, 75);
-    cout << (double)ret2 << endl;    
+    cout << (double)ret2 << endl;
+        
     return 0;
 }

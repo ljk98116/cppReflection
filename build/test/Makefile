@@ -117,6 +117,20 @@ depend:
 .PHONY : depend
 
 # Convenience name for target.
+test/CMakeFiles/EnumTest.dir/rule:
+	cd /data/personal_projects/Reflection/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/CMakeFiles/EnumTest.dir/rule
+.PHONY : test/CMakeFiles/EnumTest.dir/rule
+
+# Convenience name for target.
+EnumTest: test/CMakeFiles/EnumTest.dir/rule
+.PHONY : EnumTest
+
+# fast build rule for target.
+EnumTest/fast:
+	cd /data/personal_projects/Reflection/build && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/EnumTest.dir/build.make test/CMakeFiles/EnumTest.dir/build
+.PHONY : EnumTest/fast
+
+# Convenience name for target.
 test/CMakeFiles/MethodTest1.dir/rule:
 	cd /data/personal_projects/Reflection/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/CMakeFiles/MethodTest1.dir/rule
 .PHONY : test/CMakeFiles/MethodTest1.dir/rule
@@ -157,6 +171,30 @@ PropertyTest: test/CMakeFiles/PropertyTest.dir/rule
 PropertyTest/fast:
 	cd /data/personal_projects/Reflection/build && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/PropertyTest.dir/build.make test/CMakeFiles/PropertyTest.dir/build
 .PHONY : PropertyTest/fast
+
+EnumTest.o: EnumTest.cpp.o
+.PHONY : EnumTest.o
+
+# target to build an object file
+EnumTest.cpp.o:
+	cd /data/personal_projects/Reflection/build && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/EnumTest.dir/build.make test/CMakeFiles/EnumTest.dir/EnumTest.cpp.o
+.PHONY : EnumTest.cpp.o
+
+EnumTest.i: EnumTest.cpp.i
+.PHONY : EnumTest.i
+
+# target to preprocess a source file
+EnumTest.cpp.i:
+	cd /data/personal_projects/Reflection/build && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/EnumTest.dir/build.make test/CMakeFiles/EnumTest.dir/EnumTest.cpp.i
+.PHONY : EnumTest.cpp.i
+
+EnumTest.s: EnumTest.cpp.s
+.PHONY : EnumTest.s
+
+# target to generate assembly for a file
+EnumTest.cpp.s:
+	cd /data/personal_projects/Reflection/build && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/EnumTest.dir/build.make test/CMakeFiles/EnumTest.dir/EnumTest.cpp.s
+.PHONY : EnumTest.cpp.s
 
 MethodTest1.o: MethodTest1.cpp.o
 .PHONY : MethodTest1.o
@@ -238,9 +276,13 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
+	@echo "... EnumTest"
 	@echo "... MethodTest1"
 	@echo "... PropertyTest"
 	@echo "... PropertyTestOOP"
+	@echo "... EnumTest.o"
+	@echo "... EnumTest.i"
+	@echo "... EnumTest.s"
 	@echo "... MethodTest1.o"
 	@echo "... MethodTest1.i"
 	@echo "... MethodTest1.s"

@@ -8,3 +8,4 @@
 #include <include/Types/Method.h>
 #include <include/Types/Constructor.h>
 #include <include/Types/Destructor.h>
+#include <include/Types/Enum.h>

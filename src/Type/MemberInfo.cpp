@@ -98,10 +98,28 @@ std::shared_ptr<MemberInfo> MemberInfo::GetDestructor()
     return nullptr;    
 }
 
+std::shared_ptr<MemberInfo> MemberInfo::GetEnum(const std::string& name)
+{
+    throw std::logic_error("not implemented");
+    return nullptr;
+}
+
+std::vector<std::shared_ptr<MemberInfo>>& MemberInfo::GetEnums()
+{
+    throw std::logic_error("not implemented");
+    return ret;
+}
+
 std::vector<std::string>& MemberInfo::GetArg()
 {
     throw std::runtime_error("not implemented");
     return ret2;
+}
+
+Object MemberInfo::GetEnumValue(const std::string& name)
+{
+    throw std::runtime_error("not implemented");
+    return Object(nullptr);
 }
 
 size_t MemberInfo::GetSize()

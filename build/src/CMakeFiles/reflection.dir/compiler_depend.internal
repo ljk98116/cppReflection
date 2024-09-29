@@ -437,6 +437,7 @@ src/CMakeFiles/reflection.dir/Type/MemberInfo.cpp.o
  /usr/include/c++/9/bits/unordered_map.h
  /usr/include/c++/9/bits/erase_if.h
  /data/personal_projects/Reflection/include/Types/ConstructorList.h
+ /data/personal_projects/Reflection/include/Types/EnumList.h
  /data/personal_projects/Reflection/include/Types/TypeFactory.h
  /usr/include/c++/9/mutex
  /usr/include/c++/9/chrono
@@ -680,6 +681,7 @@ src/CMakeFiles/reflection.dir/Type/Object.cpp.o
  /usr/include/c++/9/bits/unordered_map.h
  /usr/include/c++/9/bits/erase_if.h
  /data/personal_projects/Reflection/include/Types/ConstructorList.h
+ /data/personal_projects/Reflection/include/Types/EnumList.h
  /data/personal_projects/Reflection/include/Types/TypeFactory.h
  /usr/include/c++/9/mutex
  /usr/include/c++/9/chrono

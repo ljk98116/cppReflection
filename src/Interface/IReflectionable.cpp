@@ -22,4 +22,9 @@ namespace Reflection
     {
         return FactoryInstance().GetMethod(name, args);
     }  
+
+    std::shared_ptr<MemberInfo> GetEnumType(const std::string& name)
+    {
+        return FactoryInstance().GetEnumType(name);
+    }
 }

@@ -36,6 +36,8 @@ public:
     virtual std::vector<std::shared_ptr<MemberInfo> >& GetBaseClasses();
     virtual std::shared_ptr<MemberInfo> GetMethod(const std::string& name);
     virtual std::vector<std::shared_ptr<MemberInfo> >& GetMethods();
+    virtual std::shared_ptr<MemberInfo> GetEnum(const std::string& name);
+    virtual std::vector<std::shared_ptr<MemberInfo> >& GetEnums();
 
     virtual std::shared_ptr<MemberInfo> GetConstructor(const std::vector<std::string>& arg_vec);
     virtual std::vector<std::shared_ptr<MemberInfo> >& GetConstructors();
@@ -43,6 +45,7 @@ public:
     virtual std::shared_ptr<MemberInfo> GetDestructor();
     virtual std::vector<std::string>& GetArg();
 
+    virtual Object GetEnumValue(const std::string& name);
     virtual void SetAccess(AccessType access);
     virtual void SetStaticType(StaticType staticType);
     virtual void SetVirtualType(VirtualType virtualType);
@@ -59,7 +62,6 @@ public:
     virtual Object Invoke(Object obj1, Object obj2, Object obj3, Object obj4, Object obj5);
     virtual Object Invoke(Object obj1, Object obj2, Object obj3, Object obj4, Object obj5, Object obj6);
 private:
-    //orin:1.3G x86:1.4G
 };
 
 

@@ -412,14 +412,18 @@ test/CMakeFiles/PropertyTestOOP.dir/PropertyTestOOP.cpp.o: ../test/PropertyTestO
   ../include/Types/BaseList.h \
   ../include/Types/MethodList.h \
   ../include/Types/ConstructorList.h \
+  ../include/Types/EnumList.h \
   ../include/Types/TypeFactory.h \
   ../include/Types/Property.h \
   ../include/Types/Field.h \
   ../include/Types/Base.h \
   ../include/Types/Method.h \
   ../include/Types/Constructor.h \
-  ../include/Types/Destructor.h
+  ../include/Types/Destructor.h \
+  ../include/Types/Enum.h
 
+
+../include/Types/Enum.h:
 
 ../include/Types/Constructor.h:
 
@@ -430,6 +434,8 @@ test/CMakeFiles/PropertyTestOOP.dir/PropertyTestOOP.cpp.o: ../test/PropertyTestO
 ../include/Types/Property.h:
 
 ../include/Types/TypeFactory.h:
+
+../include/Types/EnumList.h:
 
 ../include/Types/BaseList.h:
 

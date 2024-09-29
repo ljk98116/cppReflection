@@ -7,6 +7,7 @@
 #include "BaseList.h"
 #include "MethodList.h"
 #include "ConstructorList.h"
+#include "EnumList.h"
 
 #include "TypeFactory.h"
 #include "traits.h"
@@ -162,6 +163,13 @@ public:
         return *this;
     }
 
+    template <typename EnumInfo_>
+    auto AddEnum(EnumInfo_ *enumInfo)
+    {
+        m_enumList.AddEnum(enumInfo);
+        return *this;
+    }
+
     std::shared_ptr<MemberInfo> GetMethod(const std::string& name) override
     {
         return m_funcList.GetMethod(name);
@@ -191,6 +199,16 @@ public:
     std::shared_ptr<MemberInfo> GetDestructor() override
     {
         return m_destructor;
+    }
+
+    std::shared_ptr<MemberInfo> GetEnum(const std::string& name) override
+    {
+        return m_enumList.GetEnum(name);
+    }
+
+    std::vector<std::shared_ptr<MemberInfo> >& GetEnums()override
+    {
+        return m_enumList.GetEnums();
     }
 
     //设置父类
@@ -342,6 +360,7 @@ private:
     BaseList m_baseList;
     MethodList m_funcList;
     ConstructorList m_constructorList;
+    EnumList m_enumList;
     static std::string m_name;
     VirtualType m_virt;
 };

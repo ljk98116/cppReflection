@@ -130,6 +130,19 @@ reflection/fast:
 .PHONY : reflection/fast
 
 #=============================================================================
+# Target rules for targets named EnumTest
+
+# Build rule for target.
+EnumTest: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 EnumTest
+.PHONY : EnumTest
+
+# fast build rule for target.
+EnumTest/fast:
+	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/EnumTest.dir/build.make test/CMakeFiles/EnumTest.dir/build
+.PHONY : EnumTest/fast
+
+#=============================================================================
 # Target rules for targets named MethodTest1
 
 # Build rule for target.
@@ -176,6 +189,7 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
+	@echo "... EnumTest"
 	@echo "... MethodTest1"
 	@echo "... PropertyTest"
 	@echo "... PropertyTestOOP"
