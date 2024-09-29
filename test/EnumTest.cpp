@@ -31,12 +31,17 @@ public:
     }
 };
 
+Fruits fruit = apple;
 int main()
 {
     RegisterEnum(NORMALENUM(Fruits, NONE, ENUMVALUE(Fruits, apple), ENUMVALUE(Fruits, orange), ENUMVALUE(Fruits, banana)));
     auto enumInfo = GetEnumType("Fruits");
     cout << (Fruits)enumInfo->GetEnumValue("orange") << endl;
     cout << (Fruits)enumInfo->GetEnumValue("apple") << endl;
+    Object obj(fruit);
+    cout << (Fruits)(enumInfo->InvokeGet(obj)) << endl;
+    enumInfo->InvokeSet(obj, orange);
+    cout << (Fruits)(enumInfo->InvokeGet(obj)) << endl;
 
     auto typeInfoTest = typeof(Test);
     auto enumInfoTest = typeInfoTest.GetEnum("m_fruit");
@@ -49,5 +54,6 @@ int main()
     cout << (Fruits)(enumInfoTest2->InvokeGet(test)) << endl;
     enumInfoTest2->InvokeSet(test, banana);
     cout << (Fruits)(enumInfoTest2->InvokeGet(test)) << " " << banana << endl;
+    
     return 0;
 }

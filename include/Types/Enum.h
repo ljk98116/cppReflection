@@ -210,6 +210,17 @@ public:
     {
         return m_enumVals[name];
     }
+
+    void InvokeSet(Object& obj, const Object& value) override
+    {
+        Enum& objData = *(Enum*)(obj.Data().get());
+        objData = value.GetData<Enum>();
+    }
+
+    Object InvokeGet(Object& obj) override
+    {
+        return (Enum)obj;
+    }   
 private:
     std::string m_name;
     StaticType m_static;
