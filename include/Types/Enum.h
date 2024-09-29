@@ -39,7 +39,7 @@ public:
 
     MemberEnumInfo(std::string name, Enum* val, AccessType access, StaticType staticType, std::vector<std::pair<std::string, int> > init_params):
     m_staticVal(val),m_access(access), m_static(staticType),
-    m_name(Type2String<ClassT>() + "::" + name)
+    m_name(name)
     {
         for(int i=0;i<init_params.size();++i)
         {
@@ -229,7 +229,7 @@ private:
 
 #define ENUMVALUE(ENUM,VALUE) std::pair<std::string, int>{#VALUE, ENUM::VALUE}
 #define STATICMEMBERENUM(NAME, CLASS, MEMBER, ACCESS, ...) \
-    new MemberEnumInfo(#NAME, &CLASS::MEMBER, StaticType::STATIC, std::vector<std::pair<std::string, int> >{__VA_ARGS__})
+    new MemberEnumInfo<CLASS, decltype(CLASS::MEMBER)>(#NAME, &CLASS::MEMBER, AccessType::ACCESS, StaticType::STATIC, std::vector<std::pair<std::string, int> >{__VA_ARGS__})
 
 #define NORMALMEMBERENUM(NAME, CLASS, MEMBER, ACCESS, ...) \
     new MemberEnumInfo(#NAME, &CLASS::MEMBER, AccessType::ACCESS, StaticType::NONE, std::vector<std::pair<std::string, int> >{__VA_ARGS__})
