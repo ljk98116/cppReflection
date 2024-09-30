@@ -469,7 +469,7 @@ private:
 
 #define ARGS(...) __VA_ARGS__
 
-#define DEFAULT_ARG(ARG, VALUE) std::pair<std::string, Object>(#ARG, Object(VALUE));
+#define DEFAULT_ARG(ARG, VALUE) std::pair<std::string, Object>(#ARG, Object(VALUE))
 
 #define NORMALMETHOD(RET, NAME, ARGS, STATICFLAG, ...) \
     new NormalMethodInfo( \
