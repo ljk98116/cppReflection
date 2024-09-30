@@ -27,4 +27,25 @@ namespace Reflection
     {
         return FactoryInstance().GetEnumType(name);
     }
+
+    static int getflag(int off)
+    {
+        int f1 = 0;
+        if(off == 0) f1 = 0;
+        else if(off % 16 == 0) f1 = 16;
+        else if(off % 8 == 0) f1 = 8;
+        else if(off % 4 == 0) f1 = 4;
+        else if(off % 2 == 0) f1 = 2;
+        else f1 = 1;
+        return f1;
+    }
+
+    int accu(int off, int sz)
+    {
+        int f1 = getflag(off);
+        int f2 = getflag(sz);
+        if(f1 < f2) off = (off / f2 + (off % f2 > 0)) * f2;
+        else sz = (sz / f1 + (sz % f1 > 0)) * f1;
+        return off + sz;
+    }
 }

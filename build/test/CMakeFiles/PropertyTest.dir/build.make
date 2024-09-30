@@ -69,33 +69,36 @@ include test/CMakeFiles/PropertyTest.dir/progress.make
 # Include the compile flags for this target's objects.
 include test/CMakeFiles/PropertyTest.dir/flags.make
 
-test/CMakeFiles/PropertyTest.dir/PropertyTest.cpp.o: test/CMakeFiles/PropertyTest.dir/flags.make
-test/CMakeFiles/PropertyTest.dir/PropertyTest.cpp.o: ../test/PropertyTest.cpp
-test/CMakeFiles/PropertyTest.dir/PropertyTest.cpp.o: test/CMakeFiles/PropertyTest.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/data/personal_projects/Reflection/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object test/CMakeFiles/PropertyTest.dir/PropertyTest.cpp.o"
-	cd /data/personal_projects/Reflection/build/test && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT test/CMakeFiles/PropertyTest.dir/PropertyTest.cpp.o -MF CMakeFiles/PropertyTest.dir/PropertyTest.cpp.o.d -o CMakeFiles/PropertyTest.dir/PropertyTest.cpp.o -c /data/personal_projects/Reflection/test/PropertyTest.cpp
+test/CMakeFiles/PropertyTest.dir/PropertyTest.cc.o: test/CMakeFiles/PropertyTest.dir/flags.make
+test/CMakeFiles/PropertyTest.dir/PropertyTest.cc.o: ../test/PropertyTest.cc
+test/CMakeFiles/PropertyTest.dir/PropertyTest.cc.o: test/CMakeFiles/PropertyTest.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/data/personal_projects/Reflection/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object test/CMakeFiles/PropertyTest.dir/PropertyTest.cc.o"
+	cd /data/personal_projects/Reflection/build/test && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT test/CMakeFiles/PropertyTest.dir/PropertyTest.cc.o -MF CMakeFiles/PropertyTest.dir/PropertyTest.cc.o.d -o CMakeFiles/PropertyTest.dir/PropertyTest.cc.o -c /data/personal_projects/Reflection/test/PropertyTest.cc
 
-test/CMakeFiles/PropertyTest.dir/PropertyTest.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/PropertyTest.dir/PropertyTest.cpp.i"
-	cd /data/personal_projects/Reflection/build/test && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /data/personal_projects/Reflection/test/PropertyTest.cpp > CMakeFiles/PropertyTest.dir/PropertyTest.cpp.i
+test/CMakeFiles/PropertyTest.dir/PropertyTest.cc.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/PropertyTest.dir/PropertyTest.cc.i"
+	cd /data/personal_projects/Reflection/build/test && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /data/personal_projects/Reflection/test/PropertyTest.cc > CMakeFiles/PropertyTest.dir/PropertyTest.cc.i
 
-test/CMakeFiles/PropertyTest.dir/PropertyTest.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/PropertyTest.dir/PropertyTest.cpp.s"
-	cd /data/personal_projects/Reflection/build/test && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /data/personal_projects/Reflection/test/PropertyTest.cpp -o CMakeFiles/PropertyTest.dir/PropertyTest.cpp.s
+test/CMakeFiles/PropertyTest.dir/PropertyTest.cc.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/PropertyTest.dir/PropertyTest.cc.s"
+	cd /data/personal_projects/Reflection/build/test && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /data/personal_projects/Reflection/test/PropertyTest.cc -o CMakeFiles/PropertyTest.dir/PropertyTest.cc.s
 
 # Object files for target PropertyTest
 PropertyTest_OBJECTS = \
-"CMakeFiles/PropertyTest.dir/PropertyTest.cpp.o"
+"CMakeFiles/PropertyTest.dir/PropertyTest.cc.o"
 
 # External object files for target PropertyTest
 PropertyTest_EXTERNAL_OBJECTS =
 
-test/PropertyTest: test/CMakeFiles/PropertyTest.dir/PropertyTest.cpp.o
+test/PropertyTest: test/CMakeFiles/PropertyTest.dir/PropertyTest.cc.o
 test/PropertyTest: test/CMakeFiles/PropertyTest.dir/build.make
 test/PropertyTest: src/libreflection.so
+test/PropertyTest: lib/libgtest_main.a
+test/PropertyTest: lib/libgtest.a
 test/PropertyTest: test/CMakeFiles/PropertyTest.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/data/personal_projects/Reflection/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable PropertyTest"
 	cd /data/personal_projects/Reflection/build/test && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/PropertyTest.dir/link.txt --verbose=$(VERBOSE)
+	cd /data/personal_projects/Reflection/build/test && /home/lujuankui/cmake-install/bin/cmake -D TEST_TARGET=PropertyTest -D TEST_EXECUTABLE=/data/personal_projects/Reflection/build/test/PropertyTest -D TEST_EXECUTOR= -D TEST_WORKING_DIR=/data/personal_projects/Reflection/build/test -D TEST_EXTRA_ARGS= -D TEST_PROPERTIES= -D TEST_PREFIX= -D TEST_SUFFIX= -D NO_PRETTY_TYPES=FALSE -D NO_PRETTY_VALUES=FALSE -D TEST_LIST=PropertyTest_TESTS -D CTEST_FILE=/data/personal_projects/Reflection/build/test/PropertyTest[1]_tests.cmake -D TEST_DISCOVERY_TIMEOUT=5 -D TEST_XML_OUTPUT_DIR= -P /home/lujuankui/cmake-install/share/cmake-3.21/Modules/GoogleTestAddTests.cmake
 
 # Rule to build all files generated by this target.
 test/CMakeFiles/PropertyTest.dir/build: test/PropertyTest

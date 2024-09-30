@@ -65,6 +65,51 @@ CMAKE_BINARY_DIR = /data/personal_projects/Reflection/build
 #=============================================================================
 # Targets provided globally by CMake.
 
+# Special rule for the target install/strip
+install/strip: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
+	/home/lujuankui/cmake-install/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+.PHONY : install/strip
+
+# Special rule for the target install/strip
+install/strip/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
+	/home/lujuankui/cmake-install/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+.PHONY : install/strip/fast
+
+# Special rule for the target install/local
+install/local: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
+	/home/lujuankui/cmake-install/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local
+
+# Special rule for the target install/local
+install/local/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
+	/home/lujuankui/cmake-install/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local/fast
+
+# Special rule for the target install
+install: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
+	/home/lujuankui/cmake-install/bin/cmake -P cmake_install.cmake
+.PHONY : install
+
+# Special rule for the target install
+install/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
+	/home/lujuankui/cmake-install/bin/cmake -P cmake_install.cmake
+.PHONY : install/fast
+
+# Special rule for the target list_install_components
+list_install_components:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"Unspecified\""
+.PHONY : list_install_components
+
+# Special rule for the target list_install_components
+list_install_components/fast: list_install_components
+.PHONY : list_install_components/fast
+
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
@@ -117,48 +162,6 @@ depend:
 .PHONY : depend
 
 # Convenience name for target.
-test/CMakeFiles/EnumTest.dir/rule:
-	cd /data/personal_projects/Reflection/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/CMakeFiles/EnumTest.dir/rule
-.PHONY : test/CMakeFiles/EnumTest.dir/rule
-
-# Convenience name for target.
-EnumTest: test/CMakeFiles/EnumTest.dir/rule
-.PHONY : EnumTest
-
-# fast build rule for target.
-EnumTest/fast:
-	cd /data/personal_projects/Reflection/build && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/EnumTest.dir/build.make test/CMakeFiles/EnumTest.dir/build
-.PHONY : EnumTest/fast
-
-# Convenience name for target.
-test/CMakeFiles/MethodTest1.dir/rule:
-	cd /data/personal_projects/Reflection/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/CMakeFiles/MethodTest1.dir/rule
-.PHONY : test/CMakeFiles/MethodTest1.dir/rule
-
-# Convenience name for target.
-MethodTest1: test/CMakeFiles/MethodTest1.dir/rule
-.PHONY : MethodTest1
-
-# fast build rule for target.
-MethodTest1/fast:
-	cd /data/personal_projects/Reflection/build && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/MethodTest1.dir/build.make test/CMakeFiles/MethodTest1.dir/build
-.PHONY : MethodTest1/fast
-
-# Convenience name for target.
-test/CMakeFiles/PropertyTestOOP.dir/rule:
-	cd /data/personal_projects/Reflection/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/CMakeFiles/PropertyTestOOP.dir/rule
-.PHONY : test/CMakeFiles/PropertyTestOOP.dir/rule
-
-# Convenience name for target.
-PropertyTestOOP: test/CMakeFiles/PropertyTestOOP.dir/rule
-.PHONY : PropertyTestOOP
-
-# fast build rule for target.
-PropertyTestOOP/fast:
-	cd /data/personal_projects/Reflection/build && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/PropertyTestOOP.dir/build.make test/CMakeFiles/PropertyTestOOP.dir/build
-.PHONY : PropertyTestOOP/fast
-
-# Convenience name for target.
 test/CMakeFiles/PropertyTest.dir/rule:
 	cd /data/personal_projects/Reflection/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/CMakeFiles/PropertyTest.dir/rule
 .PHONY : test/CMakeFiles/PropertyTest.dir/rule
@@ -172,101 +175,29 @@ PropertyTest/fast:
 	cd /data/personal_projects/Reflection/build && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/PropertyTest.dir/build.make test/CMakeFiles/PropertyTest.dir/build
 .PHONY : PropertyTest/fast
 
-EnumTest.o: EnumTest.cpp.o
-.PHONY : EnumTest.o
-
-# target to build an object file
-EnumTest.cpp.o:
-	cd /data/personal_projects/Reflection/build && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/EnumTest.dir/build.make test/CMakeFiles/EnumTest.dir/EnumTest.cpp.o
-.PHONY : EnumTest.cpp.o
-
-EnumTest.i: EnumTest.cpp.i
-.PHONY : EnumTest.i
-
-# target to preprocess a source file
-EnumTest.cpp.i:
-	cd /data/personal_projects/Reflection/build && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/EnumTest.dir/build.make test/CMakeFiles/EnumTest.dir/EnumTest.cpp.i
-.PHONY : EnumTest.cpp.i
-
-EnumTest.s: EnumTest.cpp.s
-.PHONY : EnumTest.s
-
-# target to generate assembly for a file
-EnumTest.cpp.s:
-	cd /data/personal_projects/Reflection/build && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/EnumTest.dir/build.make test/CMakeFiles/EnumTest.dir/EnumTest.cpp.s
-.PHONY : EnumTest.cpp.s
-
-MethodTest1.o: MethodTest1.cpp.o
-.PHONY : MethodTest1.o
-
-# target to build an object file
-MethodTest1.cpp.o:
-	cd /data/personal_projects/Reflection/build && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/MethodTest1.dir/build.make test/CMakeFiles/MethodTest1.dir/MethodTest1.cpp.o
-.PHONY : MethodTest1.cpp.o
-
-MethodTest1.i: MethodTest1.cpp.i
-.PHONY : MethodTest1.i
-
-# target to preprocess a source file
-MethodTest1.cpp.i:
-	cd /data/personal_projects/Reflection/build && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/MethodTest1.dir/build.make test/CMakeFiles/MethodTest1.dir/MethodTest1.cpp.i
-.PHONY : MethodTest1.cpp.i
-
-MethodTest1.s: MethodTest1.cpp.s
-.PHONY : MethodTest1.s
-
-# target to generate assembly for a file
-MethodTest1.cpp.s:
-	cd /data/personal_projects/Reflection/build && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/MethodTest1.dir/build.make test/CMakeFiles/MethodTest1.dir/MethodTest1.cpp.s
-.PHONY : MethodTest1.cpp.s
-
-PropertyTest.o: PropertyTest.cpp.o
+PropertyTest.o: PropertyTest.cc.o
 .PHONY : PropertyTest.o
 
 # target to build an object file
-PropertyTest.cpp.o:
-	cd /data/personal_projects/Reflection/build && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/PropertyTest.dir/build.make test/CMakeFiles/PropertyTest.dir/PropertyTest.cpp.o
-.PHONY : PropertyTest.cpp.o
+PropertyTest.cc.o:
+	cd /data/personal_projects/Reflection/build && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/PropertyTest.dir/build.make test/CMakeFiles/PropertyTest.dir/PropertyTest.cc.o
+.PHONY : PropertyTest.cc.o
 
-PropertyTest.i: PropertyTest.cpp.i
+PropertyTest.i: PropertyTest.cc.i
 .PHONY : PropertyTest.i
 
 # target to preprocess a source file
-PropertyTest.cpp.i:
-	cd /data/personal_projects/Reflection/build && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/PropertyTest.dir/build.make test/CMakeFiles/PropertyTest.dir/PropertyTest.cpp.i
-.PHONY : PropertyTest.cpp.i
+PropertyTest.cc.i:
+	cd /data/personal_projects/Reflection/build && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/PropertyTest.dir/build.make test/CMakeFiles/PropertyTest.dir/PropertyTest.cc.i
+.PHONY : PropertyTest.cc.i
 
-PropertyTest.s: PropertyTest.cpp.s
+PropertyTest.s: PropertyTest.cc.s
 .PHONY : PropertyTest.s
 
 # target to generate assembly for a file
-PropertyTest.cpp.s:
-	cd /data/personal_projects/Reflection/build && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/PropertyTest.dir/build.make test/CMakeFiles/PropertyTest.dir/PropertyTest.cpp.s
-.PHONY : PropertyTest.cpp.s
-
-PropertyTestOOP.o: PropertyTestOOP.cpp.o
-.PHONY : PropertyTestOOP.o
-
-# target to build an object file
-PropertyTestOOP.cpp.o:
-	cd /data/personal_projects/Reflection/build && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/PropertyTestOOP.dir/build.make test/CMakeFiles/PropertyTestOOP.dir/PropertyTestOOP.cpp.o
-.PHONY : PropertyTestOOP.cpp.o
-
-PropertyTestOOP.i: PropertyTestOOP.cpp.i
-.PHONY : PropertyTestOOP.i
-
-# target to preprocess a source file
-PropertyTestOOP.cpp.i:
-	cd /data/personal_projects/Reflection/build && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/PropertyTestOOP.dir/build.make test/CMakeFiles/PropertyTestOOP.dir/PropertyTestOOP.cpp.i
-.PHONY : PropertyTestOOP.cpp.i
-
-PropertyTestOOP.s: PropertyTestOOP.cpp.s
-.PHONY : PropertyTestOOP.s
-
-# target to generate assembly for a file
-PropertyTestOOP.cpp.s:
-	cd /data/personal_projects/Reflection/build && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/PropertyTestOOP.dir/build.make test/CMakeFiles/PropertyTestOOP.dir/PropertyTestOOP.cpp.s
-.PHONY : PropertyTestOOP.cpp.s
+PropertyTest.cc.s:
+	cd /data/personal_projects/Reflection/build && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/PropertyTest.dir/build.make test/CMakeFiles/PropertyTest.dir/PropertyTest.cc.s
+.PHONY : PropertyTest.cc.s
 
 # Help Target
 help:
@@ -275,23 +206,15 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... edit_cache"
+	@echo "... install"
+	@echo "... install/local"
+	@echo "... install/strip"
+	@echo "... list_install_components"
 	@echo "... rebuild_cache"
-	@echo "... EnumTest"
-	@echo "... MethodTest1"
 	@echo "... PropertyTest"
-	@echo "... PropertyTestOOP"
-	@echo "... EnumTest.o"
-	@echo "... EnumTest.i"
-	@echo "... EnumTest.s"
-	@echo "... MethodTest1.o"
-	@echo "... MethodTest1.i"
-	@echo "... MethodTest1.s"
 	@echo "... PropertyTest.o"
 	@echo "... PropertyTest.i"
 	@echo "... PropertyTest.s"
-	@echo "... PropertyTestOOP.o"
-	@echo "... PropertyTestOOP.i"
-	@echo "... PropertyTestOOP.s"
 .PHONY : help
 
 

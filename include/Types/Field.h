@@ -89,10 +89,13 @@ public:
         //当前class具有虚表指针？
         //if(obj_typeInfo->GetVirtualType() == VirtualType::VIRTUAL) off += 8;
         //看基类是否有虚表指针
-        for(auto base_info : base_Infos)
+        if(base_Infos.size() > 0 && base_Infos[0]->GetClassName() != Type2String<ClassT>()) off += base_Infos[0]->GetSize();
+        for(auto& base_info : base_Infos)
         {
             if(base_info->GetClassName() == Type2String<ClassT>()) break;
-            off += base_info->GetSize();
+            auto sz = base_info->GetSize();
+            //谁的倍数大向谁对齐
+            off = accu(off, sz);
         }
         bool baseprop = Type2String<ClassT>() != obj_typeInfo->GetClassName();
         auto val = value.GetData<T>();
@@ -126,10 +129,13 @@ public:
         //当前class具有虚表指针？
         //if(obj_typeInfo->GetVirtualType() == VirtualType::VIRTUAL) off += 8;
         //看基类是否有虚表指针
-        for(auto base_info : base_Infos)
+        if(base_Infos.size() > 0 && base_Infos[0]->GetClassName() != Type2String<ClassT>()) off += base_Infos[0]->GetSize();
+        for(auto& base_info : base_Infos)
         {
             if(base_info->GetClassName() == Type2String<ClassT>()) break;
-            off += base_info->GetSize();
+            auto sz = base_info->GetSize();
+            //谁的倍数大向谁对齐
+            off = accu(off, sz);
         }
         bool baseprop = Type2String<ClassT>() != obj_typeInfo->GetClassName();
         if(m_staticType == StaticType::STATIC) return *m_staticMemPtr;

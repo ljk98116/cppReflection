@@ -116,28 +116,42 @@ public:
         size_t off = 0;
         //当前class具有虚表指针？
         //if(obj_typeInfo->GetVirtualType() == VirtualType::VIRTUAL) off += 8;
-        for(auto base_info : base_Infos)
-        {
-            if(base_info->GetClassName() == Type2String<ClassT>()) break;
-            off += base_info->GetSize();
-        }
-        bool baseprop = Type2String<ClassT>() != obj_typeInfo->GetClassName();
         auto val = value.GetData<T>();
+        bool baseprop = Type2String<ClassT>() != obj.GetTypeInfo()->GetClassName();
         if(m_staticType == StaticType::STATIC) m_staticSetFunc(val);
         else
         {
-            if(off == 0 || !baseprop) m_setFunc(obj, val);
-            else
+            //如果子类obj访问基类属性，计算基类偏移
+            if(baseprop)
             {
-                //提取基类对象
-                void *basePtr = (void*)((uintptr_t)obj.Data().get() + off);
-                auto value = *(ClassT*)basePtr;
-                Object obj2(value);
-                m_setFunc(obj2, val);
-                //内存操作
-                memcpy((void*)((uintptr_t)obj.Data().get() + off), obj2.Data().get(), sizeof(ClassT));
+                //子类含有虚表指针
+                if(obj.GetTypeInfo()->GetVirtualType() == VirtualType::VIRTUAL) off += 8;
+                //
+                if(base_Infos.size() > 0 && base_Infos[0]->GetClassName() != Type2String<ClassT>()) off += base_Infos[0]->GetSize();
+                for(int i=1;i<base_Infos.size() && base_Infos[0]->GetClassName() != Type2String<ClassT>() ;++i)
+                {
+                    auto& base_info = base_Infos[i];
+                    //前面部分要与后面进行对齐
+                    if(base_info->GetClassName() == Type2String<ClassT>()) 
+                    {
+                        if(base_info->GetSize() % 16 == 0) off = (off / 16 + (off % 16 > 0)) * 16;
+                        if(base_info->GetSize() % 8 == 0) off = (off / 8 + (off % 8 > 0)) * 8;
+                        if(base_info->GetSize() % 4 == 0) off = (off / 4 + (off % 4 > 0)) * 4;
+                        if(base_info->GetSize() % 2 == 0) off = (off / 2 + (off % 2 > 0)) * 2;
+                        break;
+                    }
+                    off = accu(off, base_info->GetSize());
+                }
+
             }
+            //提取基类对象
+            ClassT *basePtr = (ClassT*)((uintptr_t)(obj.Data().get()) + (baseprop ? off : 0));
+            Object obj2(*(ClassT*)basePtr);
+            m_setFunc(obj2, val);
+            //内存操作
+            *basePtr = *(ClassT*)obj2.Data().get();
         }
+        std::cout << "ended" << std::endl;
     }
     //静态属性，看是否能访问到
     void InvokeSet(const Object& value) override
@@ -151,7 +165,6 @@ public:
         else throw std::runtime_error("try to modify nonstatic member without object ptr");
     }
 
-    //子类对象基类属性或者子类对象子类属性
     Object InvokeGet(Object& obj) override
     {
         if(!Accessable(obj)) throw std::runtime_error("access propertyInfo denied");
@@ -167,8 +180,28 @@ public:
             if(base_info->GetClassName() == Type2String<ClassT>()) break;
             off += base_info->GetSize();
         }
-        bool baseprop = Type2String<ClassT>() != obj_typeInfo->GetClassName();
-        Object obj2((ClassT)(*(ClassT*)((uintptr_t)obj.Data().get() + (baseprop ? off : 0))));
+        bool baseprop = Type2String<ClassT>() != obj.GetTypeInfo()->GetClassName();
+        if(baseprop)
+        {
+            //子类含有虚表指针
+            if(obj.GetTypeInfo()->GetVirtualType() == VirtualType::VIRTUAL) off += 8;
+            //
+            if(base_Infos.size() > 0 && base_Infos[0]->GetClassName() != Type2String<ClassT>()) off += base_Infos[0]->GetSize();
+            for(int i=1;i<base_Infos.size() && base_Infos[0]->GetClassName() != Type2String<ClassT>();++i)
+            {
+                auto& base_info = base_Infos[i];
+                if(base_info->GetClassName() == Type2String<ClassT>()) 
+                {
+                    if(base_info->GetSize() % 16 == 0) off = (off / 16 + (off % 16 > 0)) * 16;
+                    if(base_info->GetSize() % 8 == 0) off = (off / 8 + (off % 8 > 0)) * 8;
+                    if(base_info->GetSize() % 4 == 0) off = (off / 4 + (off % 4 > 0)) * 4;
+                    if(base_info->GetSize() % 2 == 0) off = (off / 2 + (off % 2 > 0)) * 2;
+                    break;
+                }
+                off = accu(off, base_info->GetSize());
+            }
+        }
+        Object obj2((*(ClassT*)((uintptr_t)obj.Data().get() + (baseprop ? off : 0))));
         if(m_staticType == StaticType::STATIC) return m_staticGetFunc();
         return m_getFunc(obj2);
     }

@@ -65,6 +65,51 @@ CMAKE_BINARY_DIR = /data/personal_projects/Reflection/build
 #=============================================================================
 # Targets provided globally by CMake.
 
+# Special rule for the target install/strip
+install/strip: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
+	/home/lujuankui/cmake-install/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+.PHONY : install/strip
+
+# Special rule for the target install/strip
+install/strip/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
+	/home/lujuankui/cmake-install/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+.PHONY : install/strip/fast
+
+# Special rule for the target install/local
+install/local: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
+	/home/lujuankui/cmake-install/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local
+
+# Special rule for the target install/local
+install/local/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
+	/home/lujuankui/cmake-install/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local/fast
+
+# Special rule for the target install
+install: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
+	/home/lujuankui/cmake-install/bin/cmake -P cmake_install.cmake
+.PHONY : install
+
+# Special rule for the target install
+install/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
+	/home/lujuankui/cmake-install/bin/cmake -P cmake_install.cmake
+.PHONY : install/fast
+
+# Special rule for the target list_install_components
+list_install_components:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"Unspecified\""
+.PHONY : list_install_components
+
+# Special rule for the target list_install_components
+list_install_components/fast: list_install_components
+.PHONY : list_install_components/fast
+
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
@@ -117,6 +162,58 @@ depend:
 .PHONY : depend
 
 #=============================================================================
+# Target rules for targets named gmock_main
+
+# Build rule for target.
+gmock_main: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 gmock_main
+.PHONY : gmock_main
+
+# fast build rule for target.
+gmock_main/fast:
+	$(MAKE) $(MAKESILENT) -f _deps/googletest-build/googlemock/CMakeFiles/gmock_main.dir/build.make _deps/googletest-build/googlemock/CMakeFiles/gmock_main.dir/build
+.PHONY : gmock_main/fast
+
+#=============================================================================
+# Target rules for targets named gmock
+
+# Build rule for target.
+gmock: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 gmock
+.PHONY : gmock
+
+# fast build rule for target.
+gmock/fast:
+	$(MAKE) $(MAKESILENT) -f _deps/googletest-build/googlemock/CMakeFiles/gmock.dir/build.make _deps/googletest-build/googlemock/CMakeFiles/gmock.dir/build
+.PHONY : gmock/fast
+
+#=============================================================================
+# Target rules for targets named gtest_main
+
+# Build rule for target.
+gtest_main: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 gtest_main
+.PHONY : gtest_main
+
+# fast build rule for target.
+gtest_main/fast:
+	$(MAKE) $(MAKESILENT) -f _deps/googletest-build/googletest/CMakeFiles/gtest_main.dir/build.make _deps/googletest-build/googletest/CMakeFiles/gtest_main.dir/build
+.PHONY : gtest_main/fast
+
+#=============================================================================
+# Target rules for targets named gtest
+
+# Build rule for target.
+gtest: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 gtest
+.PHONY : gtest
+
+# fast build rule for target.
+gtest/fast:
+	$(MAKE) $(MAKESILENT) -f _deps/googletest-build/googletest/CMakeFiles/gtest.dir/build.make _deps/googletest-build/googletest/CMakeFiles/gtest.dir/build
+.PHONY : gtest/fast
+
+#=============================================================================
 # Target rules for targets named reflection
 
 # Build rule for target.
@@ -130,43 +227,56 @@ reflection/fast:
 .PHONY : reflection/fast
 
 #=============================================================================
-# Target rules for targets named EnumTest
+# Target rules for targets named EnumExample
 
 # Build rule for target.
-EnumTest: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 EnumTest
-.PHONY : EnumTest
+EnumExample: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 EnumExample
+.PHONY : EnumExample
 
 # fast build rule for target.
-EnumTest/fast:
-	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/EnumTest.dir/build.make test/CMakeFiles/EnumTest.dir/build
-.PHONY : EnumTest/fast
+EnumExample/fast:
+	$(MAKE) $(MAKESILENT) -f examples/CMakeFiles/EnumExample.dir/build.make examples/CMakeFiles/EnumExample.dir/build
+.PHONY : EnumExample/fast
 
 #=============================================================================
-# Target rules for targets named MethodTest1
+# Target rules for targets named MethodExample
 
 # Build rule for target.
-MethodTest1: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 MethodTest1
-.PHONY : MethodTest1
+MethodExample: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 MethodExample
+.PHONY : MethodExample
 
 # fast build rule for target.
-MethodTest1/fast:
-	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/MethodTest1.dir/build.make test/CMakeFiles/MethodTest1.dir/build
-.PHONY : MethodTest1/fast
+MethodExample/fast:
+	$(MAKE) $(MAKESILENT) -f examples/CMakeFiles/MethodExample.dir/build.make examples/CMakeFiles/MethodExample.dir/build
+.PHONY : MethodExample/fast
 
 #=============================================================================
-# Target rules for targets named PropertyTestOOP
+# Target rules for targets named PropertyOOPExample
 
 # Build rule for target.
-PropertyTestOOP: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 PropertyTestOOP
-.PHONY : PropertyTestOOP
+PropertyOOPExample: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 PropertyOOPExample
+.PHONY : PropertyOOPExample
 
 # fast build rule for target.
-PropertyTestOOP/fast:
-	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/PropertyTestOOP.dir/build.make test/CMakeFiles/PropertyTestOOP.dir/build
-.PHONY : PropertyTestOOP/fast
+PropertyOOPExample/fast:
+	$(MAKE) $(MAKESILENT) -f examples/CMakeFiles/PropertyOOPExample.dir/build.make examples/CMakeFiles/PropertyOOPExample.dir/build
+.PHONY : PropertyOOPExample/fast
+
+#=============================================================================
+# Target rules for targets named PropertyExample
+
+# Build rule for target.
+PropertyExample: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 PropertyExample
+.PHONY : PropertyExample
+
+# fast build rule for target.
+PropertyExample/fast:
+	$(MAKE) $(MAKESILENT) -f examples/CMakeFiles/PropertyExample.dir/build.make examples/CMakeFiles/PropertyExample.dir/build
+.PHONY : PropertyExample/fast
 
 #=============================================================================
 # Target rules for targets named PropertyTest
@@ -188,11 +298,20 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... edit_cache"
+	@echo "... install"
+	@echo "... install/local"
+	@echo "... install/strip"
+	@echo "... list_install_components"
 	@echo "... rebuild_cache"
-	@echo "... EnumTest"
-	@echo "... MethodTest1"
+	@echo "... EnumExample"
+	@echo "... MethodExample"
+	@echo "... PropertyExample"
+	@echo "... PropertyOOPExample"
 	@echo "... PropertyTest"
-	@echo "... PropertyTestOOP"
+	@echo "... gmock"
+	@echo "... gmock_main"
+	@echo "... gtest"
+	@echo "... gtest_main"
 	@echo "... reflection"
 .PHONY : help
 
