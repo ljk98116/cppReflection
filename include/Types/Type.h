@@ -215,6 +215,7 @@ public:
     template <typename Base>
     auto AddBaseClass(Base *base)
     {
+        static size_t off = 0;
         //判断继承关系
         static_assert(std::is_base_of<typename Base::ClassT, ClassT>::value);
         //注册基类，将基类的属性信息加入本类的对应集合
@@ -225,6 +226,12 @@ public:
             auto typeInfo = Type<typename Base::ClassT>().Register();
             std::shared_ptr<decltype(typeInfo)> childPtr = std::make_shared<decltype(typeInfo)>();
             *childPtr = typeInfo;
+            //本类内部对齐
+            off += base->GetSize();
+            size_t tmp = off;
+            size_t alignment = std::alignment_of_v<ClassT>;
+            off = (off / alignment + (off % alignment > 0)) * alignment;
+            base->SetSize(base->GetSize() + off - tmp);
             RegisterBase(std::static_pointer_cast<MemberInfo>(childPtr), base);
             m_baseList.AddBaseClass(base);
         }
@@ -287,28 +294,30 @@ private:
         }
         //需要处理菱形继承问题，父类信息如果重复出现，看父类的baseList是否带有虚属性，如果没有抛异常
         //内存对齐,减去补齐到对应倍数的父类,虚继承和前面的父类成员对齐，没有父类默认向8的倍数对齐，虚表指针
-        for(int i=0;i<baseClass->GetBaseClasses().size();++i)
+        //第一个基类对齐到后面的基类,最后一个基类和前一个对齐
+        //只有一个类和4对齐
+        if(baseClass->GetBaseClasses().size() > 1)
         {
-            auto item = baseClass->GetBaseClasses()[i];
-            size_t sz = item->GetSize();
-            if(i == 0 && item->GetInheritType() == VirtualType::VIRTUAL)
+            auto item = baseClass->GetBaseClasses()[0];
+            size_t off = 0;
+            size_t old = base->GetSize();
+            for(auto& base_info : base->GetBaseClasses())
             {
-                //虚函数类唯一继承虚基类，与虚表指针对齐
-                if(item->GetVirtualType() == VirtualType::VIRTUAL)
-                {
-                    sz = (item->GetSize() / 8 + ((item->GetSize() % 8) != 0)) * 8;
-                }
-                else
-                {
-                    //gcc默认与4对齐
-                    sz = (item->GetSize() / 4 + ((item->GetSize() % 4) != 0)) * 4;
-                }
-            }
-            base->SetSize(base->GetSize() - sz);
-            //std::cout << item->GetClassName() << " " << sz << " " << item->GetSize() << std::endl;
+                size_t sz = base_info->GetSize();
+                size_t alignment = base->GetAlignment();
+                off += sz;
+                off = (off / alignment + (off % alignment > 0)) * alignment;
+                base->SetSize(old - off);
+            }                 
         }
-
-        //
+        else if(baseClass->GetBaseClasses().size() == 1)
+        {
+            auto item = baseClass->GetBaseClasses()[0];
+            size_t sz = item->GetSize();
+            size_t alignment = base->GetAlignment();
+            sz = (sz / alignment + (sz % alignment > 0)) * alignment;  
+            base->SetSize(base->GetSize() - sz);            
+        }
         m_baseList = m_baseList + baseClass->GetBaseClasses();
         //check virtual inherit
         std::unordered_set<std::string> us;

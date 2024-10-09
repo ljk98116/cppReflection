@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.14.3)
+cmake_minimum_required(VERSION 3.23.0-rc3)
 project(Reflection)
 set(CMAKE_CXX_STANDARD 17)
 
@@ -6,6 +6,7 @@ add_compile_options(-g -frtti)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 include(FetchContent)
 FetchContent_Declare(
   googletest

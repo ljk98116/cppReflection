@@ -38,6 +38,7 @@ public:
     virtual std::vector<std::shared_ptr<MemberInfo> >& GetMethods();
     virtual std::shared_ptr<MemberInfo> GetEnum(const std::string& name);
     virtual std::vector<std::shared_ptr<MemberInfo> >& GetEnums();
+    virtual size_t GetAlignment();
 
     virtual std::shared_ptr<MemberInfo> GetConstructor(const std::vector<std::string>& arg_vec);
     virtual std::vector<std::shared_ptr<MemberInfo> >& GetConstructors();

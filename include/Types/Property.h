@@ -124,25 +124,24 @@ public:
             //如果子类obj访问基类属性，计算基类偏移
             if(baseprop)
             {
-                //子类含有虚表指针
-                if(obj.GetTypeInfo()->GetVirtualType() == VirtualType::VIRTUAL) off += 8;
-                //
-                if(base_Infos.size() > 0 && base_Infos[0]->GetClassName() != Type2String<ClassT>()) off += base_Infos[0]->GetSize();
-                for(int i=1;i<base_Infos.size() && base_Infos[0]->GetClassName() != Type2String<ClassT>() ;++i)
+                //子类含有虚表指针且所有基类没有虚函数指针,此时所有基类的偏移需要增加一个虚表指针大小
+                bool has_virt = false;
+                for(auto& base_info : base_Infos)
+                {
+                    if(base_info->GetVirtualType() == VirtualType::VIRTUAL || base_info->GetInheritType() == VirtualType::VIRTUAL)
+                    {
+                        has_virt = true;
+                        break;
+                    }
+                }
+                if(obj.GetTypeInfo()->GetVirtualType() == VirtualType::VIRTUAL && !has_virt) off += 8;
+                for(int i=0;i<base_Infos.size();++i)
                 {
                     auto& base_info = base_Infos[i];
                     //前面部分要与后面进行对齐
-                    if(base_info->GetClassName() == Type2String<ClassT>()) 
-                    {
-                        if(base_info->GetSize() % 16 == 0) off = (off / 16 + (off % 16 > 0)) * 16;
-                        if(base_info->GetSize() % 8 == 0) off = (off / 8 + (off % 8 > 0)) * 8;
-                        if(base_info->GetSize() % 4 == 0) off = (off / 4 + (off % 4 > 0)) * 4;
-                        if(base_info->GetSize() % 2 == 0) off = (off / 2 + (off % 2 > 0)) * 2;
-                        break;
-                    }
-                    off = accu(off, base_info->GetSize());
+                    if(base_info->GetClassName() == Type2String<ClassT>()) break;
+                    off += base_info->GetSize();
                 }
-
             }
             //提取基类对象
             ClassT *basePtr = (ClassT*)((uintptr_t)(obj.Data().get()) + (baseprop ? off : 0));
@@ -151,7 +150,7 @@ public:
             //内存操作
             *basePtr = *(ClassT*)obj2.Data().get();
         }
-        std::cout << "ended" << std::endl;
+
     }
     //静态属性，看是否能访问到
     void InvokeSet(const Object& value) override
@@ -172,33 +171,26 @@ public:
         auto obj_typeInfo = obj.GetTypeInfo();
         auto base_Infos = obj_typeInfo->GetBaseClasses();
         size_t off = 0;
-        //当前class具有虚表指针？
-        //if(obj_typeInfo->GetVirtualType() == VirtualType::VIRTUAL) off += 8;
-        //看基类是否有虚表指针
-        for(auto base_info : base_Infos)
-        {
-            if(base_info->GetClassName() == Type2String<ClassT>()) break;
-            off += base_info->GetSize();
-        }
         bool baseprop = Type2String<ClassT>() != obj.GetTypeInfo()->GetClassName();
         if(baseprop)
         {
-            //子类含有虚表指针
-            if(obj.GetTypeInfo()->GetVirtualType() == VirtualType::VIRTUAL) off += 8;
-            //
-            if(base_Infos.size() > 0 && base_Infos[0]->GetClassName() != Type2String<ClassT>()) off += base_Infos[0]->GetSize();
-            for(int i=1;i<base_Infos.size() && base_Infos[0]->GetClassName() != Type2String<ClassT>();++i)
+            //子类含有虚表指针且所有基类没有虚函数指针,此时所有基类的偏移需要增加一个虚表指针大小
+            bool has_virt = false;
+            for(auto& base_info : base_Infos)
             {
-                auto& base_info = base_Infos[i];
-                if(base_info->GetClassName() == Type2String<ClassT>()) 
+                if(base_info->GetVirtualType() == VirtualType::VIRTUAL || base_info->GetInheritType() == VirtualType::VIRTUAL)
                 {
-                    if(base_info->GetSize() % 16 == 0) off = (off / 16 + (off % 16 > 0)) * 16;
-                    if(base_info->GetSize() % 8 == 0) off = (off / 8 + (off % 8 > 0)) * 8;
-                    if(base_info->GetSize() % 4 == 0) off = (off / 4 + (off % 4 > 0)) * 4;
-                    if(base_info->GetSize() % 2 == 0) off = (off / 2 + (off % 2 > 0)) * 2;
+                    has_virt = true;
                     break;
                 }
-                off = accu(off, base_info->GetSize());
+            }
+            if(obj.GetTypeInfo()->GetVirtualType() == VirtualType::VIRTUAL && !has_virt) off += 8;
+            for(int i=0;i<base_Infos.size();++i)
+            {
+                auto& base_info = base_Infos[i];
+                //前面部分要与后面进行对齐
+                if(base_info->GetClassName() == Type2String<ClassT>()) break;
+                off += base_info->GetSize();
             }
         }
         Object obj2((*(ClassT*)((uintptr_t)obj.Data().get() + (baseprop ? off : 0))));

@@ -159,12 +159,30 @@ public:
     }
 };
 
+struct TestSt1
+{
+    static auto Register()
+    {
+        return Type<TestSt1>();
+    }
+};
+
+struct TestSt2 : public TestSt1
+{
+    char c;
+    static auto Register()
+    {
+        return Type<TestSt2>()
+        .AddBaseClass(BASE(TestSt1, PUBLIC, NONVIRTUAL, NONVIRTUAL))
+        .AddProperty(PROPERTYDEFAULT(TestSt2, c, C, PUBLIC, NONE));
+    }
+};
+
 TEST(PropertyTest, GetSet_in_inherit)
 {
     auto TestInheritC3Info = typeof(TestInheritC3);
     auto propInfo_X = TestInheritC3Info.GetProperty("X");
     auto propInfo_Y = TestInheritC3Info.GetProperty("Y");
-    cout << propInfo_Y->Name() << " " << propInfo_Y->GetClassName() << endl;
 
     Object obj2(TestInheritC3{});
     propInfo_X->InvokeSet(obj2, 7);
@@ -176,4 +194,77 @@ TEST(PropertyTest, GetSet_in_inherit)
     EXPECT_EQ(((TestInheritC3)obj2).m_y, "ui");
     propInfo_Y->InvokeSet(obj2, string("OK"));
     EXPECT_EQ(((TestInheritC3)obj2).m_y, "OK");
+
+    auto TestSt2Info = typeof(TestSt2);
+    auto propInfo_C = TestSt2Info.GetProperty("C");
+    Object obj3 = TestSt2{};
+    propInfo_C->InvokeSet(obj3, 'P');
+    EXPECT_EQ(((TestSt2)obj3).c, 'P');
+    EXPECT_EQ((char)(propInfo_C->InvokeGet(obj3)), 'P');    
+}
+
+class TestInheritC1V
+{
+public:
+    static auto Register()
+    {
+        return Type<TestInheritC1V>().AddProperty(PROPERTYDEFAULT(TestInheritC1V, m_x, X, PUBLIC, NONE));
+    }
+    int m_x;
+};
+
+class TestInheritC2V : virtual public TestInheritC1V
+{
+public:
+    virtual ~TestInheritC2V(){}
+    static auto Register()
+    {
+        return Type<TestInheritC2V>(VIRTUAL)
+        .AddBaseClass(BASE(TestInheritC1V, PUBLIC, NONVIRTUAL, VIRTUAL))
+        .AddProperty(PROPERTYDEFAULT(TestInheritC2V, m_y, Y, PUBLIC, NONE));
+    }
+    string m_y;    
+};
+
+class TestInheritC3V : virtual public TestInheritC1V
+{
+public:
+    virtual ~TestInheritC3V(){}
+    static auto Register()
+    {
+        return Type<TestInheritC3V>(VIRTUAL)
+        .AddBaseClass(BASE(TestInheritC1V, PUBLIC, NONVIRTUAL, VIRTUAL));
+    }
+};
+
+class TestInheritC4V : public TestInheritC2V, public TestInheritC3V
+{
+public:
+    virtual ~TestInheritC4V(){}
+    static auto Register()
+    {
+        return Type<TestInheritC4V>(VIRTUAL)
+        .AddBaseClass(BASE(TestInheritC2V, PUBLIC, VIRTUAL, NONVIRTUAL))
+        .AddBaseClass(BASE(TestInheritC3V, PUBLIC, VIRTUAL, NONVIRTUAL));
+    }    
+private:
+
+};
+
+TEST(PropertyTest, GetSet_in_virtual_inherit)
+{
+    auto TestInheritC4Info = typeof(TestInheritC4V);
+    auto propInfo_X = TestInheritC4Info.GetProperty("X");
+    auto propInfo_Y = TestInheritC4Info.GetProperty("Y");
+
+    Object obj2(TestInheritC4V{});
+    propInfo_X->InvokeSet(obj2, 7);
+    EXPECT_EQ(((TestInheritC4V)obj2).m_x, 7);
+    propInfo_X->InvokeSet(obj2, 800);
+    EXPECT_EQ(((TestInheritC4V)obj2).m_x, 800);
+
+    propInfo_Y->InvokeSet(obj2, string("ui"));
+    EXPECT_EQ(((TestInheritC4V)obj2).m_y, "ui");
+    propInfo_Y->InvokeSet(obj2, string("OK"));
+    EXPECT_EQ(((TestInheritC4V)obj2).m_y, "OK");
 }

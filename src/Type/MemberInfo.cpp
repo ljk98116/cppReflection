@@ -170,4 +170,8 @@ void MemberInfo::SetAccess(AccessType access){}
 void MemberInfo::SetStaticType(StaticType staticType){}
 void MemberInfo::SetVirtualType(VirtualType virtualType){}
 
+size_t MemberInfo::GetAlignment()
+{
+    return 0;
+}
 }

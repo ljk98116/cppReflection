@@ -107,7 +107,7 @@ private:
     char c;
 };
 
-class C3 : virtual public C1
+class C3 : virtual public C1 //size 8
 {
 public:
     C3(){}
@@ -161,7 +161,8 @@ int main()
     auto prop_x = t.GetProperty("X");
     auto prop_y = t.GetProperty("Y");
     prop_x->InvokeSet(x, 14);
-    cout << x.GetData(t).GetX() << endl;
+    int x_value = prop_x->InvokeGet(x);
+    cout << x_value << endl;
     prop_y->InvokeSet(x, 67);
     cout << x.GetData(t).getY() << endl;
     int y = prop_y->InvokeGet(x);

@@ -86,18 +86,29 @@ public:
         auto obj_typeInfo = obj.GetTypeInfo();
         auto base_Infos = obj_typeInfo->GetBaseClasses();
         size_t off = 0;
-        //当前class具有虚表指针？
-        //if(obj_typeInfo->GetVirtualType() == VirtualType::VIRTUAL) off += 8;
-        //看基类是否有虚表指针
-        if(base_Infos.size() > 0 && base_Infos[0]->GetClassName() != Type2String<ClassT>()) off += base_Infos[0]->GetSize();
-        for(auto& base_info : base_Infos)
-        {
-            if(base_info->GetClassName() == Type2String<ClassT>()) break;
-            auto sz = base_info->GetSize();
-            //谁的倍数大向谁对齐
-            off = accu(off, sz);
-        }
         bool baseprop = Type2String<ClassT>() != obj_typeInfo->GetClassName();
+        //如果子类obj访问基类属性，计算基类偏移
+        if(baseprop)
+        {
+            //子类含有虚表指针且所有基类没有虚函数指针,此时所有基类的偏移需要增加一个虚表指针大小
+            bool has_virt = false;
+            for(auto& base_info : base_Infos)
+            {
+                if(base_info->GetVirtualType() == VirtualType::VIRTUAL)
+                {
+                    has_virt = true;
+                    break;
+                }
+            }
+            if(obj.GetTypeInfo()->GetVirtualType() == VirtualType::VIRTUAL && !has_virt) off += 8;
+            for(int i=0;i<base_Infos.size();++i)
+            {
+                auto& base_info = base_Infos[i];
+                //前面部分要与后面进行对齐
+                if(base_info->GetClassName() == Type2String<ClassT>()) break;
+                off += base_info->GetSize();
+            }
+        }        
         auto val = value.GetData<T>();
         if(m_staticType == StaticType::STATIC) *m_staticMemPtr = val;
         else
@@ -126,18 +137,28 @@ public:
         auto obj_typeInfo = obj.GetTypeInfo();
         auto base_Infos = obj_typeInfo->GetBaseClasses();
         size_t off = 0;
-        //当前class具有虚表指针？
-        //if(obj_typeInfo->GetVirtualType() == VirtualType::VIRTUAL) off += 8;
-        //看基类是否有虚表指针
-        if(base_Infos.size() > 0 && base_Infos[0]->GetClassName() != Type2String<ClassT>()) off += base_Infos[0]->GetSize();
-        for(auto& base_info : base_Infos)
-        {
-            if(base_info->GetClassName() == Type2String<ClassT>()) break;
-            auto sz = base_info->GetSize();
-            //谁的倍数大向谁对齐
-            off = accu(off, sz);
-        }
         bool baseprop = Type2String<ClassT>() != obj_typeInfo->GetClassName();
+        if(baseprop)
+        {
+            //子类含有虚表指针且所有基类没有虚函数指针,此时所有基类的偏移需要增加一个虚表指针大小
+            bool has_virt = false;
+            for(auto& base_info : base_Infos)
+            {
+                if(base_info->GetVirtualType() == VirtualType::VIRTUAL)
+                {
+                    has_virt = true;
+                    break;
+                }
+            }
+            if(obj.GetTypeInfo()->GetVirtualType() == VirtualType::VIRTUAL && !has_virt) off += 8;
+            for(int i=0;i<base_Infos.size();++i)
+            {
+                auto& base_info = base_Infos[i];
+                //前面部分要与后面进行对齐
+                if(base_info->GetClassName() == Type2String<ClassT>()) break;
+                off += base_info->GetSize();
+            }
+        }
         if(m_staticType == StaticType::STATIC) return *m_staticMemPtr;
         auto basePtr = (ClassT*)((uintptr_t)obj.Data().get() + (baseprop ? off : 0));
         return *basePtr.*m_memberPtr;

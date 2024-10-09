@@ -66,6 +66,10 @@ public:
     {
         return Type2String<ClassT>() == Type2String<T>();
     }
+    size_t GetAlignment() override
+    {
+        return std::alignment_of_v<ClassT>;
+    }
 private:
     AccessType m_accessType;
     VirtualType m_virtualType;

@@ -43,5 +43,6 @@ std::shared_ptr<MemberInfo> GetMethod(const std::string& name, const std::vector
 std::shared_ptr<MemberInfo> GetEnumType(const std::string& name);
 
 int accu(int off, int sz);
-
+int align(int off, int ref);
+int getflag(int off);
 }
