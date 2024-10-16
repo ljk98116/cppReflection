@@ -175,6 +175,7 @@ src/clean: src/CMakeFiles/reflection.dir/clean
 
 # Recursive "all" directory target.
 test/all: test/CMakeFiles/PropertyTest.dir/all
+test/all: test/CMakeFiles/MethodTest.dir/all
 .PHONY : test/all
 
 # Recursive "preinstall" directory target.
@@ -183,6 +184,7 @@ test/preinstall:
 
 # Recursive "clean" directory target.
 test/clean: test/CMakeFiles/PropertyTest.dir/clean
+test/clean: test/CMakeFiles/MethodTest.dir/clean
 .PHONY : test/clean
 
 #=============================================================================
@@ -192,7 +194,7 @@ test/clean: test/CMakeFiles/PropertyTest.dir/clean
 _deps/googletest-build/googlemock/CMakeFiles/gmock.dir/all: _deps/googletest-build/googletest/CMakeFiles/gtest.dir/all
 	$(MAKE) $(MAKESILENT) -f _deps/googletest-build/googlemock/CMakeFiles/gmock.dir/build.make _deps/googletest-build/googlemock/CMakeFiles/gmock.dir/depend
 	$(MAKE) $(MAKESILENT) -f _deps/googletest-build/googlemock/CMakeFiles/gmock.dir/build.make _deps/googletest-build/googlemock/CMakeFiles/gmock.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/data/personal_projects/Reflection/build/CMakeFiles --progress-num=11,12 "Built target gmock"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/data/personal_projects/Reflection/build/CMakeFiles --progress-num=13,14 "Built target gmock"
 .PHONY : _deps/googletest-build/googlemock/CMakeFiles/gmock.dir/all
 
 # Build rule for subdir invocation for target.
@@ -219,7 +221,7 @@ _deps/googletest-build/googlemock/CMakeFiles/gmock_main.dir/all: _deps/googletes
 _deps/googletest-build/googlemock/CMakeFiles/gmock_main.dir/all: _deps/googletest-build/googletest/CMakeFiles/gtest.dir/all
 	$(MAKE) $(MAKESILENT) -f _deps/googletest-build/googlemock/CMakeFiles/gmock_main.dir/build.make _deps/googletest-build/googlemock/CMakeFiles/gmock_main.dir/depend
 	$(MAKE) $(MAKESILENT) -f _deps/googletest-build/googlemock/CMakeFiles/gmock_main.dir/build.make _deps/googletest-build/googlemock/CMakeFiles/gmock_main.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/data/personal_projects/Reflection/build/CMakeFiles --progress-num=13,14 "Built target gmock_main"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/data/personal_projects/Reflection/build/CMakeFiles --progress-num=15,16 "Built target gmock_main"
 .PHONY : _deps/googletest-build/googlemock/CMakeFiles/gmock_main.dir/all
 
 # Build rule for subdir invocation for target.
@@ -245,7 +247,7 @@ _deps/googletest-build/googlemock/CMakeFiles/gmock_main.dir/clean:
 _deps/googletest-build/googletest/CMakeFiles/gtest.dir/all:
 	$(MAKE) $(MAKESILENT) -f _deps/googletest-build/googletest/CMakeFiles/gtest.dir/build.make _deps/googletest-build/googletest/CMakeFiles/gtest.dir/depend
 	$(MAKE) $(MAKESILENT) -f _deps/googletest-build/googletest/CMakeFiles/gtest.dir/build.make _deps/googletest-build/googletest/CMakeFiles/gtest.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/data/personal_projects/Reflection/build/CMakeFiles --progress-num=15,16 "Built target gtest"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/data/personal_projects/Reflection/build/CMakeFiles --progress-num=17,18 "Built target gtest"
 .PHONY : _deps/googletest-build/googletest/CMakeFiles/gtest.dir/all
 
 # Build rule for subdir invocation for target.
@@ -271,7 +273,7 @@ _deps/googletest-build/googletest/CMakeFiles/gtest.dir/clean:
 _deps/googletest-build/googletest/CMakeFiles/gtest_main.dir/all: _deps/googletest-build/googletest/CMakeFiles/gtest.dir/all
 	$(MAKE) $(MAKESILENT) -f _deps/googletest-build/googletest/CMakeFiles/gtest_main.dir/build.make _deps/googletest-build/googletest/CMakeFiles/gtest_main.dir/depend
 	$(MAKE) $(MAKESILENT) -f _deps/googletest-build/googletest/CMakeFiles/gtest_main.dir/build.make _deps/googletest-build/googletest/CMakeFiles/gtest_main.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/data/personal_projects/Reflection/build/CMakeFiles --progress-num=17,18 "Built target gtest_main"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/data/personal_projects/Reflection/build/CMakeFiles --progress-num=19,20 "Built target gtest_main"
 .PHONY : _deps/googletest-build/googletest/CMakeFiles/gtest_main.dir/all
 
 # Build rule for subdir invocation for target.
@@ -297,7 +299,7 @@ _deps/googletest-build/googletest/CMakeFiles/gtest_main.dir/clean:
 src/CMakeFiles/reflection.dir/all:
 	$(MAKE) $(MAKESILENT) -f src/CMakeFiles/reflection.dir/build.make src/CMakeFiles/reflection.dir/depend
 	$(MAKE) $(MAKESILENT) -f src/CMakeFiles/reflection.dir/build.make src/CMakeFiles/reflection.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/data/personal_projects/Reflection/build/CMakeFiles --progress-num=19,20,21,22,23 "Built target reflection"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/data/personal_projects/Reflection/build/CMakeFiles --progress-num=21,22,23,24,25 "Built target reflection"
 .PHONY : src/CMakeFiles/reflection.dir/all
 
 # Build rule for subdir invocation for target.
@@ -323,7 +325,7 @@ src/CMakeFiles/reflection.dir/clean:
 examples/CMakeFiles/PropertyExample.dir/all: src/CMakeFiles/reflection.dir/all
 	$(MAKE) $(MAKESILENT) -f examples/CMakeFiles/PropertyExample.dir/build.make examples/CMakeFiles/PropertyExample.dir/depend
 	$(MAKE) $(MAKESILENT) -f examples/CMakeFiles/PropertyExample.dir/build.make examples/CMakeFiles/PropertyExample.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/data/personal_projects/Reflection/build/CMakeFiles --progress-num=5,6 "Built target PropertyExample"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/data/personal_projects/Reflection/build/CMakeFiles --progress-num=7,8 "Built target PropertyExample"
 .PHONY : examples/CMakeFiles/PropertyExample.dir/all
 
 # Build rule for subdir invocation for target.
@@ -349,7 +351,7 @@ examples/CMakeFiles/PropertyExample.dir/clean:
 examples/CMakeFiles/PropertyOOPExample.dir/all: src/CMakeFiles/reflection.dir/all
 	$(MAKE) $(MAKESILENT) -f examples/CMakeFiles/PropertyOOPExample.dir/build.make examples/CMakeFiles/PropertyOOPExample.dir/depend
 	$(MAKE) $(MAKESILENT) -f examples/CMakeFiles/PropertyOOPExample.dir/build.make examples/CMakeFiles/PropertyOOPExample.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/data/personal_projects/Reflection/build/CMakeFiles --progress-num=7,8 "Built target PropertyOOPExample"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/data/personal_projects/Reflection/build/CMakeFiles --progress-num=9,10 "Built target PropertyOOPExample"
 .PHONY : examples/CMakeFiles/PropertyOOPExample.dir/all
 
 # Build rule for subdir invocation for target.
@@ -429,7 +431,7 @@ test/CMakeFiles/PropertyTest.dir/all: _deps/googletest-build/googletest/CMakeFil
 test/CMakeFiles/PropertyTest.dir/all: src/CMakeFiles/reflection.dir/all
 	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/PropertyTest.dir/build.make test/CMakeFiles/PropertyTest.dir/depend
 	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/PropertyTest.dir/build.make test/CMakeFiles/PropertyTest.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/data/personal_projects/Reflection/build/CMakeFiles --progress-num=9,10 "Built target PropertyTest"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/data/personal_projects/Reflection/build/CMakeFiles --progress-num=11,12 "Built target PropertyTest"
 .PHONY : test/CMakeFiles/PropertyTest.dir/all
 
 # Build rule for subdir invocation for target.
@@ -447,6 +449,34 @@ PropertyTest: test/CMakeFiles/PropertyTest.dir/rule
 test/CMakeFiles/PropertyTest.dir/clean:
 	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/PropertyTest.dir/build.make test/CMakeFiles/PropertyTest.dir/clean
 .PHONY : test/CMakeFiles/PropertyTest.dir/clean
+
+#=============================================================================
+# Target rules for target test/CMakeFiles/MethodTest.dir
+
+# All Build rule for target.
+test/CMakeFiles/MethodTest.dir/all: _deps/googletest-build/googletest/CMakeFiles/gtest.dir/all
+test/CMakeFiles/MethodTest.dir/all: _deps/googletest-build/googletest/CMakeFiles/gtest_main.dir/all
+test/CMakeFiles/MethodTest.dir/all: src/CMakeFiles/reflection.dir/all
+	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/MethodTest.dir/build.make test/CMakeFiles/MethodTest.dir/depend
+	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/MethodTest.dir/build.make test/CMakeFiles/MethodTest.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/data/personal_projects/Reflection/build/CMakeFiles --progress-num=5,6 "Built target MethodTest"
+.PHONY : test/CMakeFiles/MethodTest.dir/all
+
+# Build rule for subdir invocation for target.
+test/CMakeFiles/MethodTest.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /data/personal_projects/Reflection/build/CMakeFiles 11
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/CMakeFiles/MethodTest.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /data/personal_projects/Reflection/build/CMakeFiles 0
+.PHONY : test/CMakeFiles/MethodTest.dir/rule
+
+# Convenience name for target.
+MethodTest: test/CMakeFiles/MethodTest.dir/rule
+.PHONY : MethodTest
+
+# clean rule for target.
+test/CMakeFiles/MethodTest.dir/clean:
+	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/MethodTest.dir/build.make test/CMakeFiles/MethodTest.dir/clean
+.PHONY : test/CMakeFiles/MethodTest.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

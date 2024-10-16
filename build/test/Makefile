@@ -175,6 +175,44 @@ PropertyTest/fast:
 	cd /data/personal_projects/Reflection/build && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/PropertyTest.dir/build.make test/CMakeFiles/PropertyTest.dir/build
 .PHONY : PropertyTest/fast
 
+# Convenience name for target.
+test/CMakeFiles/MethodTest.dir/rule:
+	cd /data/personal_projects/Reflection/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/CMakeFiles/MethodTest.dir/rule
+.PHONY : test/CMakeFiles/MethodTest.dir/rule
+
+# Convenience name for target.
+MethodTest: test/CMakeFiles/MethodTest.dir/rule
+.PHONY : MethodTest
+
+# fast build rule for target.
+MethodTest/fast:
+	cd /data/personal_projects/Reflection/build && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/MethodTest.dir/build.make test/CMakeFiles/MethodTest.dir/build
+.PHONY : MethodTest/fast
+
+MethodTest.o: MethodTest.cc.o
+.PHONY : MethodTest.o
+
+# target to build an object file
+MethodTest.cc.o:
+	cd /data/personal_projects/Reflection/build && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/MethodTest.dir/build.make test/CMakeFiles/MethodTest.dir/MethodTest.cc.o
+.PHONY : MethodTest.cc.o
+
+MethodTest.i: MethodTest.cc.i
+.PHONY : MethodTest.i
+
+# target to preprocess a source file
+MethodTest.cc.i:
+	cd /data/personal_projects/Reflection/build && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/MethodTest.dir/build.make test/CMakeFiles/MethodTest.dir/MethodTest.cc.i
+.PHONY : MethodTest.cc.i
+
+MethodTest.s: MethodTest.cc.s
+.PHONY : MethodTest.s
+
+# target to generate assembly for a file
+MethodTest.cc.s:
+	cd /data/personal_projects/Reflection/build && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/MethodTest.dir/build.make test/CMakeFiles/MethodTest.dir/MethodTest.cc.s
+.PHONY : MethodTest.cc.s
+
 PropertyTest.o: PropertyTest.cc.o
 .PHONY : PropertyTest.o
 
@@ -211,7 +249,11 @@ help:
 	@echo "... install/strip"
 	@echo "... list_install_components"
 	@echo "... rebuild_cache"
+	@echo "... MethodTest"
 	@echo "... PropertyTest"
+	@echo "... MethodTest.o"
+	@echo "... MethodTest.i"
+	@echo "... MethodTest.s"
 	@echo "... PropertyTest.o"
 	@echo "... PropertyTest.i"
 	@echo "... PropertyTest.s"

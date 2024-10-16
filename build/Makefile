@@ -291,6 +291,19 @@ PropertyTest/fast:
 	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/PropertyTest.dir/build.make test/CMakeFiles/PropertyTest.dir/build
 .PHONY : PropertyTest/fast
 
+#=============================================================================
+# Target rules for targets named MethodTest
+
+# Build rule for target.
+MethodTest: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 MethodTest
+.PHONY : MethodTest
+
+# fast build rule for target.
+MethodTest/fast:
+	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/MethodTest.dir/build.make test/CMakeFiles/MethodTest.dir/build
+.PHONY : MethodTest/fast
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -305,6 +318,7 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... EnumExample"
 	@echo "... MethodExample"
+	@echo "... MethodTest"
 	@echo "... PropertyExample"
 	@echo "... PropertyOOPExample"
 	@echo "... PropertyTest"

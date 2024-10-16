@@ -44,6 +44,7 @@
 /data/personal_projects/Reflection/build/examples/CMakeFiles/install/local.dir
 /data/personal_projects/Reflection/build/examples/CMakeFiles/install/strip.dir
 /data/personal_projects/Reflection/build/test/CMakeFiles/PropertyTest.dir
+/data/personal_projects/Reflection/build/test/CMakeFiles/MethodTest.dir
 /data/personal_projects/Reflection/build/test/CMakeFiles/edit_cache.dir
 /data/personal_projects/Reflection/build/test/CMakeFiles/rebuild_cache.dir
 /data/personal_projects/Reflection/build/test/CMakeFiles/list_install_components.dir
