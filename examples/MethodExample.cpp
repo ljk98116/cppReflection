@@ -54,13 +54,18 @@ static double mult(int x, int y=60)
     return x * y;
 }
 
+TYPEREGISTER
+{
+    REGISTERRTTICLASS(B);
+};
+
 int main()
 {
     B b(9);
     A* ptr = &b;
     A& ref = b;
     ptr->display();
-    REGISTERRTTICLASS(B);
+    
     auto obj = Object(ptr);
     auto obj_ = obj;
     auto met = obj.GetTypeInfo()->GetMethod("display");

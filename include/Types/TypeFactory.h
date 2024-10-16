@@ -3,15 +3,25 @@
 #include <include/Types/MemberInfo.h>
 #include <unordered_map>
 #include <mutex>
-
+#include <functional>
 //存储所有已注册的Type<T>的全局单例，需要考虑线程安全，以typeid(T).name()为索引的哈希表
 //object在接收到指针或者引用后，利用RTTI找到所指对象的typeinfo，修改其中基类的虚函数项为子类中的对应项
 namespace Reflection
 {
 
+extern void(*Regfunc)();
+
+class TypeRegister
+{
+public:
+    explicit TypeRegister(void (*func)());
+};
+
+//另一个单例来赋值
 class TypeFactory
 {
 public:
+    TypeFactory()=default;
     void insert(std::pair<std::string, std::shared_ptr<MemberInfo> > item)
     {
         std::lock_guard<std::mutex> lk(mut);
@@ -79,4 +89,10 @@ void RegisterEnum(EnumInfo_ *enumInfo)
 {
     FactoryInstance().RegisterEnum(enumInfo);
 }
+
+#define TYPEREGISTER \
+void __TypeRegisterFunc(); \
+static TypeRegister TypeRegister___t123456789{&__TypeRegisterFunc}; \
+void __TypeRegisterFunc()
+
 }

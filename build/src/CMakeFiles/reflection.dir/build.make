@@ -73,57 +73,57 @@ src/CMakeFiles/reflection.dir/Interface/IReflectionable.cpp.o: src/CMakeFiles/re
 src/CMakeFiles/reflection.dir/Interface/IReflectionable.cpp.o: /data/personal_projects/Reflection/src/Interface/IReflectionable.cpp
 src/CMakeFiles/reflection.dir/Interface/IReflectionable.cpp.o: src/CMakeFiles/reflection.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/data/personal_projects/Reflection/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object src/CMakeFiles/reflection.dir/Interface/IReflectionable.cpp.o"
-	cd /data/personal_projects/Reflection/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT src/CMakeFiles/reflection.dir/Interface/IReflectionable.cpp.o -MF CMakeFiles/reflection.dir/Interface/IReflectionable.cpp.o.d -o CMakeFiles/reflection.dir/Interface/IReflectionable.cpp.o -c /data/personal_projects/Reflection/src/Interface/IReflectionable.cpp
+	cd /data/personal_projects/Reflection/build/src && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT src/CMakeFiles/reflection.dir/Interface/IReflectionable.cpp.o -MF CMakeFiles/reflection.dir/Interface/IReflectionable.cpp.o.d -o CMakeFiles/reflection.dir/Interface/IReflectionable.cpp.o -c /data/personal_projects/Reflection/src/Interface/IReflectionable.cpp
 
 src/CMakeFiles/reflection.dir/Interface/IReflectionable.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/reflection.dir/Interface/IReflectionable.cpp.i"
-	cd /data/personal_projects/Reflection/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /data/personal_projects/Reflection/src/Interface/IReflectionable.cpp > CMakeFiles/reflection.dir/Interface/IReflectionable.cpp.i
+	cd /data/personal_projects/Reflection/build/src && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /data/personal_projects/Reflection/src/Interface/IReflectionable.cpp > CMakeFiles/reflection.dir/Interface/IReflectionable.cpp.i
 
 src/CMakeFiles/reflection.dir/Interface/IReflectionable.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/reflection.dir/Interface/IReflectionable.cpp.s"
-	cd /data/personal_projects/Reflection/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /data/personal_projects/Reflection/src/Interface/IReflectionable.cpp -o CMakeFiles/reflection.dir/Interface/IReflectionable.cpp.s
+	cd /data/personal_projects/Reflection/build/src && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /data/personal_projects/Reflection/src/Interface/IReflectionable.cpp -o CMakeFiles/reflection.dir/Interface/IReflectionable.cpp.s
 
 src/CMakeFiles/reflection.dir/Type/MemberInfo.cpp.o: src/CMakeFiles/reflection.dir/flags.make
 src/CMakeFiles/reflection.dir/Type/MemberInfo.cpp.o: /data/personal_projects/Reflection/src/Type/MemberInfo.cpp
 src/CMakeFiles/reflection.dir/Type/MemberInfo.cpp.o: src/CMakeFiles/reflection.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/data/personal_projects/Reflection/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object src/CMakeFiles/reflection.dir/Type/MemberInfo.cpp.o"
-	cd /data/personal_projects/Reflection/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT src/CMakeFiles/reflection.dir/Type/MemberInfo.cpp.o -MF CMakeFiles/reflection.dir/Type/MemberInfo.cpp.o.d -o CMakeFiles/reflection.dir/Type/MemberInfo.cpp.o -c /data/personal_projects/Reflection/src/Type/MemberInfo.cpp
+	cd /data/personal_projects/Reflection/build/src && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT src/CMakeFiles/reflection.dir/Type/MemberInfo.cpp.o -MF CMakeFiles/reflection.dir/Type/MemberInfo.cpp.o.d -o CMakeFiles/reflection.dir/Type/MemberInfo.cpp.o -c /data/personal_projects/Reflection/src/Type/MemberInfo.cpp
 
 src/CMakeFiles/reflection.dir/Type/MemberInfo.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/reflection.dir/Type/MemberInfo.cpp.i"
-	cd /data/personal_projects/Reflection/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /data/personal_projects/Reflection/src/Type/MemberInfo.cpp > CMakeFiles/reflection.dir/Type/MemberInfo.cpp.i
+	cd /data/personal_projects/Reflection/build/src && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /data/personal_projects/Reflection/src/Type/MemberInfo.cpp > CMakeFiles/reflection.dir/Type/MemberInfo.cpp.i
 
 src/CMakeFiles/reflection.dir/Type/MemberInfo.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/reflection.dir/Type/MemberInfo.cpp.s"
-	cd /data/personal_projects/Reflection/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /data/personal_projects/Reflection/src/Type/MemberInfo.cpp -o CMakeFiles/reflection.dir/Type/MemberInfo.cpp.s
+	cd /data/personal_projects/Reflection/build/src && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /data/personal_projects/Reflection/src/Type/MemberInfo.cpp -o CMakeFiles/reflection.dir/Type/MemberInfo.cpp.s
 
 src/CMakeFiles/reflection.dir/Type/Object.cpp.o: src/CMakeFiles/reflection.dir/flags.make
 src/CMakeFiles/reflection.dir/Type/Object.cpp.o: /data/personal_projects/Reflection/src/Type/Object.cpp
 src/CMakeFiles/reflection.dir/Type/Object.cpp.o: src/CMakeFiles/reflection.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/data/personal_projects/Reflection/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object src/CMakeFiles/reflection.dir/Type/Object.cpp.o"
-	cd /data/personal_projects/Reflection/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT src/CMakeFiles/reflection.dir/Type/Object.cpp.o -MF CMakeFiles/reflection.dir/Type/Object.cpp.o.d -o CMakeFiles/reflection.dir/Type/Object.cpp.o -c /data/personal_projects/Reflection/src/Type/Object.cpp
+	cd /data/personal_projects/Reflection/build/src && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT src/CMakeFiles/reflection.dir/Type/Object.cpp.o -MF CMakeFiles/reflection.dir/Type/Object.cpp.o.d -o CMakeFiles/reflection.dir/Type/Object.cpp.o -c /data/personal_projects/Reflection/src/Type/Object.cpp
 
 src/CMakeFiles/reflection.dir/Type/Object.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/reflection.dir/Type/Object.cpp.i"
-	cd /data/personal_projects/Reflection/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /data/personal_projects/Reflection/src/Type/Object.cpp > CMakeFiles/reflection.dir/Type/Object.cpp.i
+	cd /data/personal_projects/Reflection/build/src && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /data/personal_projects/Reflection/src/Type/Object.cpp > CMakeFiles/reflection.dir/Type/Object.cpp.i
 
 src/CMakeFiles/reflection.dir/Type/Object.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/reflection.dir/Type/Object.cpp.s"
-	cd /data/personal_projects/Reflection/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /data/personal_projects/Reflection/src/Type/Object.cpp -o CMakeFiles/reflection.dir/Type/Object.cpp.s
+	cd /data/personal_projects/Reflection/build/src && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /data/personal_projects/Reflection/src/Type/Object.cpp -o CMakeFiles/reflection.dir/Type/Object.cpp.s
 
 src/CMakeFiles/reflection.dir/Type/TypeFactory.cpp.o: src/CMakeFiles/reflection.dir/flags.make
 src/CMakeFiles/reflection.dir/Type/TypeFactory.cpp.o: /data/personal_projects/Reflection/src/Type/TypeFactory.cpp
 src/CMakeFiles/reflection.dir/Type/TypeFactory.cpp.o: src/CMakeFiles/reflection.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/data/personal_projects/Reflection/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object src/CMakeFiles/reflection.dir/Type/TypeFactory.cpp.o"
-	cd /data/personal_projects/Reflection/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT src/CMakeFiles/reflection.dir/Type/TypeFactory.cpp.o -MF CMakeFiles/reflection.dir/Type/TypeFactory.cpp.o.d -o CMakeFiles/reflection.dir/Type/TypeFactory.cpp.o -c /data/personal_projects/Reflection/src/Type/TypeFactory.cpp
+	cd /data/personal_projects/Reflection/build/src && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT src/CMakeFiles/reflection.dir/Type/TypeFactory.cpp.o -MF CMakeFiles/reflection.dir/Type/TypeFactory.cpp.o.d -o CMakeFiles/reflection.dir/Type/TypeFactory.cpp.o -c /data/personal_projects/Reflection/src/Type/TypeFactory.cpp
 
 src/CMakeFiles/reflection.dir/Type/TypeFactory.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/reflection.dir/Type/TypeFactory.cpp.i"
-	cd /data/personal_projects/Reflection/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /data/personal_projects/Reflection/src/Type/TypeFactory.cpp > CMakeFiles/reflection.dir/Type/TypeFactory.cpp.i
+	cd /data/personal_projects/Reflection/build/src && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /data/personal_projects/Reflection/src/Type/TypeFactory.cpp > CMakeFiles/reflection.dir/Type/TypeFactory.cpp.i
 
 src/CMakeFiles/reflection.dir/Type/TypeFactory.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/reflection.dir/Type/TypeFactory.cpp.s"
-	cd /data/personal_projects/Reflection/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /data/personal_projects/Reflection/src/Type/TypeFactory.cpp -o CMakeFiles/reflection.dir/Type/TypeFactory.cpp.s
+	cd /data/personal_projects/Reflection/build/src && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /data/personal_projects/Reflection/src/Type/TypeFactory.cpp -o CMakeFiles/reflection.dir/Type/TypeFactory.cpp.s
 
 # Object files for target reflection
 reflection_OBJECTS = \

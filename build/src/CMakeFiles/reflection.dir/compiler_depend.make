@@ -201,7 +201,13 @@ src/CMakeFiles/reflection.dir/Interface/IReflectionable.cpp.o: /data/personal_pr
   /usr/include/c++/9/system_error \
   /usr/include/x86_64-linux-gnu/c++/9/bits/error_constants.h \
   /usr/include/c++/9/bits/std_mutex.h \
-  /usr/include/c++/9/bits/unique_lock.h
+  /usr/include/c++/9/bits/unique_lock.h \
+  /usr/include/c++/9/functional \
+  /usr/include/c++/9/bits/std_function.h \
+  /usr/include/c++/9/bits/stl_algo.h \
+  /usr/include/c++/9/bits/algorithmfwd.h \
+  /usr/include/c++/9/bits/stl_heap.h \
+  /usr/include/c++/9/bits/uniform_int_dist.h
 
 src/CMakeFiles/reflection.dir/Type/MemberInfo.cpp.o: /data/personal_projects/Reflection/src/Type/MemberInfo.cpp \
   /usr/include/stdc-predef.h \
@@ -889,24 +895,18 @@ src/CMakeFiles/reflection.dir/Type/TypeFactory.cpp.o: /data/personal_projects/Re
   /usr/include/c++/9/system_error \
   /usr/include/x86_64-linux-gnu/c++/9/bits/error_constants.h \
   /usr/include/c++/9/bits/std_mutex.h \
-  /usr/include/c++/9/bits/unique_lock.h
+  /usr/include/c++/9/bits/unique_lock.h \
+  /usr/include/c++/9/functional \
+  /usr/include/c++/9/bits/std_function.h \
+  /usr/include/c++/9/bits/stl_algo.h \
+  /usr/include/c++/9/bits/algorithmfwd.h \
+  /usr/include/c++/9/bits/stl_heap.h \
+  /usr/include/c++/9/bits/uniform_int_dist.h
 
 
 /data/personal_projects/Reflection/src/Type/Object.cpp:
 
-/usr/include/c++/9/bits/std_function.h:
-
-/usr/include/c++/9/functional:
-
-/usr/include/c++/9/bits/stl_heap.h:
-
-/usr/include/c++/9/bits/algorithmfwd.h:
-
 /usr/include/c++/9/algorithm:
-
-/usr/include/c++/9/bits/uniform_int_dist.h:
-
-/data/personal_projects/Reflection/include/Types/MethodList.h:
 
 /usr/include/c++/9/istream:
 
@@ -933,6 +933,18 @@ src/CMakeFiles/reflection.dir/Type/TypeFactory.cpp.o: /data/personal_projects/Re
 /usr/include/c++/9/bits/locale_classes.h:
 
 /data/personal_projects/Reflection/include/Types/Type.h:
+
+/data/personal_projects/Reflection/include/Types/MethodList.h:
+
+/usr/include/c++/9/bits/uniform_int_dist.h:
+
+/usr/include/c++/9/bits/stl_heap.h:
+
+/usr/include/c++/9/bits/algorithmfwd.h:
+
+/usr/include/c++/9/bits/std_function.h:
+
+/usr/include/c++/9/functional:
 
 /usr/include/x86_64-linux-gnu/c++/9/bits/error_constants.h:
 
