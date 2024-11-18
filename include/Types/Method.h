@@ -15,7 +15,7 @@ namespace Reflection
 template <typename Tuple, size_t ...Is>
 auto TransformArgs_(std::index_sequence<Is...>, std::vector<Object>& vec, Tuple&& t)
 {
-    auto caster = CastTypes<std::tuple_element_t<Is, std::decay_t<Tuple> >... >{};
+    auto caster = CastTypes<TypeSeqElement<Is, std::decay_t<Tuple> >... >{};
     return caster(vec[Is]...);
 }
 
@@ -25,13 +25,13 @@ auto TransformArgs(std::vector<std::pair<std::string, Object>>& vec, Tuple&& t)
     std::vector<Object> vec_;
     for(auto& item : vec) vec_.push_back(item.second);
 
-    return TransformArgs_(std::make_index_sequence<std::tuple_size_v<Tuple> >{}, vec_, t);
+    return TransformArgs_(std::make_index_sequence<TypeSeqSize<Tuple> >{}, vec_, t);
 }
 
 template <typename Tuple>
 auto TransformObjectArgs(std::vector<Object>& vec, Tuple&& t)
 {
-    return TransformArgs_(std::make_index_sequence<std::tuple_size_v<Tuple> >{}, vec, t);
+    return TransformArgs_(std::make_index_sequence<TypeSeqSize<Tuple> >{}, vec, t);
 }
 template <typename Ret, typename ...Args>
 class NormalMethodInfo : public MemberInfo
@@ -112,8 +112,8 @@ public:
 
                 auto pass_args_tuple = TransformObjectArgs(front_args_vec, FrontArgs{});
                 auto args_tuple = std::tuple_cat(pass_args_tuple, default_args_tuple);
-
-                using suffix_seq = std::make_index_sequence<std::tuple_size<RestArgs>::value>;
+                
+                using suffix_seq = std::make_index_sequence<TypeSeqSize<RestArgs>>;
                 if constexpr (std::is_same<RetT, void>::value)
                 {
                     callFunc(m_func, args_tuple);
@@ -298,7 +298,7 @@ public:
                 auto pass_args_tuple = TransformObjectArgs(front_args_vec, FrontArgs{});
                 auto args_tuple = std::tuple_cat(pass_args_tuple, default_args_tuple);
 
-                using suffix_seq = std::make_index_sequence<std::tuple_size<RestArgs>::value>;
+                using suffix_seq = std::make_index_sequence<TypeSeqSize<RestArgs>>;
                 if constexpr (std::is_same<RetT, void>::value)
                 {
                     if(obj.IsPointer() && *(ClassT**)(obj.GetRawData()) != nullptr)

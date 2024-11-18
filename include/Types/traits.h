@@ -21,6 +21,28 @@ public:
 
 struct Unknown{};
 
+template <typename ...T>
+struct TypeSeq
+{
+    static constexpr size_t size = sizeof...(T);
+};
+
+template <typename T>
+constexpr size_t TypeSeqSize = T::size;
+
+template <size_t Idx, typename T>
+struct TypeSeqElementImpl;
+
+template <size_t Idx, typename ...T>
+struct TypeSeqElementImpl<Idx, TypeSeq<T...> >
+{
+    static constexpr bool flag = sizeof...(T) <= 0;
+    using type = std::tuple_element_t<Idx, std::tuple<T...> >;
+};
+
+template <size_t Idx, typename T>
+using TypeSeqElement = typename TypeSeqElementImpl<Idx, T>::type;
+
 namespace detail
 {
     template <typename T>
@@ -88,7 +110,7 @@ struct SequenceSuffix_Impl<idx, N, T, Rest...>
 {
     using type = std::conditional_t<
         std::is_same_v<std::integral_constant<int, idx>, std::integral_constant<int, N> >,
-        std::tuple<T, Rest...>,
+        TypeSeq<T, Rest...>,
         typename SequenceSuffix_Impl<idx + 1, N, Rest...>::type
     >;
 };
@@ -96,17 +118,17 @@ struct SequenceSuffix_Impl<idx, N, T, Rest...>
 template <int idx, int N>
 struct SequenceSuffix_Impl<idx, N>
 {
-    using type =std::tuple<>;
+    using type =TypeSeq<>;
 };
 
 template <int N, typename ...T>
 using SequenceSuffix = typename SequenceSuffix_Impl<0, N, T...>::type;
 
 template<typename T>
-struct tuple_concat
+struct TypeSeqConcat
 {
     template <typename ...Rest>
-    std::tuple<T, Rest...> concat(std::tuple<Rest...> arg){}
+    TypeSeq<T, Rest...> concat(TypeSeq<Rest...> arg){}
 };
 
 //截取长度N后的部分
@@ -118,15 +140,15 @@ struct SequencePrefix_Impl<N, T, Rest...>
 {
     using type = std::conditional_t<
         std::is_same_v<std::integral_constant<int, N>, std::integral_constant<int, 0>>,
-        std::tuple<>,
-        decltype(tuple_concat<T>().concat(typename SequencePrefix_Impl<N-1, Rest...>::type{}))
+        TypeSeq<>,
+        decltype(TypeSeqConcat<T>().concat(typename SequencePrefix_Impl<N-1, Rest...>::type{}))
     >;
 };
 
 template <int N>
 struct SequencePrefix_Impl<N>
 {
-    using type = std::tuple<>;
+    using type = TypeSeq<>;
 };
 
 template <int N, typename ...T>
@@ -135,10 +157,18 @@ using SequencePrefix = typename SequencePrefix_Impl<N, T...>::type;
 template <typename ...T>
 struct CastTypes
 {
+    template <typename K, typename U>
+    auto cast(U&& obj)
+    {
+        if constexpr (std::is_lvalue_reference_v<K>)
+            return std::reference_wrapper<std::remove_reference_t<K> >(std::forward<U>(obj)).get();
+        else
+            return K(std::forward<U>(obj));
+    }
     template <typename ...U>
     auto operator()(U&&... args)
     {
-        return std::make_tuple(T(std::forward<U>(args))...);
+        return std::make_tuple(cast<T>(args)...);
     }
 };
 

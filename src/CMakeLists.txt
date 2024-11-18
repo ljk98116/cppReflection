@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.23.0-rc3)
+cmake_minimum_required(VERSION 3.22.0)
 project(Reflection)
 set(CMAKE_CXX_STANDARD 17)
 

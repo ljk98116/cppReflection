@@ -31,7 +31,6 @@ class DestructorInfo;
 template <typename T>
 static std::shared_ptr<MemberInfo> AsMemberInfo(Type<T>&& item);
 
-
 struct compare_MemberInfoPtr
 {
     bool operator()(std::shared_ptr<MemberInfo> item1, std::shared_ptr<MemberInfo> item2)
@@ -46,7 +45,17 @@ class Type : public MemberInfo
 {
 public:
     using ClassT = ClassT_;
+    //type_traits
+    constexpr bool IsClass() const {return std::is_class_v<ClassT>; }
+    constexpr bool IsPod() const {return std::is_pod_v<ClassT>; }
+    constexpr bool IsAbstract() const {return std::is_abstract_v<ClassT>; }
+    constexpr bool IsFunction() const {return std::is_function_v<ClassT>; }
+    constexpr bool IsEnum() const {return std::is_enum_v<ClassT>; }
+    constexpr bool IsRef() const {return std::is_reference_v<ClassT>; }
+    constexpr bool IsPointer() const {return std::is_pointer_v<ClassT>; }
+    constexpr bool IsMemberFuncPointer() const {return std::is_member_function_pointer_v<ClassT>; }
 
+public:
     explicit Type(VirtualType virt = VirtualType::NONVIRTUAL):
     m_virt(virt)
     {}

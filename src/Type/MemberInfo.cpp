@@ -6,6 +6,7 @@ namespace Reflection
 
 static auto ret = std::vector<std::shared_ptr<MemberInfo> >();
 static auto ret2 = std::vector<std::string>();
+static int ptr = 0;
 
 void MemberInfo::InvokeSet(Object& obj, const Object& value)
 {
@@ -14,7 +15,8 @@ void MemberInfo::InvokeSet(Object& obj, const Object& value)
 
 Object MemberInfo::InvokeGet(Object& obj)
 {
-    return Object(nullptr);
+    int x = 1;
+    return Object(x);
 }
 
 void MemberInfo::InvokeSet(const Object& value)
@@ -24,7 +26,8 @@ void MemberInfo::InvokeSet(const Object& value)
 
 Object MemberInfo::InvokeGet()
 {
-    return Object(nullptr);
+    int x = 1;
+    return Object(x);
 }
 
 void MemberInfo::DestroyObject(void *obj)
@@ -119,7 +122,8 @@ std::vector<std::string>& MemberInfo::GetArg()
 Object MemberInfo::GetEnumValue(const std::string& name)
 {
     throw std::runtime_error("not implemented");
-    return Object(nullptr);
+    int x = 1;
+    return Object(x);
 }
 
 size_t MemberInfo::GetSize()

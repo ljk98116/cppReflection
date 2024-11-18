@@ -176,7 +176,7 @@ private:
     {
         m_isRef = true;
         std::shared_ptr<MemberInfo> derivedTypeInfo = FactoryInstance()[typeid(data.get()).name()];
-        auto typeInfo = Type<T>().Register();
+        auto typeInfo = Type<std::reference_wrapper<T>>().Register();
         m_data = std::shared_ptr<void>(new std::reference_wrapper<T>(data));
         for(int i=0;i<typeInfo.GetMethods().size();++i)
         {
@@ -195,5 +195,5 @@ private:
         std::shared_ptr<decltype(typeInfo)> childPtr = std::make_shared<decltype(typeInfo)>();
         *childPtr = typeInfo;
         m_typeInfo = std::static_pointer_cast<MemberInfo>(childPtr);
-    }   
+    }
 }

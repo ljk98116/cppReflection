@@ -125,6 +125,17 @@ TEST(PropertyTest, NormalGetSet_with_access)
 
     EXPECT_THROW(propInfo_T->InvokeSet(obj, string("ui")), std::runtime_error);
     EXPECT_THROW(propInfo_T->InvokeGet(obj), std::runtime_error);
+
+    auto t1 = TestGetSet();
+    obj = t1;
+    propInfo_X->InvokeSet(obj, 6);
+    EXPECT_EQ((int)propInfo_X->InvokeGet(obj), 6);
+
+    EXPECT_EQ((char)propInfo_Y->InvokeGet(obj), 'p');
+    EXPECT_THROW(propInfo_Y->InvokeSet(obj, 'o'), std::runtime_error);
+
+    EXPECT_THROW(propInfo_T->InvokeSet(obj, string("ui")), std::runtime_error);
+    EXPECT_THROW(propInfo_T->InvokeGet(obj), std::runtime_error);
 }
 
 class TestInheritC1
@@ -185,6 +196,29 @@ TEST(PropertyTest, GetSet_in_inherit)
     auto propInfo_Y = TestInheritC3Info.GetProperty("Y");
 
     Object obj2(TestInheritC3{});
+    propInfo_X->InvokeSet(obj2, 7);
+    EXPECT_EQ(((TestInheritC3)obj2).m_x, 7);
+    propInfo_X->InvokeSet(obj2, 800);
+    EXPECT_EQ(((TestInheritC3)obj2).m_x, 800);
+
+    propInfo_Y->InvokeSet(obj2, string("ui"));
+    EXPECT_EQ(((TestInheritC3)obj2).m_y, "ui");
+    propInfo_Y->InvokeSet(obj2, string("OK"));
+    EXPECT_EQ(((TestInheritC3)obj2).m_y, "OK");
+
+    auto c3 = TestInheritC3{};
+    obj2 = c3;
+    propInfo_X->InvokeSet(obj2, 7);
+    EXPECT_EQ(((TestInheritC3)obj2).m_x, 7);
+    propInfo_X->InvokeSet(obj2, 800);
+    EXPECT_EQ(((TestInheritC3)obj2).m_x, 800);
+
+    propInfo_Y->InvokeSet(obj2, string("ui"));
+    EXPECT_EQ(((TestInheritC3)obj2).m_y, "ui");
+    propInfo_Y->InvokeSet(obj2, string("OK"));
+    EXPECT_EQ(((TestInheritC3)obj2).m_y, "OK");
+
+    obj2 = std::move(c3);
     propInfo_X->InvokeSet(obj2, 7);
     EXPECT_EQ(((TestInheritC3)obj2).m_x, 7);
     propInfo_X->InvokeSet(obj2, 800);
